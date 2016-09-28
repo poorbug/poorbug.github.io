@@ -29090,7 +29090,7 @@ webpackJsonp([0],[
 	  };
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, "?path=http://192.168.1.107:3000/__webpack_hmr", __webpack_require__(700)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, "?path=/__webpack_hmr", __webpack_require__(700)(module)))
 
 /***/ },
 /* 700 */
@@ -30215,4 +30215,4 @@ webpackJsonp([0],[
 
 /***/ }
 ]);
-//# sourceMappingURL=app.9b62e8b6d735a1190407.js.map
+//# sourceMappingURL=app.5c797e5bf2cbd9474ccc.js.map
