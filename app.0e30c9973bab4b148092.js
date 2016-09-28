@@ -7987,7 +7987,7 @@ webpackJsonp([0],[
 	// Browser History Setup
 	// ========================================================
 	var browserHistory = (0, _reactRouter.useRouterHistory)(_createBrowserHistory2.default)({
-	  basename: ("/dist")
+	  basename: ("/")
 	});
 	
 	// ========================================================
@@ -27178,27 +27178,7 @@ webpackJsonp([0],[
 	    indexRoute: _Home2.default,
 	    childRoutes: [(0, _Counter2.default)(store)]
 	  };
-	};
-	
-	/*  Note: childRoutes can be chunked or otherwise loaded programmatically
-	    using getChildRoutes with the following signature:
-	
-	    getChildRoutes (location, cb) {
-	      require.ensure([], (require) => {
-	        cb(null, [
-	          // Remove imports!
-	          require('./Counter').default(store)
-	        ])
-	      })
-	    }
-	
-	    However, this is not necessary for code-splitting! It simply provides
-	    an API for async route definitions. Your code splitting should occur
-	    inside the route `getComponent` function, since it is only invoked
-	    when the route exists and matches.
-	*/
-	
-	// We only need to import the modules necessary for initial render
+	}; // We only need to import the modules necessary for initial render
 	exports.default = createRoutes;
 
 /***/ },
@@ -30215,4 +30195,4 @@ webpackJsonp([0],[
 
 /***/ }
 ]);
-//# sourceMappingURL=app.274e49365d1f5aba8af4.js.map
+//# sourceMappingURL=app.0e30c9973bab4b148092.js.map
