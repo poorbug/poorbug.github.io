@@ -4,7 +4,7 @@
 <title>Poorbug</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="shortcut icon" href="https://www.speedx.com/favicon.ico">
+<link id="icon" rel="icon" href="//poorbug.science/src/static/favicon/1.png">
 <style type="text/css">
 	html,body{
 		width: 100%;
@@ -41,6 +41,13 @@
 		text-shadow: 0 0 16px #aaa;
 	}
 
+	iframe{
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 320px;
+	}
+
 	@media(max-width: 768px){
 		div{
 			background-image: url(https://global.speedx.com/leopard-al-blanco.png?imageView2/2/w/768);
@@ -51,11 +58,26 @@
 	    font-size: 3rem;
 		}
 
+		iframe{
+			width: 100%;
+		}
+
 	}
 </style>
 </head>
 <body>
 	<h1><span>Coming soon</span><span><br/>Poorbug</span></h1>
 	<div></div>
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=320 height=86 src="http://music.163.com/outchain/player?type=2&id=28164935&height=66"></iframe>
 </body>
 </html>
+
+<script type="text/javascript">
+var idx = 1
+var icon = document.getElementById('icon')
+setInterval(function(){
+	idx ++;
+	if(idx >= 9) idx = 1;
+	icon.setAttribute('href', '//poorbug.science/src/static/favicon/'+idx+'.png')
+},3000)
+</script>
