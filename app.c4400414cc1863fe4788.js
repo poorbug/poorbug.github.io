@@ -27844,7 +27844,7 @@ webpackJsonp([0],[
 	        _react2.default.createElement(_Music2.default, null),
 	        _react2.default.createElement(
 	          _Typewriter2.default,
-	          { className: _style2.default.writter },
+	          { className: _style2.default.writer },
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
@@ -27865,7 +27865,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '* Halo, this is Poorbug speaking. Welcome to my blog. '
+	            '* Halo, this is Poorbug speaking. '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -27877,7 +27877,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '* Now is 4:11 AM and my location is (116.458859, 39.992443). '
+	            '* Welcome to my blog. '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -27889,7 +27889,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '* I love coding.  '
+	            '* Now is 4:11 AM. '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -27901,7 +27901,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '*/'
+	            '* I love coding.  '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -27909,11 +27909,23 @@ webpackJsonp([0],[
 	            { className: _style2.default.line },
 	            '6'
 	          ),
+	          _react2.default.createElement('span', { className: _style2.default.space }),
+	          _react2.default.createElement(
+	            'span',
+	            { className: _style2.default.grey },
+	            '*/'
+	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
 	            '7'
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'span',
+	            { className: _style2.default.line },
+	            '8'
 	          ),
 	          _react2.default.createElement(
 	            'span',
@@ -27929,7 +27941,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '8'
+	            '9'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -27956,7 +27968,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '9'
+	            '10'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -27983,7 +27995,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '10'
+	            '11'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28010,7 +28022,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '11'
+	            '12'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28037,7 +28049,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '12'
+	            '13'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28064,7 +28076,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '13'
+	            '14'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28091,7 +28103,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '14'
+	            '15'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28118,7 +28130,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '15'
+	            '16'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28145,7 +28157,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '16'
+	            '17'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28172,7 +28184,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '17'
+	            '18'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28199,7 +28211,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '18'
+	            '19'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28226,7 +28238,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '19'
+	            '20'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28253,7 +28265,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '20'
+	            '21'
 	          ),
 	          _react2.default.createElement('span', { className: _style2.default.placeholder }),
 	          _react2.default.createElement(
@@ -28280,7 +28292,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '21'
+	            '22'
 	          ),
 	          _react2.default.createElement(
 	            'span',
@@ -28291,18 +28303,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
-	            '22'
-	          ),
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'span',
-	            { className: _style2.default.line },
 	            '23'
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: _style2.default.grey },
-	            '/**'
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -28310,11 +28311,10 @@ webpackJsonp([0],[
 	            { className: _style2.default.line },
 	            '24'
 	          ),
-	          _react2.default.createElement('span', { className: _style2.default.space }),
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '* I am working hard to make this blog perfect. '
+	            '/**'
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -28326,7 +28326,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '* If you get any advice, please let me know. '
+	            '* I am working hard. '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -28338,7 +28338,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '* I want to be your friend. '
+	            '* Please let me know your advice. '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -28350,7 +28350,7 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '* Thanks. '
+	            '* I want to be your friend. '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
@@ -28362,13 +28362,25 @@ webpackJsonp([0],[
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.grey },
-	            '*/'
+	            '* Thanks. '
 	          ),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'span',
 	            { className: _style2.default.line },
 	            '29'
+	          ),
+	          _react2.default.createElement('span', { className: _style2.default.space }),
+	          _react2.default.createElement(
+	            'span',
+	            { className: _style2.default.grey },
+	            '*/'
+	          ),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'span',
+	            { className: _style2.default.line },
+	            '30'
 	          )
 	        )
 	      );
@@ -28604,12 +28616,12 @@ webpackJsonp([0],[
 	
 	
 	// module
-	exports.push([module.id, ".style__content___3ncjF{background-color:#000;width:100vw;height:100vh}.style__content___3ncjF .style__writter___1c0X2{color:#bbb;box-sizing:border-box;font-family:Consolas,Monaco,Bitstream Vera Sans Mono,Courier New,\"sans-serif\";font-size:12px;line-height:20px;border:none;padding-top:40px}.style__content___3ncjF .style__writter___1c0X2 .style__line___37gij{width:50px;display:inline-block;text-align:center;color:#555}.style__content___3ncjF .style__writter___1c0X2 .style__green___2PUEf{color:#a6e22e}.style__content___3ncjF .style__writter___1c0X2 .style__space___OIm12{margin-left:7px}.style__content___3ncjF .style__writter___1c0X2 .style__placeholder___1iL-V{margin-left:15px}.style__content___3ncjF .style__writter___1c0X2 .style__purple___31Wxx{color:#ae81ff;font-weight:700}.style__content___3ncjF .style__writter___1c0X2 .style__blue___2-_D2{color:#66d9ef}.style__content___3ncjF .style__writter___1c0X2 .style__white___36de6{color:#f8f8f2}.style__content___3ncjF .style__writter___1c0X2 .style__yellow___2y7v0{color:#e6db74}.style__content___3ncjF .style__writter___1c0X2 .style__grey___3j11p{color:#75715e}", "", {"version":3,"sources":["/./src/routes/Home/src/routes/Home/style.scss"],"names":[],"mappings":"AAAA,wBACC,sBAAwB,YACX,YACC,CAHf,gDAKE,WAAY,sBACW,8EACoE,eAC3E,iBACE,YACL,gBACK,CAXpB,qEAcG,WAAY,qBACU,kBACH,UACP,CAjBf,sEAqBG,aAAU,CArBb,sEAyBG,eAAiB,CAzBpB,4EA6BG,gBAAkB,CA7BrB,uEAiCG,cAAU,eACQ,CAlCrB,qEAsCG,aAAU,CAtCb,sEA0CG,aAAU,CA1Cb,uEA8CG,aAAU,CA9Cb,qEAkDG,aAAU,CACV","file":"style.scss","sourcesContent":[".content{\n\tbackground-color: black;\n\twidth: 100vw;\n\theight: 100vh;\n\t.writter{\n\t\tcolor: #bbb;\n\t\tbox-sizing: border-box;\n\t\tfont-family: \"Consolas\", \"Monaco\", \"Bitstream Vera Sans Mono\", \"Courier New\", \"sans-serif\";\n\t\tfont-size: 12px;\n\t\tline-height: 20px;\n\t\tborder: none;\n\t\tpadding-top: 40px;\n\n\t\t.line{\n\t\t\twidth: 50px;\n\t\t\tdisplay: inline-block;\n\t\t\ttext-align: center;\n\t\t\tcolor: #555;\n\t\t}\n\n\t\t.green {\n\t\t\tcolor: rgb(166,226,46);\n\t\t}\n\n\t\t.space {\n\t\t\tmargin-left: 7px;\n\t\t}\n\n\t\t.placeholder {\n\t\t\tmargin-left: 15px;\n\t\t}\n\n\t\t.purple {\n\t\t\tcolor: rgb(174,129,255);\n\t\t\tfont-weight: bold;\n\t\t}\n\n\t\t.blue {\n\t\t\tcolor: rgb(102,217,239);\n\t\t}\n\n\t\t.white {\n\t\t\tcolor: rgb(248,248,242);\n\t\t}\n\n\t\t.yellow {\n\t\t\tcolor: rgb(230,219,116);\n\t\t}\n\n\t\t.grey {\n\t\t\tcolor: rgb(117,113,94);\n\t\t}\n\n\t}\n}\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, ".style__content___3ncjF{background-color:#000;padding-bottom:120px;width:100vw;min-height:100vh}.style__content___3ncjF .style__writer____bkPc{color:#bbb;box-sizing:border-box;font-family:Consolas,Monaco,Bitstream Vera Sans Mono,Courier New,\"sans-serif\";font-size:12px;line-height:20px;border:none;padding-top:40px}.style__content___3ncjF .style__writer____bkPc .style__line___37gij{width:50px;display:inline-block;text-align:center;color:#555}.style__content___3ncjF .style__writer____bkPc .style__green___2PUEf{color:#a6e22e}.style__content___3ncjF .style__writer____bkPc .style__space___OIm12{margin-left:7px}.style__content___3ncjF .style__writer____bkPc .style__placeholder___1iL-V{margin-left:15px}.style__content___3ncjF .style__writer____bkPc .style__purple___31Wxx{color:#ae81ff;font-weight:700}.style__content___3ncjF .style__writer____bkPc .style__blue___2-_D2{color:#66d9ef}.style__content___3ncjF .style__writer____bkPc .style__white___36de6{color:#f8f8f2}.style__content___3ncjF .style__writer____bkPc .style__yellow___2y7v0{color:#e6db74}.style__content___3ncjF .style__writer____bkPc .style__grey___3j11p{color:#75715e}@media (max-width:320px){.style__content___3ncjF .style__writer____bkPc .style__line___37gij{width:30px}}", "", {"version":3,"sources":["/./src/routes/Home/src/routes/Home/style.scss"],"names":[],"mappings":"AAAA,wBACC,sBAAwB,qBACF,YACT,gBACK,CAJnB,+CAME,WAAY,sBACW,8EACoE,eAC3E,iBACE,YACL,gBACK,CAZpB,oEAeG,WAAY,qBACU,kBACH,UACP,CAlBf,qEAsBG,aAAU,CAtBb,qEA0BG,eAAiB,CA1BpB,2EA8BG,gBAAkB,CA9BrB,sEAkCG,cAAU,eACQ,CAnCrB,oEAuCG,aAAU,CAvCb,qEA2CG,aAAU,CA3Cb,sEA+CG,aAAU,CA/Cb,oEAmDG,aAAU,CACV,yBAKF,oEACC,UAAY,CACZ,CAAA","file":"style.scss","sourcesContent":[".content{\n\tbackground-color: black;\n\tpadding-bottom: 120px;\n\twidth: 100vw;\n\tmin-height: 100vh;\n\t.writer{\n\t\tcolor: #bbb;\n\t\tbox-sizing: border-box;\n\t\tfont-family: \"Consolas\", \"Monaco\", \"Bitstream Vera Sans Mono\", \"Courier New\", \"sans-serif\";\n\t\tfont-size: 12px;\n\t\tline-height: 20px;\n\t\tborder: none;\n\t\tpadding-top: 40px;\n\n\t\t.line{\n\t\t\twidth: 50px;\n\t\t\tdisplay: inline-block;\n\t\t\ttext-align: center;\n\t\t\tcolor: #555;\n\t\t}\n\n\t\t.green {\n\t\t\tcolor: rgb(166,226,46);\n\t\t}\n\n\t\t.space {\n\t\t\tmargin-left: 7px;\n\t\t}\n\n\t\t.placeholder {\n\t\t\tmargin-left: 15px;\n\t\t}\n\n\t\t.purple {\n\t\t\tcolor: rgb(174,129,255);\n\t\t\tfont-weight: bold;\n\t\t}\n\n\t\t.blue {\n\t\t\tcolor: rgb(102,217,239);\n\t\t}\n\n\t\t.white {\n\t\t\tcolor: rgb(248,248,242);\n\t\t}\n\n\t\t.yellow {\n\t\t\tcolor: rgb(230,219,116);\n\t\t}\n\n\t\t.grey {\n\t\t\tcolor: rgb(117,113,94);\n\t\t}\n\t}\n}\n\n@media (max-width: 320px){\n\t.content .writer .line{\n\t\twidth: 30px;\n\t}\n}"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 	exports.locals = {
 		"content": "style__content___3ncjF",
-		"writter": "style__writter___1c0X2",
+		"writer": "style__writer____bkPc",
 		"line": "style__line___37gij",
 		"green": "style__green___2PUEf",
 		"space": "style__space___OIm12",
@@ -30918,4 +30930,4 @@ webpackJsonp([0],[
 
 /***/ }
 ]);
-//# sourceMappingURL=app.9494d3fae68d52c50516.js.map
+//# sourceMappingURL=app.c4400414cc1863fe4788.js.map
