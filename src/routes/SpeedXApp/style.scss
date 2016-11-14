@@ -1,0 +1,46 @@
+.box{
+	background-color: white;
+	color: black;
+}
+
+@mixin content(){
+	> h1{
+		font-size: 2.5rem;
+		margin: 0;
+		margin-bottom: 1rem;
+	}
+	> p{
+		font-size: 1.5rem;
+		opacity: .5;
+		margin: .5rem 0;
+	}
+	@include susy-media(max-width 960px){
+		> h1{
+			font-size: 2.5rem !important;
+		}
+		> p{
+			font-size:	1.25rem !important;
+		}
+	}
+
+	@include susy-media(max-width 555px){
+		> h1{
+			font-size: 1.7rem !important;
+		}
+		> p{
+			font-size: 0.857rem !important;
+		}
+	}
+}
+
+@mixin whiteContent(){
+	background-color: white;
+	color: black;	
+	@include content();
+}
+
+@mixin blackContent(){
+	background-color: black;
+	color: white;
+	@include content();
+}

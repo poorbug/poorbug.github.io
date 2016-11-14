@@ -1,0 +1,123 @@
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+@import './style';
+
+.connect{
+	@include whiteContent();
+	width: 100vw;
+	height: 50rem;
+	text-align: center;
+	padding-top: 5rem;
+	overflow-y: hidden;
+	position: relative;
+	> div{
+		$picWid: 25rem;
+		width: $picWid;
+		padding-top: 8.375rem;
+		margin: auto;
+		> div{
+			width: $picWid;
+			position: absolute;
+			@include transition(all 2s ease-in-out)
+			&:first-child{
+				z-index: 100;
+				> img{
+					margin-top: 1.6rem;
+				}
+				> p{
+					width: $picWid;
+					display: block;
+					position: absolute;
+					color: white;
+					margin: 0;
+					&:nth-child(2){
+						font-size: 3rem;
+						top: 8rem;
+					}
+					&:nth-child(3){
+						font-size: 4.5rem;
+				    top: 15rem;
+				    font-weight: 500;
+					}
+					&:nth-child(4){
+						font-size: 2.7rem;
+    				top: 22.8rem;
+					}
+				}
+			}
+			&:nth-child(2){
+				> span{
+					width: $picWid;
+					height: .625rem;
+					border-radius: .625rem;
+					background-color: #EFEFEF;
+					display: block;
+					&:last-child{
+						width: 0;
+						background: linear-gradient(to right, #EFEFEF, #A4A4A4);
+						margin-top: -.625rem;
+						@include transition(width 1s ease-in 2s);
+					}
+				}
+			}
+			&:last-child{
+				z-index: 100;
+			}
+			> img{
+				width: 16.25rem;;
+			}
+			> p{
+				font-size: 9rem;
+				color: rgb(247, 247, 247);
+				margin: 3rem 0 5rem 0;
+			}
+		}
+	}
+
+	@include susy-media(max-width 960px){
+		height: 50rem;
+		> p{
+			> span{
+				display: block;
+				margin: .3rem 0;
+			}
+		}
+		> div{
+			width: 100vw;
+			padding-top: 0;
+			> div{
+				width: 100vw;
+				position: static;
+				&:first-child{
+					display: none;
+				}
+				&:nth-child(2){
+					> p{
+						font-size: 6.25rem;
+					}
+					> span{
+						width: 80vw !important;
+						margin: auto;
+					}
+				}
+				&:last-child{
+					padding-top: 2rem;
+					margin-left: 0 !important;
+				}
+				> p{
+					margin: 2rem 0 3rem 0;
+				}
+			}
+		}
+	}
+
+	@include susy-media(max-width 555px){
+		> p{
+			> span{
+				display: block;
+				margin: .3rem 0;
+			}
+		}
+	}
+}

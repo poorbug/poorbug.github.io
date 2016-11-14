@@ -1,0 +1,163 @@
+@import "~react-toolbox/lib/colors";
+@import "~react-toolbox/lib/globals";
+$appbar-color: #131313;
+$color-primary: #131313;
+$color-primary-dark: #131313;
+$color-footer: rgb(150, 150, 150);
+$appbar-height: 2.8125 * $unit;
+$appbar-mobile-height: 2.75 * $unit;
+$appbar-h-padding: 7.5 * $unit;
+$appbar-h-r-padding: 1.5 * $unit;
+$button-background-red: #d51b1b;
+$button-background-red-contrast: #fff;
+$checkbox-size: .75 * $unit;
+
+$mobile-edge: .9375rem;
+$color-red: #D62424;
+$color-primary: #1F1F1F;
+$color-secondary: #CCC;
+$color-secondary-contrast: #EBEBEB;
+$color-secondary-pale: #AAA;
+$color-divider: #F1F1F1;
+$color-background: #0D0D0D;
+$color-background-pale: $color-primary;
+$color-shadow: #0C0C0C;
+$opacity-contrast: .8;
+
+$color-al-rojo: #E61717;
+$color-al-bg-rojo: #fff;
+$color-al-blanco: #fff;
+$color-al-negro: #3F444A;
+$color-al-azul: #1BC9FF;
+$color-al-amarillo: #FFCC00;
+$color-al-text-accent: #222;
+$color-al-text-hint: #444;
+$color-al-rule: #ddd;
+$color-al-price-red: #D90000;
+$color-al-background-black: #111;
+$color-al-background-gray: #F2F2F2;
+$color-al-button-red: #DE1212;
+
+$al-pc-safe-width: 75rem;
+$al-pc-safe-width-normal: 83.3333vw;
+$al-pc-header-safe-width: 51.875rem;
+$al-mobile-edge: .9375rem;
+
+/*== NOTE(LETO) theme color ==*/
+$color-primary-dark: #222;
+$color-secondary-dark: #444;
+$color-tertiary-dark: #999;
+$color-quaternary-dark: #aaa;
+$color-quinary-dark: #ccc;
+$color-senary-dark: #eee;
+
+$color-light: #fff;
+$color-dark: #000;
+
+$color-primary-red: #E61717;
+$color-accent-red: #BF1313;
+$color-secondary-red: #FF2626;
+
+/*== NOTE(LETO) theme opacity ==*/
+// light background
+$opacity-primary: .85;
+$opacity-secondary: .75;
+$opacity-tertiary: .5;
+$opacity-quaternary: .25;
+$opacity-hover: 1;
+
+// dark background
+$opacity-primary-dark: 1;
+$opacity-secondary-dark: .8;
+$opacity-tertiary-dark: .6;
+$opacity-quaternary-dark: .4;
+$opacity-hover-dark: 1;
+
+/*== NOTE(LETO) button theme ==*/
+$button-primary-background-color: $color-primary-red;
+$button-primary-color: $color-light;
+$button-primary-hover: $color-accent-red;
+
+$button-negative-background-color: transparent;
+$button-negative-opacity: .5;
+$button-negative-color: rgba(0,0,0, $button-negative-opacity);//color-dark with opacity
+$button-negative-border-color: $color-tertiary-dark;
+
+$button-diabled-background-color: $color-quinary-dark;
+$button-diabled-color: $color-light;
+
+/*== NOTE(LETO) misc ==*/
+$color-rule: $color-quinary-dark;
+$color-rule-dark: rgba(255,255,255,.2);
+$color-dialog-background: $color-light;
+$color-backdrop: $color-dark;
+$opacity-backdrop: .8;
+$color-mask: $color-dark;
+$opacity-mask: .8;
+
+$border: 1px solid $color-rule;
+$border-dark: 1px solid $color-rule-dark;
+$border-dark-ghost: 1px solid rgba(255,255,255,.3);
+
+/*== NOTE(LETO) font ==*/
+$font-size-primary: 2.5rem;
+$font-size-secondary: 1.5rem;
+$font-size-tertiary: 1.125rem;
+$font-size-quaternary: .875rem;
+$font-size-quinary: .75rem;
+
+$line-height-tertiary: 1.5rem;
+$line-height-paragraph: 1.5rem;
+
+// EN
+$font-size-primary-en: 2.5rem;
+$font-size-secondary-en: 1.625rem;
+$font-size-tertiary-en: 1.25rem;
+$font-size-quaternary-en: 1rem;
+$font-size-quinary-en: .875rem;
+
+$line-height-paragraph-en: 1.5rem;
+
+/*== mobile ==*/
+$mobile-edge: 1.4375rem;
+
+
+
+/*== Colors ==*/
+$color-al-rojo: #E61717;
+$color-al-rojo-bg: #fff;
+$color-al-rojo-thick: #eee;
+$color-al-rojo-thick-fg: #000;
+$color-al-rojo-border-con: #000;
+$color-al-rojo-con-fg: #000;
+
+$color-al-blanco: #fff;
+$color-al-blanco-bg: #fff;
+$color-al-blanco-thick: #eee;
+$color-al-blanco-thick-fg: #000;
+$color-al-blanco-border-con: #000;
+$color-al-blanco-con-fg: #000;
+
+$color-al-negro: #3F444A;
+$color-al-negro-bg: #3F444A;
+$color-al-negro-thick: #33383D;
+$color-al-negro-thick-fg: #fff;
+$color-al-negro-border-con: #fff;
+$color-al-negro-con-fg: #fff;
+
+$color-al-azul: #1BC9FF;
+$color-al-azul-bg: #1BC9FF;
+$color-al-azul-thick: #00AFFF;
+$color-al-azul-thick-fg: #000;
+$color-al-azul-border-con: #000;
+$color-al-azul-con-fg: #000;
+
+$color-al-amarillo: #FFDC05;
+$color-al-amarillo-bg: #FFDC05;
+$color-al-amarillo-thick: #FFCC00;
+$color-al-amarillo-thick-fg: #000;
+$color-al-amarillo-border-con: #000;
+$color-al-amarillo-con-fg: #000;
+
+$color-al-background-black: #111;
+$color-al-background-gray: #F2F2F2;

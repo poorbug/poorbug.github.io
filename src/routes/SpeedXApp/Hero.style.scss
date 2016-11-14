@@ -1,0 +1,159 @@
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
+.hero{
+  @include transform(scale(.5));
+  height: 100vh;
+  background-color: #181818;
+  margin: auto;
+  margin-top: -20vh;
+  margin-bottom: -200px;
+  > h1{
+    font-size: 12.5rem;
+    font-weight: bold;
+    color: #1e1e1e;
+    margin: 0 12.5rem;
+    padding-top: 6.25rem;
+    text-shadow: 0 10px 14px;
+  }
+  > div{
+    background-image: url(https://global.speedx.com/speedx/app/appinhand-old.png);
+    width: 100vw;
+    height: 100vh;
+    padding: 0 12.5rem;
+    padding-top: 20.625rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-size: auto 80%;
+    background-repeat: no-repeat;
+    background-position: 70% 100%;
+
+    @include keyframes('appAnimation'){
+      0% { background-position: 70% 300%;
+           opacity: .2; }
+      100% { background-size: 70% bottom; 
+           opacity: 1; }
+    }
+    @include animation('appAnimation 4s ease 0s 1');
+    > h2{
+      font-size: 3rem;
+      color: white;
+      opacity: .7;
+      margin-bottom: .5rem;
+    }
+    > h3{
+      font-size: 2.5rem;
+      color: white;
+      opacity: .5;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: 100;
+    }
+    > ul{
+      list-style-type: none;
+      padding: 0;
+      margin-top: 3.5rem;
+      > li{
+        display: inline-block;
+        &:first-child{
+          margin-right: 2.8rem;
+        }
+        > *{
+          width: 8.375rem;
+        }
+        > label{
+          display: block;
+          height: 2.5625rem;
+          line-height: 2.5625rem;
+          border: 1px solid #979797;
+          border-radius: 6px;
+          color: white;
+          font-size: 1rem;
+          text-align: center;
+          &:hover + div{
+            height: 8.375rem;
+            @include susy-media(max-width 960px){
+              height: 0;
+            }
+          }
+          > svg{
+            margin-right: .75rem;
+            width: 1.3rem;
+            height: 1.3rem;
+            vertical-align: middle;
+            position: relative;
+            top: -.1rem;
+          }
+        }
+        > div{
+          height: 0;
+          margin-top: .625rem;
+          background-size: 100% auto;
+          @include transition(all .25s ease-in);
+        }
+      }
+    }
+  }
+
+  @include susy-media(max-width 960px){
+    padding: 0;
+    text-align: center;
+    padding-top: 5.1875rem;
+    height: auto;
+    min-height: 100vh;
+    > h1{
+      font-size: 6rem;
+      margin: 0;
+      padding: 0;
+    }
+    > div{
+      height: auto;
+      min-height: 50rem;
+      position: static;
+      background-size: auto 70%;
+      background-position: center bottom;
+      padding: 0;
+      @include animation('none');
+      > h2{
+        font-size: 2rem;
+      }
+      > h3{
+        font-size: 1.5rem;
+      }
+      > ul{
+        > li{
+          margin: 0 1.4rem;
+          &:first-child{
+            margin-right: 1.4rem;
+          }
+        }
+      }
+    }
+  }
+
+  @include susy-media(max-width 555px){
+    > h1{
+      font-size: 4.6875rem;
+    }
+    > div{
+      background-image: url(https://global.speedx.com/speedx/app/appinhand-old.png?imageView2/2/w/600);
+      background-size: 80% auto;
+      min-height: 36rem;
+      > h2{
+        font-size: 1.5rem;
+      }
+      > h3{
+        font-size: 1.125rem;
+      }
+    }   
+  }
+}
+
+
+.notice{
+  background-color: rgba(0, 0, 0, .7);
+  > section{
+    color: white; 
+  }
+}

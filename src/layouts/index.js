@@ -1,6 +1,7 @@
 import React from 'react'
 import Interval from 'components/interval'
-import s from 'styles/core'
+import 'styles/core'
+import s from './index.style.scss' 
 import fav1 from 'static/favicon/1.png'
 import fav2 from 'static/favicon/2.png'
 import fav3 from 'static/favicon/3.png'
@@ -35,7 +36,7 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={s.layoutBox}>
         { this.props.children }
         <Interval timeout={15*1000} enabled={true} callback={this.faviconFlash}/>
       </div>

@@ -1,0 +1,143 @@
+@import 'src/styles/theme';
+@mixin verticalMiddle($parent) {
+  @if $parent == true {
+    position: relative;
+  } @else {
+    position: absolute;
+    top: 50%;
+    right: -1px; // mysterious thing...
+    transform: translateY(-50%);
+  }
+}
+
+@mixin verticalByTableDisplay($parent) {
+  @if $parent == true {
+    display: table;
+  } @else {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+@mixin placeholder() {
+  color: #c2c2ce;
+  opacity: .8;
+}
+
+@mixin underConstruction() {
+  background: repeating-linear-gradient(
+    45deg,
+    #ddd,
+    #ddd 10px,
+    #666 10px,
+    #666 20px
+  );
+  & * {
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+  }
+}
+
+@mixin marginCenter {
+  margin-left: auto;
+  margin-right: auto;
+}
+@mixin absoluteCenter($parent, $h, $v) {
+  @if $parent {
+    position: relative;
+  } @else {
+    position: absolute;
+    @if $h { left: 50% }
+    @if $v { top: 50% }
+    @if $h and $v {
+      transform: translate(-50%, -50%);
+    } @else if $h {
+      transform: translateX(-50%);
+    } @else if $v {
+      transform: translateY(-50%);
+    }
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin docBlock($wide) {
+  @if $wide {
+    width: 75rem;
+    max-width: 100vw;
+    $top: $appbar-height + 4.375rem;
+    margin: $top auto 10rem;
+    padding: 2.375rem 3.125rem 5.25rem;
+  }
+}
+
+@mixin mobileDocBlock {
+  width: 100%;
+  margin: $appbar-height auto 0;
+  padding: 1.125rem $mobile-edge 5rem;
+}
+
+@mixin animation($animate...) {
+    $max: length($animate);
+    $animations: '';
+
+    @for $i from 1 through $max {
+        $animations: #{$animations + nth($animate, $i)};
+
+        @if $i < $max {
+            $animations: #{$animations + ", "};
+        }
+    }
+    -webkit-animation: $animations;
+    -moz-animation:    $animations;
+    -o-animation:      $animations;
+    animation:         $animations;
+}
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+@mixin transition($t) {
+  -webkit-transition: $t;
+  -moz-transition: $t;
+  -o-transition: $t;
+  transition: $t;
+}
+
+@mixin transform($t) {
+  -webkit-transform: $t;
+  -moz-transform: $t;
+  -o-transform: $t;
+  transform: $t;
+}
+
+@mixin transitions($transitions...) {
+    $max: length($transitions);
+    $ts: '';
+
+    @for $i from 1 through $max {
+        $ts: #{$ts + nth($transitions, $i)};
+
+        @if $i < $max {
+            $ts: #{$ts + ", "};
+        }
+    }
+    @include transition($ts);
+}

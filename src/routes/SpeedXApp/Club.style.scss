@@ -1,0 +1,322 @@
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+@import './style';
+
+@mixin b2sframes($wid, $name){
+	$wid10: $wid / 10;
+	@include keyframes($name){
+		0% { background-size: $wid + ($wid10 * 10) auto; }
+		5% { background-size: $wid + ($wid10 * 9) auto; }
+		10% { background-size: $wid + ($wid10 * 8) auto; }
+		15% { background-size: $wid + ($wid10 * 7) auto; }
+		20% { background-size: $wid + ($wid10 * 6) auto; }
+		25% { background-size: $wid + ($wid10 * 5) auto; }
+		30% { background-size: $wid + ($wid10 * 4) auto; }
+		35% { background-size: $wid + ($wid10 * 3) auto; }
+		40% { background-size: $wid + ($wid10 * 2) auto; }
+		45% { background-size: $wid + ($wid10 * 1) auto; }
+		50% { background-size: $wid + ($wid10 * 0) auto; }
+		55% { background-size: $wid + ($wid10 * 1) auto; }
+		60% { background-size: $wid + ($wid10 * 2) auto; }
+		65% { background-size: $wid + ($wid10 * 3) auto; }
+		70% { background-size: $wid + ($wid10 * 4) auto; }
+		75% { background-size: $wid + ($wid10 * 5) auto; }
+		80% { background-size: $wid + ($wid10 * 6) auto; }
+		85% { background-size: $wid + ($wid10 * 7) auto; }
+		90% { background-size: $wid + ($wid10 * 8) auto; }
+		95% { background-size: $wid + ($wid10 * 9) auto; }
+		100% { background-size: $wid + ($wid10 * 10) auto; }
+	}
+}
+
+@mixin s2bframes($wid, $name){
+	$wid10: $wid / 10;
+	@include keyframes($name){
+		0% { background-size: $wid + ($wid10 * 0) auto; }
+		5% { background-size: $wid + ($wid10 * 1) auto; }
+		10% { background-size: $wid + ($wid10 * 2) auto; }
+		15% { background-size: $wid + ($wid10 * 3) auto; }
+		20% { background-size: $wid + ($wid10 * 4) auto; }
+		25% { background-size: $wid + ($wid10 * 5) auto; }
+		30% { background-size: $wid + ($wid10 * 6) auto; }
+		35% { background-size: $wid + ($wid10 * 7) auto; }
+		40% { background-size: $wid + ($wid10 * 8) auto; }
+		45% { background-size: $wid + ($wid10 * 9) auto; }
+		50% { background-size: $wid + ($wid10 * 10) auto; }
+		55% { background-size: $wid + ($wid10 * 9) auto; }
+		60% { background-size: $wid + ($wid10 * 8) auto; }
+		65% { background-size: $wid + ($wid10 * 7) auto; }
+		70% { background-size: $wid + ($wid10 * 6) auto; }
+		75% { background-size: $wid + ($wid10 * 5) auto; }
+		80% { background-size: $wid + ($wid10 * 4) auto; }
+		85% { background-size: $wid + ($wid10 * 3) auto; }
+		90% { background-size: $wid + ($wid10 * 2) auto; }
+		95% { background-size: $wid + ($wid10 * 1) auto; }
+		100% { background-size: $wid + ($wid10 * 0) auto; }
+	}
+}
+
+@mixin otherframes($name){
+	@include keyframes($name){
+		0% { background-size: 50% 50%; }
+		10% { background-size: 55% 55%; }
+		20% { background-size: 60% 60%; }
+		30% { background-size: 65% 65%; }
+		40% { background-size: 70% 70%; }
+		50% { background-size: 75% 75%; }
+		60% { background-size: 80% 80%; }
+		70% { background-size: 85% 85%; }
+		80% { background-size: 90% 90%; }
+		90% { background-size: 95% 95%; }
+		100% { background-size: 100% 100%; }
+	}
+}
+
+.club{
+	@include blackContent();
+	width: 100vw;
+	height: 63rem;
+	text-align: center;
+	padding-top: 4rem;
+	> p{
+		> span{
+			display: block;
+		}
+	}
+	> div{
+		width: 70rem;
+		height: 45rem;
+		left: 50%;
+		margin-left: -35rem;
+		margin-top: 5rem;
+		background-image: url(https://global.speedx.com/speedx/app/map.png);
+		background-repeat: no-repeat;
+		background-size: 100% auto;
+		position: absolute;
+		> div{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			> div{
+				position: absolute;
+				background-repeat: no-repeat;
+			}
+			&.dots{
+				> div{
+					background-image: url(https://global.speedx.com/speedx/app/dot.png);
+					background-position: center;
+					&:first-child{
+						$wid: 1.25rem;
+						width: $wid * 2;
+						height: $wid * 2;
+						background-size: 0 auto;
+						left: 10rem;
+						top: 10rem;
+						@include transition(all 1s ease-in-out 0s);
+						&.animation{
+							$name: 'club1';
+							@include b2sframes($wid, $name);
+							@include animation($name + ' 2s ease-in-out 6s infinite');
+						}
+					}
+					&:nth-child(2){
+						$wid: 1.25rem;
+						width: $wid * 2;
+						height: $wid * 2;
+						background-size: 0 auto;
+						left: 33.3rem;
+						top: 21.5rem;
+						@include transform(scale(.5));
+						@include transition(all .7s ease-in-out 0s);
+						&.animation{
+							$name: 'club2';
+							@include b2sframes($wid, $name);
+							@include animation($name + ' 2s ease-in-out 5.7s infinite');
+						}
+					}
+					&:nth-child(3){
+						$wid: 1.25rem;
+						$wid10: .125rem;
+						width: $wid * 2;
+						height: $wid * 2;
+						background-size: 0 auto;
+						left: 41.25rem;
+						top: 23.25rem;
+						@include transition(all .5s ease-in-out 0s);
+						&.animation{
+							$name: 'club3';
+							@include s2bframes($wid, $name);
+							@include animation($name + ' 2s ease-in-out 6.3s infinite');
+						}
+					}
+					&:nth-child(4){
+						$wid: 1.25rem;
+						width: $wid * 2;
+						height: $wid * 2;
+						background-size: 0 auto;
+						left: 64rem;
+						top: 9.25rem;
+						@include transform(scale(.7));
+						@include transition(all .5s ease-in-out 0s);
+						&.animation{
+							$name: 'club4';
+							@include b2sframes($wid, $name);
+							@include animation($name + ' 2s ease-in-out 7s infinite');
+						}
+					}
+					&:nth-child(5){
+						$wid: 2.5rem;
+						width: $wid * 2;
+						height: $wid * 2;
+						background-size: $wid auto;
+						left: 53rem;
+						top: 13rem;
+						@include transform(scale(.7));
+						$name: 'club5';
+						@include b2sframes($wid, $name);
+						@include animation($name + ' 2s ease-in-out 0s infinite');
+					}
+				}
+			}
+			&.lines{
+				> div{
+					&:first-child{
+						$wid: 43rem;
+						width: $wid;
+						height: 224 / 1084 * $wid;
+						left: 11rem;
+					  top: 5.1rem;
+						float: left;
+						position: absolute;
+						overflow: hidden;
+						@include transition(all 1s ease-in 0s);
+						> div{
+							width: $wid;
+							height: 100%;
+							float: left;
+							> div{
+								height: 100%;
+						    background-image: url(https://global.speedx.com/speedx/app/line1.png);
+								background-size: auto 100%;
+								background-position: right;
+								float: right;
+								@include transition(all 1s ease-in 0s);
+							}
+						}
+					}
+					&:nth-child(2){
+						$wid: 20rem;
+						width: $wid;
+						height: 182 / 478 * $wid;
+						left: 35rem;
+					  top: 14rem;
+						float: left;
+						position: absolute;
+						overflow: hidden;
+						@include transition(all .7s ease-in 0s);
+						> div{
+							width: $wid;
+							height: 100%;
+							float: left;
+							> div{
+								height: 100%;
+						    background-image: url(https://global.speedx.com/speedx/app/line2.png);
+								background-size: auto 100%;
+								background-position: right;
+								float: right;
+								@include transition(all .7s ease-in 2s);
+							}
+						}
+					}
+					&:nth-child(3){
+						$wid: 11rem;
+						width: $wid;
+						height: 232 / 282 * $wid;
+						right: 16.5rem;
+					  top: 15rem;
+						float: right;
+						position: absolute;
+						overflow: hidden;
+						@include transition(all .5s ease-in 0s);
+						> div{
+							width: $wid;
+							height: 100%;
+							float: right;
+							> div{
+								height: 100%;
+						    background-image: url(https://global.speedx.com/speedx/app/line3.png);
+								background-size: auto 100%;
+								background-position: left;
+								float: left;
+								@include transition(all .5s ease-in 3.4s);
+							}
+						}
+					}
+					&:nth-child(4){
+						$wid: 9.5rem;
+						width: $wid;
+						height: 124 / 232 * $wid;
+						right: 4.9rem;
+					  top: 10rem;
+						float: right;
+						position: absolute;
+						overflow: hidden;
+						@include transition(all .5s ease-in 0s);
+						> div{
+							width: $wid;
+							height: 100%;
+							float: right;
+							> div{
+								height: 100%;
+						    background-image: url(https://global.speedx.com/speedx/app/line4.png);
+								background-size: auto 100%;
+								background-position: left;
+								float: left;
+								@include transition(all .5s ease-in 4.4s);
+							}
+						}
+					}
+				}
+			}
+			&.otherDots{
+				> div{
+					width: 2.5rem;
+					height: 2.5rem;
+					background-image: url(https://global.speedx.com/speedx/app/dot.png);
+					background-position: center;
+					position: absolute;
+					background-size: 0 0;
+					@include otherframes('otherAnimation');
+					@include animation('otherAnimation 2s ease-in-out 6.3s infinite alternate');
+				}
+			}
+		}
+	}
+
+	@include susy-media(max-width 960px){
+		height: auto;
+		padding-bottom: 4rem;
+		> h1{
+			> span{
+				display: block;
+			}
+		}
+		> p{
+			> span{
+				display: block;
+			}
+		}
+		> div{    
+			width: 100vw;
+	    height: (507vw / 750vw * 100vw);
+	    margin-left: 0rem;
+	    position: static;
+	    left: 0;
+			background-image: url(https://global.speedx.com/speedx/app/map-m.png);
+			> div{
+				display: none;
+			}
+		}
+	}
+}

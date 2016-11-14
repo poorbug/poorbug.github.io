@@ -1,0 +1,79 @@
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+@import './style';
+
+.record{
+	@include blackContent();
+	width: 100vw;
+	height: 50rem;
+	text-align: center;
+	padding-top: 4.6875rem;
+	overflow-y: hidden;
+	> div{
+		padding-top: 6rem;
+		> img{
+			margin: 0 1rem;
+			position: relative;
+			@include transition(top .5s ease-in-out);
+			&:first-child{
+				top: 5rem;
+				margin-left: 0;
+			}
+			&:nth-child(2){
+				top: 16rem;
+			}
+			&:nth-child(3){
+				top: 8rem;
+			}
+			&:nth-child(4){
+				top: 13rem;
+				margin-right: 0;
+			}
+			&:hover{
+				top: 3rem;
+			}
+		}
+	}
+
+	@include susy-media(max-width 960px){
+		> div{
+			> img{
+				&:first-child{
+					top: 5rem;
+				}
+				&:nth-child(2),
+				&:nth-child(3){
+					display: none;
+				}
+				&:nth-child(4){
+					top: 13rem;
+				}
+			}
+		}
+	}
+
+	@include susy-media(max-width 555px){
+		height: 35rem;
+		> p{
+			margin: 0;
+			> span{
+				display: block;
+				margin: .25rem 0;
+			}
+		}
+		> div{
+			> img{
+				width: 10rem;
+				&:first-child{
+					margin-right: .5rem;
+					top: 0;
+				}
+				&:last-child{
+					margin-left: .5rem;
+					top: 4rem;
+				}
+			}
+		}
+	}
+}

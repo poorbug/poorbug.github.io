@@ -1,0 +1,175 @@
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+@import './style';
+
+.badge{
+	@include blackContent();
+	width: 100vw;
+	text-align: center;
+	padding-top: 6.25rem;
+	padding-bottom: 3rem;
+	> div{
+		width: 1398px;
+		height: 639px;
+		margin: auto;
+		margin-top: 5rem;
+		> i{
+	    background-image: url(https://global.speedx.com/speedx/app/badges-l.png);
+	    background-repeat: no-repeat;
+	    display: inline-block;
+	    width: 183px;
+	    height: 183px;
+	    margin: 15px 25px;
+	    filter: blur(10px);
+	    @include transition(all .5s ease-out);
+	    border: 10px solid black;
+	    border-radius: 33px;
+	    background-origin: border-box;
+	    @include transform(scale(.7));
+	    cursor: url('https://global.speedx.com/speedx/app/favicon.ico'), auto;
+	    &.active{
+	    	@include transform(scale(1));
+	    	filter: none;
+	    	border: none;
+	    }
+		}
+		.badge1 {
+		  background-position: 0 0;
+		}
+
+		.badge10 {
+		  background-position: -183px 0;
+		}
+
+		.badge11 {
+		  background-position: -366px 0;
+		}
+
+		.badge12 {
+		  background-position: -549px 0;
+		}
+
+		.badge13 {
+		  background-position: 0 -183px;
+		}
+
+		.badge14 {
+		  background-position: -183px -183px;
+		}
+
+		.badge15 {
+		  background-position: -366px -183px;
+		}
+
+		.badge16 {
+		  background-position: -549px -183px;
+		}
+
+		.badge17 {
+		  background-position: 0 -366px;
+		}
+
+		.badge18 {
+		  background-position: -183px -366px;
+		}
+
+		.badge2 {
+		  background-position: -366px -366px;
+		}
+
+		.badge3 {
+		  background-position: -549px -366px;
+		}
+
+		.badge4 {
+		  background-position: 0 -549px;
+		}
+
+		.badge5 {
+		  background-position: -183px -549px;
+		}
+
+		.badge6 {
+		  background-position: -366px -549px;
+		}
+
+		.badge7 {
+		  background-position: -549px -549px;
+		}
+
+		.badge8 {
+		  background-position: -732px 0;
+		}
+
+		.badge9 {
+		  background-position: -732px -183px;
+		}
+	}
+
+	@include susy-media(max-width 1398px){
+		height: 52rem;
+		> div{
+			position: absolute;
+			left: 50%;
+			margin-left: -699px;
+			@include transform(scale(.7));
+			margin-top: -5rem;
+		}
+	}
+
+	@include susy-media(max-width 960px){
+		height: 48rem;
+		> p{
+			> span{
+				display: block;
+			}
+		}
+		> div{
+			width: 634px;
+			left: 50%;
+			margin-left: -317px;
+			> i{
+				transition: none;
+				filter: none;
+				margin: 0;
+				&:hover{
+					@include transform(none);
+	    		border: 10px solid black;
+	    		border-radius: 33px;
+				}
+
+				&:nth-child(7),
+				&:nth-child(8),
+				&:nth-child(9){
+									mask-image: linear-gradient(top, rgba(0,0,0,1), rgba(0,0,0,.5));
+					-webkit-mask-image: -webkit-linear-gradient(top, rgba(0,0,0,1), rgba(0,0,0,.5));
+				}
+
+				&:nth-child(10),
+				&:nth-child(11),
+				&:nth-child(12){
+									mask-image: linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,0));
+					-webkit-mask-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,0));
+				}
+
+				&:nth-child(13),
+				&:nth-child(14),
+				&:nth-child(15),
+				&:nth-child(16),
+				&:nth-child(17),
+				&:nth-child(18){
+					display: none;
+				}
+			}
+		}
+	}
+
+	@include susy-media(max-width 414px){
+		height: 600px;
+		> div{
+			@include transform(scale(.7));
+			margin-top: -8rem;
+		}
+	}
+}
