@@ -9,15 +9,7 @@ export const createRoutes = (store) => ({
   	{
   		path: '/',
   		component: Home
-  	},
-  	{
-  		path: 'me',
-  		component: Me
-  	},
-    {
-      path: 'app',
-      component : App
-    }
+  	}
   ]
 })
 export default createRoutes
