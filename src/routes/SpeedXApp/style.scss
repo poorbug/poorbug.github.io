@@ -1,6 +1,74 @@
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
 .box{
+	padding-top: 5rem;
 	background-color: white;
 	color: black;
+	margin: auto;
+  color: #555;
+  font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  > h1,
+  > h2,
+  > p{
+  	width: 43.75rem;
+  	text-align: center;
+  }
+	> h1{
+		word-break: break-all;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 10px auto;
+    text-rendering: optimizelegibility;
+    color: inherit;
+    font-family: inherit;
+	}
+	> h2{
+		font-size: 1.5rem;
+		margin: 0 auto;
+		margin-top: 2rem;
+    color: inherit;
+    line-height: 1.8;
+    text-rendering: optimizelegibility;
+    font-weight: bold;
+    color: inherit;
+    font-family: inherit;
+	}
+	> p{
+		text-align: justify;
+    text-justify: inter-ideograph;
+    word-break: initial;
+    word-break: break-word;
+    margin: 0 auto 1.5625rem auto;
+    color: #2f2f2f;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.7;
+    color: #2f2f2f;
+    font-family: inherit;
+	}
+	> blockquote{
+		padding: .625rem .9375rem;
+    margin-bottom: 1.25rem;
+    background-color: whitesmoke;
+    border-left: 4px solid #999999;
+    word-break: break-word;
+    font-size: .9375rem;
+    font-weight: normal;
+    line-height: 1.875rem;
+	}
+
+
+	@include susy-media(max-width 555px){
+	  > h1,
+	  > h2,
+	  > p{
+	  	width: 80vw;
+	  }
+	}
+
 }
 
 @mixin content(){
@@ -33,6 +101,12 @@
 	}
 }
 
+.pc{
+	@include susy-media(max-width 960px){
+		display: none;
+	}
+}
+
 @mixin whiteContent(){
 	background-color: white;
 	color: black;	
@@ -43,4 +117,16 @@
 	background-color: black;
 	color: white;
 	@include content();
+}
+
+@mixin common(){
+	@include transform(scale(.7));
+	margin-top: -7rem !important;
+	margin-bottom: -5rem !important;
+
+	@include susy-media(max-width 555px){
+		@include transform(scale(.9));
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+	}
 }

@@ -74,6 +74,7 @@
 }
 
 .club{
+  @include common();
 	@include blackContent();
 	width: 100vw;
 	height: 63rem;

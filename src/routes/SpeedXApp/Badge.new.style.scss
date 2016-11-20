@@ -4,6 +4,7 @@
 @import './style';
 
 .badge{
+  @include common();
 	@include blackContent();
 	width: 100vw;
 	text-align: center;
@@ -119,6 +120,7 @@
 	}
 
 	@include susy-media(max-width 960px){
+		display: none;
 		height: 48rem;
 		> p{
 			> span{

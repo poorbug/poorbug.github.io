@@ -1,13 +1,12 @@
 @import 'src/styles/susy';
 @import 'src/styles/mixins';
+@import './style';
 
 .hero{
-  @include transform(scale(.5));
+  @include common();
   height: 100vh;
   background-color: #181818;
   margin: auto;
-  margin-top: -20vh;
-  margin-bottom: -200px;
   > h1{
     font-size: 12.5rem;
     font-weight: bold;

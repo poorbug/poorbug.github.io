@@ -4,6 +4,7 @@
 @import './style';
 
 .badge{
+  @include common();
 	@include blackContent();
 	width: 100vw;
 	text-align: center;

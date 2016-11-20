@@ -4,6 +4,7 @@
 @import './style';
 
 .record{
+  @include common();
 	@include blackContent();
 	width: 100vw;
 	height: 50rem;

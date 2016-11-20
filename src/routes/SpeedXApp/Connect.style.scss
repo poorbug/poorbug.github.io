@@ -4,6 +4,7 @@
 @import './style';
 
 .connect{
+  @include common();
 	@include whiteContent();
 	width: 100vw;
 	height: 50rem;
