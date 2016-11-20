@@ -15,7 +15,7 @@ export const createRoutes = (store) => ({
   		component: Me
   	},
     {
-      path: 'app',
+      path: 'app-page',
       component : App
     }
   ]
