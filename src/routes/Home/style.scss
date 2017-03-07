@@ -1,0 +1,33 @@
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
+.box{
+	max-width: 50rem;
+	margin: auto;
+	padding-top: 7.5rem;
+	color: #424B50;
+	> h1{
+		font-size: 3rem;
+		margin-bottom: .5rem;
+		& + a{
+			font-size: 1rem;
+			margin-bottom: 5rem;
+			padding-left: .25rem;
+			text-decoration: none;
+			color: inherit;
+			display: inline-block;
+		}
+	}
+	> ul{
+		> li{
+			margin-bottom: .5rem;
+			> a{
+				font-size: 2rem;
+				text-decoration: none;
+				color: #1ba1e2;
+			}
+		}
+	}
+
+}

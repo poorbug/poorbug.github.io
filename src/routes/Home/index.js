@@ -1,13 +1,16 @@
 import React from 'react'
-import Music163 from 'components/Music163'
-import Typewriter from 'components/Typewriter'
+import { Link } from 'react-router'
 import s from './style'
 
 export default class Home extends React.Component {
   render() {
     return (
-      <div>
-      
+      <div className={s.box}>
+      	<h1>Coding Muscle</h1>
+      	<Link to='me' >Poorbug</Link>
+      	<ul>
+      		<li><Link to='app' >新 SpeedX App 页面开发总结</Link></li>
+      	</ul>
       </div>
     )
   }
