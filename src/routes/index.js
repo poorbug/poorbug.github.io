@@ -1,6 +1,6 @@
 import Layout from '../layouts/'
 import Home from './Home/'
-import Me from './Me/'
+import Me from './me/'
 import App from './SpeedXApp/'
 
 export const createRoutes = (store) => ({
