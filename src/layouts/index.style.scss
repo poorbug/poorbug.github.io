@@ -1,5 +1,19 @@
+@import 'src/styles/base';
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
 .layoutBox{
-	padding-bottom: 120px;
-	width: 100vw;
+	padding-bottom: 7.5rem;
 	min-height: 100vh;
+  width: 43.75rem;
+  margin: auto;
+
+  @media ($large){
+    width: 62.5rem;
+  }
+
+  @media ($middle){
+    width: 90vw;
+  }
 }

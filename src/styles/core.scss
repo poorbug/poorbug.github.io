@@ -20,4 +20,21 @@
   *:after {
     box-sizing: inherit;
   }
+
+  h1 {
+    text-align: center;
+  }
+
+  pre {
+    overflow-x: scroll;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+    font-size: .8125rem;
+    code {
+        font-family: Menlo, Monaco, Consolas, Courier New, monospace !important;
+        > span {
+          color: #93a1a1;
+        }
+      }
+  }
 }

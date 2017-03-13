@@ -1,0 +1,39 @@
+@import 'src/styles/base';
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
+.imgtxt{
+  width: 43.75rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  margin: auto;
+  > img {
+    max-width: 100%;
+  }
+  > p {
+    min-width: 20%;
+    max-width: 80%;
+    display: inline-block;
+    line-height: 1.7;
+    font-size: .875rem;
+    color: #969696;
+    padding: .625rem;
+    border-bottom: 1px solid #d9d9d9;
+    margin: 0;
+    min-height: 1.375rem;
+  }
+
+
+  @media ($large){
+    width: 62.5rem;
+  }
+
+  @media ($middle){
+    width: 90vw;
+    padding-bottom: 1rem;
+    > p {
+      line-height: normal;
+    }
+  }
+}

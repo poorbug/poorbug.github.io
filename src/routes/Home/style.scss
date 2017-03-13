@@ -7,19 +7,23 @@
 	margin: auto;
 	padding-top: 7.5rem;
 	color: #424B50;
+	text-align: center;
 	> h1{
 		font-size: 3rem;
 		margin-bottom: .5rem;
-		& + a{
+	}
+	> p {
+		margin: 0;
+		> a{
 			font-size: 1rem;
-			margin-bottom: 5rem;
 			padding-left: .25rem;
 			text-decoration: none;
 			color: inherit;
-			display: inline-block;
 		}
 	}
 	> ul{
+		margin-top: 5rem;
+		text-align: left;
 		> li{
 			margin-bottom: .5rem;
 			> a{
@@ -30,4 +34,22 @@
 		}
 	}
 
+	@include susy-media(min-width 556px) {
+		> h1 {
+			text-align: left;
+		}
+		> p {
+			text-align: left;
+		}
+	}
+
+	@include susy-media(max-width 555px) {
+		> h1,
+		> p {
+			text-align: center;
+		}
+		> ul {
+			padding: 0 1rem 0 2rem;
+		}
+	}
 }

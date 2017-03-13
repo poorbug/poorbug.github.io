@@ -10,3 +10,9 @@ For example:
 @import './variables/components';
 @import './themes/default';
 */
+
+// screen size
+$small: 'max-width: 555px';
+$middle: 'max-width: 700px';
+$normal: 'max-width: 1280px';
+$large: 'min-width: 1281px';
