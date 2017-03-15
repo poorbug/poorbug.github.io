@@ -78,7 +78,7 @@ cnpm 早有耳闻，一直有梯，从未用过。服务器搭梯子有点费劲
 NGINX, done. 
 
 ###域名解析
-在阿里云的控制台中找域名解析，讲服务器 ip 填入即可。
+在阿里云的控制台中找域名解析，将服务器 ip 填入即可。
 
 ###NGINX 配置
 ![配置文件路径](http://omhr7p9e5.bkt.clouddn.com/blog/nginx%20default.png)
