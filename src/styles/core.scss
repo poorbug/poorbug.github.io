@@ -34,6 +34,22 @@
   p {
     margin: 0 0 1.5rem 0;
     line-height: 1.7;
+    > code {
+      padding: 2px 4px;
+      background-color: #f6f6f6;
+      color: #657b83;
+      font-size: .75rem;
+      white-space: pre-wrap;
+      border-radius: 4px;
+    }
+  }
+  a {
+    color: #3194d0;
+    outline: none;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   ul {
     margin: 0 0 1rem 0;
@@ -47,11 +63,25 @@
     padding: 1rem;
     margin-bottom: 1.25rem;
     font-size: .8125rem;
+    border: 1px solid #ccc;
+    background-color: #f6f6f6;
+    color: #657b83;
     code {
       font-family: Menlo, Monaco, Consolas, Courier New, monospace !important;
       > span {
         color: #93a1a1;
       }
+    }
+  }
+  blockquote {
+    padding: 1.25rem;
+    margin: 0 0 1.5rem;
+    background-color: #f7f7f7;
+    border-left: 6px solid #b4b4b4;
+    font-size: 1rem;
+    line-height: 1.875rem;
+    > p {
+      margin: 0;
     }
   }
 }
