@@ -1,11 +1,13 @@
-import { ImgTxt } from 'components/'
+import { Author, ImgTxt } from 'components/'
+
 import React from 'react'
 
 export default class Getup extends React.Component {
   render() {
     return (
-      <div>
+      <article>
         <h1>React 博客工程 上线</h1>
+        <Author img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif' name='朽木' email='poorbug@126.com' time='2017.03.09' />
         <h2>bg</h2>
         <ul>
           <li>许久之前用 <a href='https://github.com/poorbug/react-redux-starter-kit' >react-redux-starter-kit</a> 做了一个静态的博客工程，名为 Blog</li>
@@ -27,20 +29,30 @@ export default class Getup extends React.Component {
         <p>查了一下官方文档，和 Google 结果，据说 <a href='http://baike.baidu.com/item/apt-get'>apt-get</a> （我也是第一回知道 apt-get 这个东西）会安装一个非常老的版本，例如 2.x 之类的；6.x 与 7.x 的安装方法又不一样，于是向运维同学请教得知以下命令（有人指点果然省事许多）：</p>
         <pre>
           <code>
-            <span>## 都在 root 用户下执行</span><br/>
-            <br/>
-            apt-get update<br/>
-            <br/>
-            apt-get install python-software-properties -y<br/>
-            <br/>
-            curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -<br/>
-            <br/>
-            apt-get install nodejs -y  <span># 这步时间比较久，因为是在</span><br/>
-            <br/>
-            node -v  <span># 查看一下版本，然后可以安装个 nvm 去切换版本</span><br/>
-            <br/>
-            ---<br/>
-            上面那个是 安装 7.7.1 的 node， 比较新，也可以直接 apt-get install nodejs ， 这样装的话，版本比较旧
+<span>## 都在 root 用户下执行</span>
+{
+`
+
+apt-get update
+
+apt-get install python-software-properties -y
+
+curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+
+apt-get install nodejs -y  `
+}<span># 这步时间比较久，因为是在</span>
+{
+`
+
+node -v  `
+}<span># 查看一下版本，然后可以安装个 nvm 去切换版本</span>
+{
+`
+
+---
+
+上面那个是 安装 7.7.1 的 node， 比较新，也可以直接 apt-get install nodejs ， 这样装的话，版本比较旧`
+}
           </code>
         </pre>
         <p>到 curl 又卡住，curl 是什么东西...</p>
@@ -69,9 +81,11 @@ export default class Getup extends React.Component {
         <p>得到一串 ssh-rsa 开头的长串，粘到 Git 工程中的 Deploy keys 中；在服务器目录下：</p>
         <pre>
           <code>
-            git clone xxxxxxxxxxxxx<br/>
-            <br/>
-            git pull
+{
+`git clone xxxxxxxxxxxxx
+
+git pull`
+}
           </code>
         </pre>
         <p>工程即可得。</p>
@@ -103,31 +117,35 @@ export default class Getup extends React.Component {
         <ImgTxt img='http://omhr7p9e5.bkt.clouddn.com/blog/nginx%20default.png' txt='配置文件路径' />
         <pre>
           <code>
-            server {decodeURI('%7B')} <br/>
-              listen 80; <br/>
-              server_name your.domain; <br/>
-              location {decodeURI('%7B')} <br/>
-                proxy_pass                          http://your ip address:port/; <br/>
-                proxy_set_header Host               $host; <br/>
-                proxy_set_header X-Real-IP          $remote_addr; <br/>
-                proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for; <br/>
-                client_body_buffer_size             128k; <br/>
-                client_max_body_size                1m; <br/>
-                proxy_connect_timeout               90; <br/>
-                proxy_send_timeout                  90; <br/>
-                proxy_buffer_size                   4k; <br/>
-                proxy_buffers                       4 32k; <br/>
-                proxy_busy_buffers_size             64k; <br/>
-              {decodeURI('%7D')} <br/>
-            {decodeURI('%7D')} <br/>
+{
+`server {
+  listen 80;
+  server_name your.domain;
+  location / {
+    proxy_pass                          http://your ip address:port/;
+    proxy_set_header Host               $host;
+    proxy_set_header X-Real-IP          $remote_addr;
+    proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+    client_body_buffer_size             128k;
+    client_max_body_size                1m;
+    proxy_connect_timeout               90;
+    proxy_send_timeout                  90;
+    proxy_buffer_size                   4k;
+    proxy_buffers                       4 32k;
+    proxy_busy_buffers_size             64k;
+  }
+}`
+}
           </code>
         </pre>
         <p>保存，启动 NGINX。</p>
         <pre>
           <code>
-            sudo nginx<br/>
-            <br/>
-            sudo nginx -s reload
+{
+`sudo nginx
+
+sudo nginx -s reload`
+}
           </code>
         </pre>
         <h3>访问</h3>
@@ -161,7 +179,7 @@ export default class Getup extends React.Component {
           到此，Blog 工程跑起来了。感觉在这个过程中，分而治之的思想很好的解决了这个问题，把每一个工具都安装配置调试好了，那么工程就跑起来了。 <br/>
           完美。
         </p>
-      </div>
+      </article>
     )
   }
 }
