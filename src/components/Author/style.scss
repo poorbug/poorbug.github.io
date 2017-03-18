@@ -1,0 +1,31 @@
+@import 'src/styles/base';
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
+.author {
+  > * {
+    display: inline-block;
+    line-height: 1.5625rem;
+  }
+  > img {
+    width: 3.125rem;
+    height: 3.125rem;
+  }
+  > div {
+    height: 3.125rem;
+    margin-left: 1rem;
+    > * {
+      margin: 0 3px;
+      line-height: 1.5;
+    }
+    > a {
+      font-size: 1rem;
+      color: #333;
+    }
+    > time {
+      font-size: .75rem;
+      color: #969696;
+    }
+  }
+}
