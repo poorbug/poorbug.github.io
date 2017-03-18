@@ -8,7 +8,7 @@ export default class Author extends React.Component {
       <div className={s.author}>
         <img src={img} />
         <div>
-          <span>{name}</span><a href={`mailto: ${email}`} rel='author'>name</a><br/>
+          <a href='http://poorbug.tech/me'>{name}</a><a href={`mailto:${email}`} rel='author'>📧</a><br/>
           <time pubdate>{time}</time>
         </div>
       </div>
