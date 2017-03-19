@@ -29,6 +29,13 @@
   @media($small) {
     left: 0;
     width: 100vw;
-    text-align: center;
+    text-align: center; font-size: 1.2rem;
+    padding: .75rem;
+    background-color: #3194d0;
+    a {
+      text-shadow: 8px 8px 2px rgba(35, 127, 200, 1);
+      text-decoration: none !important;
+      color: white !important;
+    }
   }
 }
