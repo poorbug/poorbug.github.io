@@ -1,9 +1,10 @@
-import React from 'react'
-import Interval from 'components/interval'
 import 'styles/core'
-import s from './index.style.scss'
-import favs from 'static/favicon/'
 
+import { Header } from 'components/'
+import Interval from 'components/interval'
+import React from 'react'
+import favs from 'static/favicon/'
+import s from './index.style.scss'
 
 export default class Layout extends React.Component {
 	state= {
@@ -27,6 +28,7 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div className={s.layoutBox}>
+				<Header />
         { this.props.children }
         <Interval timeout={15*1000} enabled={true} callback={this.faviconFlash}/>
       </div>

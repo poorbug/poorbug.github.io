@@ -1,17 +1,15 @@
-import Layout from '../layouts/'
-import Home from './Home/'
-import Playground from './Playground/'
-import Me from './me/'
 import App from './SpeedXApp/'
 import Getup from './Getup/'
+import Home from './Home/'
+import Layout from '../layouts/'
+import Me from './me/'
+import Playground from './Playground/'
 
-export const createRoutes = (store) => ({
+export const createRoutes = () => ({
+  path: '/',
   component: Layout,
+  indexRoute: { component: Home },
   childRoutes: [
-    {
-      path: '/',
-      component: Home
-    },
     {
       path: 'playground',
       component: Playground

@@ -1,0 +1,29 @@
+@import 'src/styles/base';
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+@import 'src/styles/screen';
+
+@font-face {
+  font-family: 'Oribitron';
+  src: url(http://omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf);
+}
+
+.header {
+  position: fixed; top: 0;
+  padding: 1rem;
+  text-align: left; font-size: 2rem; font-family: 'Oribitron'; font-weight: 600;
+  background-color: white;
+  @include transition(background-color .4s ease-in-out);
+  a {
+    @include transitions(color .4s ease-in-out, text-shadow .4s ease-in-out);
+  }
+  &:hover {
+    background-color: #3194d0;
+    a {
+      text-shadow: 8px 8px 2px rgba(35, 127, 200, 1);
+      text-decoration: none !important;
+      color: white !important;
+    }
+  }
+}
