@@ -1,6 +1,7 @@
 :global {
   @import 'base';
   @import '~normalize.css/normalize';
+  @import 'screen';
 
   // Some best-practice CSS that's useful for most apps
   // Just remove them if they're not what you want
@@ -81,6 +82,12 @@
     line-height: 1.875rem;
     > p {
       margin: 0;
+    }
+  }
+
+  @media($mobile) {
+    h1, h2, h3 {
+      text-align: center;
     }
   }
 }
