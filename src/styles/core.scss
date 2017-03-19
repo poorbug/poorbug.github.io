@@ -1,7 +1,6 @@
 :global {
   @import 'base';
   @import '~normalize.css/normalize';
-  @import 'screen';
 
   // Some best-practice CSS that's useful for most apps
   // Just remove them if they're not what you want
@@ -20,10 +19,6 @@
   *:before,
   *:after {
     box-sizing: inherit;
-  }
-
-  article {
-    margin-top: 6rem;
   }
 
   h1 {
@@ -89,7 +84,7 @@
     }
   }
 
-  @media($mobile) {
+  @media($small) {
     h1, h2, h3 {
       text-align: center;
     }

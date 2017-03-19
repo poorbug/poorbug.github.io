@@ -2,7 +2,6 @@
 @import 'src/styles/theme';
 @import 'src/styles/susy';
 @import 'src/styles/mixins';
-@import 'src/styles/screen';
 
 .author {
   > * {
@@ -29,7 +28,7 @@
       color: #969696;
     }
   }
-  @media($mobile) {
+  @media($small) {
     text-align: center;
   }
 }
