@@ -35,3 +35,27 @@
     }
   }
 }
+
+.dialog {
+  width: 80vw;
+  > section {
+    text-align: center;
+    > h6 {
+      margin: 0 0 2rem 0;
+    }
+    > img {
+      width: 100%;
+    }
+  }
+  @media ($small) {
+    width: 100vw; max-width: 100vw;
+    border-radius: 0;
+    > section {
+      padding: 1.2rem 0 2.4rem 0;
+      > h6 {
+        font-size: 1.75rem;
+        margin: 0 0 1rem 0;
+      }
+    }
+  }
+}
