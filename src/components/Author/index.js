@@ -5,8 +5,7 @@ import wilddog from 'wilddog'
 
 export default class Author extends React.Component {
   state = {
-    read: 0,
-    like: 0
+    read: 0
   }
 
   componentWillMount () {
@@ -14,15 +13,16 @@ export default class Author extends React.Component {
     wilddog.initializeApp({ syncURL: 'https://poorbug.wilddogio.com' })
     const sync = wilddog.sync()
     sync.ref(`/${path}`).on('value', snapshot => {
-      const value = snapshot.val()
-      this.setState({
-        like: value.like,
-        read: value.read
-      })
+      this.setState({ read: snapshot.val().read })
     }, error => {
       alert(JSON.stringify(error))
     })
-    sync.ref(`/${path}/read`).transaction(currentValue => (currentValue || 0) + 1)
+    if (!localStorage[`poorbug.${path}`]){
+      sync.ref(`/${path}/read`).transaction(currentValue => {
+        localStorage[`poorbug.${path}`] = true
+        return (currentValue || 0) + 1
+      })
+    }
   }
 
   render() {
@@ -33,7 +33,7 @@ export default class Author extends React.Component {
         <img src={img} />
         <div>
           <Link to='me' >{name}</Link><a href={`mailto:${email}`} rel='author'>📧</a><br/>
-          <time pubdate>{time}</time><span>阅读 {read}</span><span>喜欢 {like}</span>
+          <time pubdate>{time}</time><span>阅读 {read}</span>
         </div>
       </div>
     )
