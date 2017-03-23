@@ -15,6 +15,7 @@
   > div {
     height: 3.125rem;
     margin-left: 1rem;
+    text-align: left;
     > * {
       margin: 0 3px;
       line-height: 1.5;
@@ -23,9 +24,16 @@
       font-size: 1rem;
       color: #333;
     }
-    > time {
+    > time,
+    > span {
       font-size: .75rem;
       color: #969696;
+    }
+    > time {
+      margin-right: 1rem;
+    }
+    > span {
+      margin: 0 .3rem;
     }
   }
   @media($small) {

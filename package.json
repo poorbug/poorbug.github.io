@@ -124,6 +124,7 @@
     "susy": "latest",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
+    "wilddog": "^2.5.2",
     "yargs": "^4.0.0"
   },
   "devDependencies": {

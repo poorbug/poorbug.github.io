@@ -7,7 +7,7 @@ export default class Getup extends React.Component {
     return (
       <article>
         <h1>React 博客工程 上线</h1>
-        <Author img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif' name='朽木' email='poorbug@126.com' time='2017.03.09' />
+        <Author img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif' name='朽木' email='poorbug@126.com' time='2017.03.09' path='getup' />
         <h2>bg</h2>
         <ul>
           <li>许久之前用 <a href='https://github.com/poorbug/react-redux-starter-kit' >react-redux-starter-kit</a> 做了一个静态的博客工程，名为 Blog</li>
