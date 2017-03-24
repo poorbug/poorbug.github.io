@@ -13,13 +13,13 @@ export default class Author extends React.Component {
     wilddog.initializeApp({ syncURL: 'https://poorbug.wilddogio.com' })
     const sync = wilddog.sync()
     sync.ref(`/${path}`).on('value', snapshot => {
-      this.setState({ read: snapshot.val().read })
+      this.setState({ read: snapshot.val().read || 0 })
     }, error => {
       alert(JSON.stringify(error))
     })
-    if (!localStorage[`poorbug.${path}`]){
+    if (!localStorage[`poorbug.${path}.read`]){
       sync.ref(`/${path}/read`).transaction(currentValue => {
-        localStorage[`poorbug.${path}`] = true
+        localStorage[`poorbug.${path}.read`] = true
         return (currentValue || 0) + 1
       })
     }
