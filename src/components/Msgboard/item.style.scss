@@ -1,0 +1,36 @@
+@import 'src/styles/base';
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
+.item{
+  border-bottom: 1px dashed #ccc;
+  padding: 2rem .625rem;
+  &:last-child {
+    border: none;
+  }
+  > h5 {
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    color: #3194d0;
+    > span {
+      font-weight: 400;
+      color: #333;
+      margin-left: .375rem;
+    }
+  }
+  > h5 + p {
+    color: #333;
+    font-size: .875rem;
+    margin: 0 0 1rem 0;
+  }
+  > p + p {
+    font-size: .75rem; color: #969696;
+    float: right;
+    > a {
+      padding: 0 .5rem;
+      margin-left: .5rem;
+      cursor: pointer;
+    }
+  }
+}

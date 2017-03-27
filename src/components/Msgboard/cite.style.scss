@@ -1,0 +1,18 @@
+@import 'src/styles/base';
+@import 'src/styles/theme';
+@import 'src/styles/susy';
+@import 'src/styles/mixins';
+
+.cite{
+  > h6 {
+    margin: 0;
+    font-size: 1rem;
+    > span {
+      margin-left: .375rem;
+      font-weight: 400;
+    }
+  }
+  > p {
+    font-size: .75rem;
+  }
+}
