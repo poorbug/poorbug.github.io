@@ -1,4 +1,4 @@
-import Button from 'react-toolbox/lib/Button'
+import Button from 'react-toolbox/lib/button'
 import Item from './item'
 import React from 'react'
 import s from './style'
