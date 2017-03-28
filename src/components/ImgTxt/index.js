@@ -1,19 +1,33 @@
+import Dialog from 'react-toolbox/lib/dialog'
 import React from 'react'
 import s from './style'
 
 export default class ImgTxt extends React.Component {
   state = {
+    active: false,
     force: .3,
     moveX: 0,
     moveY: 0
   }
 
   componentDidMount() {
+    if ('ontouchforcechange' in document === false) {
+      this.img.addEventListener('click', this.handleToggle, false)
+    }
+
+    const onTouchmove = (e) => {
+      this.setState({
+        moveX: e.changedTouches[0].pageX - startX,
+        moveY: e.changedTouches[0].pageY - startY
+      })
+    }
+
     this.img.addEventListener('touchforcechange', e => {
       e.preventDefault()
       const currentForce = e.changedTouches[0].force
       if (currentForce > .3) {
         this.setState({ force: currentForce })
+        this.img.addEventListener('touchmove', onTouchmove, false)
       }
     }, false)
 
@@ -24,13 +38,6 @@ export default class ImgTxt extends React.Component {
       startY = e.changedTouches[0].pageY
     }, false)
 
-    this.img.addEventListener('touchmove', e => {
-      this.setState({
-        moveX: e.changedTouches[0].pageX - startX,
-        moveY: e.changedTouches[0].pageY - startY
-      })
-    }, false)
-
     this.img.addEventListener('touchend', e => {
       setTimeout(() => {
         this.setState({
@@ -38,9 +45,15 @@ export default class ImgTxt extends React.Component {
           moveX: 0,
           moveY: 0
         })
+        this.img.removeEventListener('touchmove', onTouchmove, false)
       }, 0)
     }, false)
   }
+
+  handleToggle = () => {
+    this.setState({ active: !this.state.active })
+  }
+
 
   render() {
     const { img, txt } = this.props
@@ -48,6 +61,17 @@ export default class ImgTxt extends React.Component {
     const scale = (force - .3) * 4 + 1
     return (
       <div className={s.imgtxt}>
+        <Dialog
+          actions={this.actions}
+          active={this.state.active}
+          onEscKeyDown={this.handleToggle}
+          onOverlayClick={this.handleToggle}
+          title={txt}
+          type='normal'
+          className={s.dialog}
+        >
+          <img src={img} />
+        </Dialog>
         <img
           src={img}
           style={{
