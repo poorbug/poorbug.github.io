@@ -23,9 +23,10 @@ export default class ImgTxt extends React.Component {
     }
 
     this.img.addEventListener('touchforcechange', e => {
-      e.preventDefault()
       const currentForce = e.changedTouches[0].force
-      if (currentForce > .3) {
+      // peek == .3
+      if (currentForce > .29) {
+        e.preventDefault()
         this.setState({ force: currentForce })
         this.img.addEventListener('touchmove', onTouchmove, false)
       }
