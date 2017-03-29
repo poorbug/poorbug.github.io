@@ -1,17 +1,20 @@
-import React from 'react'
-import s from './style'
-import Hero from './Hero'
-import Connect from './Connect'
-import Record from './Record'
+import { Author, Msgboard } from 'components/'
+
 import Badge from './Badge'
 import BadgeNew from './Badge.new'
 import Club from './Club'
+import Connect from './Connect'
+import Hero from './Hero'
+import React from 'react'
+import Record from './Record'
+import s from './style'
 
 export default class App extends React.Component {
   render() {
     return (
       <div className={s.box}>
       	<h1>新 SpeedX App 页面开发总结</h1>
+        <Author img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif' name='朽木' email='poorbug@126.com' time='2016.11.14' path='app' />
       	<h2>背景</h2>
         <p><a href='https://www.speedx.com/app' target='_blank' >SpeedX App</a></p>
       	<p>
@@ -79,6 +82,7 @@ export default class App extends React.Component {
         <h2>总结</h2>
         <p>这回开发这个页面，首先是没有其它需求，时间充裕。自己也花了不少心思在上头，最后的效果虽有瑕疵，但是感觉总体算还挺满意。踩了不少坑，但是也涨了不少知识，特别是在动画交互方面。</p>
         <p>要问我用什么东西能开发出效果好的页面呢？用时间和用心。</p>
+        <Msgboard path='app' />
       </div>
     )
   }
