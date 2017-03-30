@@ -1,7 +1,9 @@
-import React from 'react'
+import { AndroidIcon, AppleIcon } from 'components/Icons'
 import { isAndroid, isIos, isWechat } from 'utils/navigator'
-import { AppleIcon, AndroidIcon } from 'components/Icons'
+
 import { Dialog } from 'react-toolbox'
+import React from 'react'
+import classnames from 'classnames'
 import s from './Hero.style'
 
 export default class Hero extends React.Component {
@@ -50,7 +52,7 @@ export default class Hero extends React.Component {
   render() {
     const { android, ios, notice } = this.state
     return (
-      <div className={s.hero}>
+      <div className={classnames(s.hero, this.props.className)}>
         <Dialog
           className={s.notice}
           active={notice}

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import classnames from 'classnames'
 import s from './Club.style'
 
 const otherDots = [
@@ -126,7 +127,7 @@ export default class Club extends React.Component {
       return (<div className={s.animation} style={{left: dot[0], top: dot[1], transform: 'scale(' + scale + ')', animationDelay: delay}}></div>)
     })
     return (
-      <div className={s.club}>
+      <div className={classnames(s.club, this.props.className)}>
       	<h1><span>加入骑行俱乐部，</span><span>体验团队的力量</span></h1>
       	<p><span>建立你自己的骑行俱乐部，浏览俱乐部成员的最新动态；</span><span>发布活动、上传照片，沉淀俱乐部的丰富内容</span></p>
       	<div>

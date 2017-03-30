@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import classnames from 'classnames'
 import s from './Connect.style'
 
 export default class Connect extends React.Component {
@@ -111,7 +112,7 @@ export default class Connect extends React.Component {
     const { inScreen, animated, percent, min, second, speed, distance } = this.state
     const mobile = window.innerWidth <= 960
     return (
-      <div className={s.connect} >
+      <div className={classnames(s.connect, this.props.className)}>
       	<h1>连接你的 SpeedX 自行车</h1>
       	<p><span>野兽骑行 App 与 SpeedX 进行数据同步，</span><span>并把优质的骑行建议推送给你</span></p>
       	<div>

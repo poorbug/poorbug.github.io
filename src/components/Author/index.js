@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import React from 'react'
+import classnames from 'classnames'
 import s from './style'
 import wilddog from 'wilddog'
 
@@ -26,14 +27,14 @@ export default class Author extends React.Component {
   }
 
   render() {
-    const { img, name, email, time } = this.props
+    const { img, name, email, time, center } = this.props
     const { read, like } = this.state
     return (
-      <div className={s.author}>
+      <div className={classnames(s.author, center ? s.center : null)}>
         <img src={img} />
         <div>
           <Link to='me' >{name}</Link><a href={`mailto:${email}`} rel='author'>📧</a><br/>
-          <time pubdate>{time}</time><span>阅读 {read}</span>
+          <time>{time}</time><span>阅读 {read}</span>
         </div>
       </div>
     )

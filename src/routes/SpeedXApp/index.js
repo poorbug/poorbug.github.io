@@ -14,7 +14,7 @@ export default class App extends React.Component {
     return (
       <div className={s.box}>
       	<h1>新 SpeedX App 页面开发总结</h1>
-        <Author img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif' name='朽木' email='poorbug@126.com' time='2016.11.14' path='app' />
+        <Author img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif' name='朽木' email='poorbug@126.com' time='2016.11.14' path='app' center/>
       	<h2>背景</h2>
         <p><a href='https://www.speedx.com/app' target='_blank' >SpeedX App</a></p>
       	<p>
@@ -34,7 +34,7 @@ export default class App extends React.Component {
           大部分模块会被定宽和定高然后左右居中；图片模块的宽度设定为100vw，高度按图片宽高比设置。
         </p>
       	<h2>Hero</h2>
-      	<Hero />
+      	<Hero className={s.externModule}/>
       	<p>
       		这个模块为了让效果更好，做的是<code>width: 100vw; height: 100vh;</code>。
       	</p>
@@ -45,7 +45,7 @@ export default class App extends React.Component {
       		这个模块还有一个问题,在一些小尺寸手机，例如我手头上的小米2S,如果只是粗暴的<code>height: 100vh;</code>就会出现手机图案与按钮重叠的情况，这个时候就得需要一个<code>min-height</code>了。
       	</p>
       	<h2>Connect</h2>
-      	<Connect />
+      	<Connect className={s.externModule} />
       	<p>
       		这一块在html标签的顺序上有一点小技巧，因为在移动端不显示手机图，只显示中控图，而且中空图是在100%与进度条下边，因此三个标签的顺序为<code>手机图－百分比与进度条－中控</code>，与视觉上的顺序相反，但是在移动端的自适应就比较方便了。
       	</p>
@@ -53,21 +53,21 @@ export default class App extends React.Component {
       		这部分的动画分为两部分，数字的变化是通过setTimout递归来控制累加，图案的动画通过<code>transition</code>属性来实现的，给<code>transition</code>加上delay配合setTimeout的delay就能使动画无缝衔接。
       	</p>
         <h2>Record</h2>
-        <Record />
+        <Record className={s.externModule} />
         <p>开发这一块的时候遇到一个小问题。据我了解<code>transition</code>的兼容性应该是各家都支持了，真实情况却是也是如此。但是实践中发现各家可能是因为渲染的机制不一样，不加前缀的情况下，在Chrome下会有卡顿；因此最好还是把各个前缀的<code>transition</code>都给加上。</p>
         <h2>Badge</h2>
-        <Badge />
+        <Badge className={s.externModule} />
         <p>在野兽App里有一个勋章手机的活动，用户通过参加活动完成任务可以点亮相应的勋章。这一块设计师的意思是通过模糊到清晰来表达点亮的过程。经同事提醒，用雪碧图（CSS Sprite）生成的图。</p>
         <p>一开始，模糊状态是原尺寸，hover之后会变清晰与放大会<code>transform: scale(1.3)</code>(因为雪碧图用的是background-position, 所以无法指定background-size, 只能通过scale来缩放), 导致的问题是图片放大失真；后来换了一个思路，放大雪碧图的分辨率，模糊状态下是scale(.7), hover后是原尺寸的清晰图。So，这个问题解决。</p>
         <p>还有一个小技巧，模糊状态下勋章是没有边框的，清晰状态下是有边框的，设计稿切出来的则是有边框的，因此在模糊状态下加一个与背景色同样的边框，把图中的边框遮罩住，看起来就像没有边框了（其实有点反了，应该是需要边框的时候再加上边框，但是懒得找设计师改稿，加点小点子就搞定了）。</p>
 
         <p className={s.pc}>后来不咋忙的时候，又想给这一块的交互改改。</p>
-        <BadgeNew />
+        <BadgeNew className={s.externModule} />
         <p className={s.pc}>屏幕滚动到这个模块的时候，随机点亮几个勋章，剩下的用户通过点击可以点亮。感觉效果也不错。</p>
 
         <p>在测试的时候，发现部分样式在华为手机自带的系统浏览器中会失效，经过重重调查，发现transform在UC浏览器中需要加上-webkit才能生效(新一代IE？)，而华为手机的部分机型浏览器是由UC支持。</p>
         <h2>Club</h2>
-        <Club />
+        <Club className={s.externModule} />
         <p>Club这一块是最麻烦，而且花了最多工夫的部分，所以放在最后。</p>
         <p>刚了解到需求的时候，第一个感觉就是 div + img 可以搞定，控制属性的变化，transition加上动画的时长与延时就可以了。在开发2天后发现存在着很多小问题。</p>
         <p>1. 部分小圆点在闪动时会左右晃动。后来发现在width为2.5rem或者5rem的时候不会出现晃动情况，在试了几种方法后，还是没有解决这个问题，因为问题不是很大，因此先搁置处理其它问题去了。</p>

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import classnames from 'classnames'
 import names from 'classnames'
 import s from './Badge.new.style'
 
@@ -89,7 +90,7 @@ export default class Badge extends React.Component {
       return (<i onClick={()=>this.badgeOnclick(idx)} className={names(s['badge' + (idx + 1)], badges[idx] ? s.active : '')}></i>)
     })
     return (
-      <div className={s.badge}>
+      <div className={classnames(s.badge, this.props.className)}>
       	<h1>勋章活动，享受收集的乐趣</h1>
       	<p><span>通过一枚枚精心设计的勋章，</span><span>让你在骑行的同时享受到收集的乐趣。</span></p>
       	<div>

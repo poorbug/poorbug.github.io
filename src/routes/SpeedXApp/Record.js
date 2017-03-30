@@ -1,10 +1,11 @@
 import React from 'react'
+import classnames from 'classnames'
 import s from './Record.style'
 
 export default class Record extends React.Component {
   render() {
     return (
-      <div className={s.record}>
+      <div className={classnames(s.record, this.props.className)}>
       	<h1>记录骑行，分享骑行生活</h1>
       	<p>
       		<span>实时记录速度、里程、时间、</span>

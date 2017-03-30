@@ -4,6 +4,9 @@
 @import 'src/styles/mixins';
 
 .author {
+  &.center {
+    text-align: center;
+  }
   > * {
     display: inline-block;
     line-height: 1.5625rem;
