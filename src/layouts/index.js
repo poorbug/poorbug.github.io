@@ -1,6 +1,7 @@
 import 'styles/core'
 
-import { Header } from 'components/'
+import { Footer, Header } from 'components/'
+
 import Interval from 'components/interval'
 import React from 'react'
 import favs from 'static/favicon/'
@@ -16,13 +17,11 @@ export default class Layout extends React.Component {
 		favicon ++
 		favicon > 7 ? favicon = 0 : null
 		this.setState({ favicon })
-		const links = document.getElementsByTagName('link')
 
-		for(let i in links){
-			if(links[i].rel && links[i].rel.indexOf('icon') >= 0){
+		const links = document.getElementsByTagName('link')
+		for(let i in links)
+			if(links[i].rel && links[i].rel.indexOf('icon') >= 0)
 				links[i].href = favs[favicon]
-			}
-		}
 	}
 
   render() {
@@ -30,6 +29,7 @@ export default class Layout extends React.Component {
       <div className={s.layoutBox}>
 				<Header />
         { this.props.children }
+				<Footer />
         <Interval timeout={15*1000} enabled={true} callback={this.faviconFlash}/>
       </div>
     )

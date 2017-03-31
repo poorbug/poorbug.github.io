@@ -26,7 +26,6 @@
   }
   h2 {
     margin: 3rem 0 1.5rem 0;
-
   }
   h3 {
     margin: 3rem 0 1.25rem 0;
@@ -47,6 +46,7 @@
     color: #3194d0;
     outline: none;
     text-decoration: none;
+    cursor: pointer;
     &:hover {
       text-decoration: underline;
     }

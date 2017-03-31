@@ -6,7 +6,8 @@
 .layoutBox{
 	width: 43.75rem; min-height: 100vh;
 	padding-top: 4rem; padding-bottom: 7.5rem;
-  margin: auto; 
+  margin: auto;
+  position: relative;
 
   @media ($large){
     width: 62.5rem;
