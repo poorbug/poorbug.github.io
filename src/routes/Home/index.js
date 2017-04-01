@@ -10,6 +10,7 @@ export default class Home extends React.Component {
       	<p><Link to='me' >🚲 Poorbug</Link></p>
       	<ul>
           <li><Link to='getup' >React 博客工程 上线</Link></li>
+          <li><Link to='threejs' >Three.js 起手式</Link></li>
           <li><Link to='app' >新 SpeedX App 页面开发总结</Link></li>
       	</ul>
       </div>
