@@ -51,11 +51,12 @@
       text-decoration: underline;
     }
   }
-  ul {
+  ul, ol {
     margin: 0 0 1rem 0;
   }
   li {
     margin: 0 0 .625rem 0;
+    line-height: 1.25;
   }
 
   pre {
