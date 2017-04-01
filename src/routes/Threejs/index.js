@@ -9,9 +9,9 @@ export default class Threejs extends React.Component {
         <article>
           <h1>Three.js 起手式</h1>
           <Author img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif' name='朽木' email='poorbug@126.com' time='2016.12.06' path='threejs' />
-          <h2>题外话: </h2>
+          <h2>题外话</h2>
           <p>起手式，这个词第一次是从金庸的小说中看到的，通常用来向对手表示礼貌与尊敬，并不具备攻击性；大部分门派的基本功第一招都是起手式，因此也用来表示入门的第一步。</p>
-          <h2>bg: </h2>
+          <h2>bg</h2>
           <ol>
             <li>年会抽奖系统</li>
             <li>头像滚动</li>

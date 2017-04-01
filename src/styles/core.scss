@@ -69,6 +69,7 @@
     background-color: #f6f6f6;
     color: #657b83;
     code {
+      word-break: normal;
       font-family: Menlo, Monaco, Consolas, Courier New, monospace !important;
       > span {
         color: #93a1a1;
