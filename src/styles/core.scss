@@ -4,9 +4,7 @@
 
   // Some best-practice CSS that's useful for most apps
   // Just remove them if they're not what you want
-  html {
-    box-sizing: border-box;
-  }
+  html { box-sizing: border-box; }
 
   html,
   body {
@@ -23,13 +21,24 @@
   }
 
   h1 {
+    font-size: 2rem;
     margin: 3rem 0 1.75rem 0;
   }
   h2 {
+    font-size: 1.75rem;
     margin: 3rem 0 1.5rem 0;
   }
   h3 {
+    font-size: 1.5rem;
     margin: 3rem 0 1.25rem 0;
+  }
+  h4 {
+    font-size: 1.25rem;
+    margin: 3rem 0 1rem 0;
+  }
+  h5 {
+    font-size: 1.125rem;
+    margin: 3rem 0 .75rem 0;
   }
   p {
     margin: 0 0 1.5rem 0;
@@ -48,18 +57,13 @@
     outline: none;
     text-decoration: none;
     cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
+    &:hover { text-decoration: underline; }
   }
-  ul, ol {
-    margin: 0 0 1rem 0;
-  }
+  ul, ol { margin: 0 0 1rem 0; }
   li {
     margin: 0 0 .625rem 0;
     line-height: 1.25;
   }
-
   pre {
     overflow-x: scroll;
     padding: 1rem;
@@ -71,9 +75,7 @@
     code {
       word-break: normal;
       font-family: Menlo, Monaco, Consolas, Courier New, monospace !important;
-      > span {
-        color: #93a1a1;
-      }
+      > span { color: #93a1a1; }
     }
   }
   blockquote {
@@ -83,21 +85,16 @@
     border-left: 6px solid #b4b4b4;
     font-size: 1rem;
     line-height: 1.875rem;
-    > p {
-      margin: 0;
-    }
+    > p { margin: 0; }
+  }
+  div[data-role='==='] {
+    margin: 1rem 0;
+    border-top: 1px solid #ccc;
   }
 
   @media($small) {
-    article {
-      margin-top: -2rem;
-    }
-    h1, h2, h3 {
-      text-align: center;
-    }
-    h1 {
-      font-size: 1.5rem;
-    }
+    article { margin-top: -2rem; }
+    h1, h2, h3 { text-align: center; }
     p {
       margin: 0 0 1rem 0;
       line-height: 1.5;

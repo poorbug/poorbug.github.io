@@ -27,7 +27,7 @@ export default class Author extends React.Component {
   }
 
   render() {
-    const { img, name, email, time, center } = this.props
+    const { img='http://omhr7p9e5.bkt.clouddn.com/blog/monk.gif', name='朽木', email='poorbug@126.com', time, center } = this.props
     const { read, like } = this.state
     return (
       <div className={classnames(s.author, center ? s.center : null)}>

@@ -4,6 +4,7 @@ import Home from './Home/'
 import Layout from '../layouts/'
 import Me from './me/'
 import Playground from './Playground/'
+import Resume from './Resume'
 import Threejs from './Threejs'
 
 export const createRoutes = () => ({
@@ -30,6 +31,10 @@ export const createRoutes = () => ({
     {
       path: 'threejs',
       component : Threejs
+    },
+    {
+      path: 'resume',
+      component: Resume
     }
   ]
 })
