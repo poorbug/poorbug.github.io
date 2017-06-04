@@ -12,7 +12,7 @@ export default class Resume extends React.Component {
       <div>
         <article>
           <h1>简历</h1>
-          <Author time='2017.06.01' path={this.PATH} />
+          <Author time='2017.06.01' path={PATH} />
           <TitleBox title='李白翔'>
             <ul>
               <li>2015 届 本科</li>
@@ -70,7 +70,7 @@ export default class Resume extends React.Component {
             </ul>
           </TitleBox>
         </article>
-        <Msgboard path={this.PATH} />
+        <Msgboard path={PATH} />
       </div>
     )
   }
