@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React 博客工程 上线 | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="bg 许久之前用 react-redux-starter-kit 做了一个静态的博客工程，名为 Blog 许久之前买了一个阿里云服务器 许久之前买了两个域名  Initial state Blog 在本地可正常启动 服务器全新状态 域名全新状态没用过 没有自己搞过服务器  服务器初始设置 安装 Node第一个想到的就是 Node ，从来没有搞过服务器，因此我连怎么装都不知道…  查了一下官方文档，">
+<meta name="keywords" content="React,blog,react-starter-kit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 博客工程 上线">
+<meta property="og:url" content="http://poorbug.cn/2017/03/09/getup/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="bg 许久之前用 react-redux-starter-kit 做了一个静态的博客工程，名为 Blog 许久之前买了一个阿里云服务器 许久之前买了两个域名  Initial state Blog 在本地可正常启动 服务器全新状态 域名全新状态没用过 没有自己搞过服务器  服务器初始设置 安装 Node第一个想到的就是 Node ，从来没有搞过服务器，因此我连怎么装都不知道…  查了一下官方文档，">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/blog/welcome.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/blog/without%20node.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/blog/curl.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/blog/ssh.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/blog/nginx%20default.png">
+<meta property="og:updated_time" content="2017-10-09T08:39:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React 博客工程 上线">
+<meta name="twitter:description" content="bg 许久之前用 react-redux-starter-kit 做了一个静态的博客工程，名为 Blog 许久之前买了一个阿里云服务器 许久之前买了两个域名  Initial state Blog 在本地可正常启动 服务器全新状态 域名全新状态没用过 没有自己搞过服务器  服务器初始设置 安装 Node第一个想到的就是 Node ，从来没有搞过服务器，因此我连怎么装都不知道…  查了一下官方文档，">
+<meta name="twitter:image" content="http://omhr7p9e5.bkt.clouddn.com/blog/welcome.png">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="//cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-getup" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/09/getup/" class="article-date">
+  <time datetime="2017-03-08T16:00:00.000Z" itemprop="datePublished">2017-03-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React 博客工程 上线
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="bg"><a href="#bg" class="headerlink" title="bg"></a>bg</h2><ul>
+<li>许久之前用 <a href="https://github.com/poorbug/react-redux-starter-kit" target="_blank" rel="external">react-redux-starter-kit</a> 做了一个静态的博客工程，名为 Blog</li>
+<li>许久之前买了一个阿里云服务器</li>
+<li>许久之前买了两个域名</li>
+</ul>
+<h2 id="Initial-state"><a href="#Initial-state" class="headerlink" title="Initial state"></a>Initial state</h2><ul>
+<li>Blog 在本地可正常启动</li>
+<li>服务器全新状态</li>
+<li>域名全新状态没用过</li>
+<li>没有自己搞过服务器</li>
+</ul>
+<h2 id="服务器初始设置"><a href="#服务器初始设置" class="headerlink" title="服务器初始设置"></a>服务器初始设置</h2><p><img src="http://omhr7p9e5.bkt.clouddn.com/blog/welcome.png" alt="welcome"></p>
+<h3 id="安装-Node"><a href="#安装-Node" class="headerlink" title="安装 Node"></a>安装 Node</h3><p>第一个想到的就是 Node ，从来没有搞过服务器，因此我连怎么装都不知道…</p>
+<p><img src="http://omhr7p9e5.bkt.clouddn.com/blog/without%20node.png" alt="without Node"></p>
+<p>查了一下官方文档，和 Google 结果，据说 <a href="http://baike.baidu.com/item/apt-get" target="_blank" rel="external">apt-get</a> （我也是第一回知道 apt-get 这个东西）会安装一个非常老的版本，例如 2.x 之类的；6.x 与 7.x 的安装方法又不一样，于是向运维同学请教得知以下命令（有人指点果然省事许多）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## 都在 root 用户下执行</span></div><div class="line"></div><div class="line">apt-get update</div><div class="line"></div><div class="line">apt-get install python-software-properties -y</div><div class="line"></div><div class="line">curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -</div><div class="line"></div><div class="line">apt-get install nodejs -y  <span class="comment"># 这步时间比较久，因为是在</span></div><div class="line"></div><div class="line">node -v   <span class="comment"># 查看一下版本，然后可以安装个 nvm 去切换版本</span></div><div class="line"></div><div class="line">---</div><div class="line">上面那个是 安装 7.7.1 的 node， 比较新，也可以直接 apt-get install nodejs ， 这样装的话，版本比较旧</div></pre></td></tr></table></figure></p>
+<p>到 curl 又卡住，curl 是什么东西…</p>
+<h3 id="安装-curl"><a href="#安装-curl" class="headerlink" title="安装 curl"></a>安装 <a href="https://curl.haxx.se/" target="_blank" rel="external">curl</a></h3><p><img src="http://omhr7p9e5.bkt.clouddn.com/blog/curl.png" alt="curl"></p>
+<blockquote>
+<p>command line tool and library<br>for transferring data with URLs</p>
+</blockquote>
+<p>根据控制台提示 <code>apt-get install curl</code> , done.<br>然后继续安装 Node , done.</p>
+<h3 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h3><p><code>apt-get git</code><br>但是博客工程是一个私有工程，需要给配秘钥，以前在开发 <a href="http://www.wandoujia.com/apps/com.frimap" target="_blank" rel="external">Frimap</a> 的时候给配过，但是早已忘记了，于是 <a href="https://docs.gitlab.com/ce/ssh/README.html" target="_blank" rel="external">Google</a> 之。</p>
+<blockquote>
+<p><code>ssh-keygen -t rsa -C &quot;your.email@example.com&quot; -b 4096</code></p>
+</blockquote>
+<p><img src="http://omhr7p9e5.bkt.clouddn.com/blog/ssh.png" alt="~/.ssh/id_rsa.pub"><br>得到一串 ssh-rsa 开头的长串，粘到 Git 工程中的 Deploy keys 中；在服务器目录下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> xxxxxxxxxxxxx</div><div class="line"></div><div class="line">git pull</div></pre></td></tr></table></figure></p>
+<p>工程即可得。</p>
+<h3 id="安装-cnpm"><a href="#安装-cnpm" class="headerlink" title="安装 cnpm"></a>安装 <a href="https://npm.taobao.org/" target="_blank" rel="external">cnpm</a></h3><p>试着 <code>npm install</code> 一下，发现没有梯子果然很慢，甚至根本 install 不了…<br>cnpm 早有耳闻，一直有梯，从未用过。服务器搭梯子有点费劲，用 cnpm 还是比较省事儿的。</p>
+<blockquote>
+<p><code>npm install -g cnpm --registry=https://registry.npm.taobao.org   # 安装cnpm</code></p>
+</blockquote>
+<p>则，可 <code>cnpm install</code><br>然后，<code>npm start</code> 工程成功启动。</p>
+<h3 id="安装-NGINX"><a href="#安装-NGINX" class="headerlink" title="安装 NGINX"></a>安装 <a href="https://nginx.org/en/" target="_blank" rel="external">NGINX</a></h3><p>之前搞公司前端测试服务器的时候曾经搞过一点 NGINX 相关的配置，但是只是很皮毛的东西，无非是写一些路由配置。<br><a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-14-04-lts" target="_blank" rel="external">Google: nginx ubuntu 的第一个结果</a>：</p>
+<blockquote>
+<p><code>sudo apt-get install nginx</code></p>
+</blockquote>
+<p>NGINX, done.</p>
+<h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><p>在阿里云的控制台中找域名解析，将服务器 ip 填入即可。</p>
+<h3 id="NGINX-配置"><a href="#NGINX-配置" class="headerlink" title="NGINX 配置"></a>NGINX 配置</h3><p><img src="http://omhr7p9e5.bkt.clouddn.com/blog/nginx%20default.png" alt="配置文件路径"><br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="section">server</span> &#123;</div><div class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</div><div class="line">  <span class="attribute">server_name</span> your.domain;</div><div class="line">  <span class="attribute">location</span> / &#123;</div><div class="line">    <span class="attribute">proxy_pass</span>                          http://your ip address:port/;</div><div class="line">    <span class="attribute">proxy_set_header</span> Host               <span class="variable">$host</span>;</div><div class="line">    <span class="attribute">proxy_set_header</span> X-Real-IP          <span class="variable">$remote_addr</span>;</div><div class="line">    <span class="attribute">proxy_set_header</span> X-Forwarded-For    <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">    <span class="attribute">client_body_buffer_size</span>             <span class="number">128k</span>;</div><div class="line">    <span class="attribute">client_max_body_size</span>                <span class="number">1m</span>;</div><div class="line">    <span class="attribute">proxy_connect_timeout</span>               <span class="number">90</span>;</div><div class="line">    <span class="attribute">proxy_send_timeout</span>                  <span class="number">90</span>;</div><div class="line">    <span class="attribute">proxy_buffer_size</span>                   <span class="number">4k</span>;</div><div class="line">    <span class="attribute">proxy_buffers</span>                       <span class="number">4</span> <span class="number">32k</span>;</div><div class="line">    <span class="attribute">proxy_busy_buffers_size</span>             <span class="number">64k</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>保存，启动 NGINX。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo nginx</div><div class="line"></div><div class="line">sudo nginx -s reload</div></pre></td></tr></table></figure></p>
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>直到目前为止，我认为一切都OK了。</p>
+<ul>
+<li>域名已解析</li>
+<li><code>npm start</code> 已启动</li>
+<li>NGINX 已配置并启动 <code>sudo nginx</code></li>
+</ul>
+<p>浏览器访问 poorbug.tech ，能够成功访问。✌️</p>
+<p>补充：运行 <code>npm run deploy:prod</code> 即可</p>
+<p><del>但是，当我晚上试着访问时，发现页面 502 了，目测是工程挂了，上去一看确实是，于是到公司的工程中翻找同事写的上线脚本，发现了一丝线索。</del></p>
+<p><del><code>run(&#39;forever start -c &quot;npm run start-prod&quot; .&#39;)</code></del></p>
+<p><del><a href="https://www.npmjs.com/package/forever" target="_blank" rel="external">forever</a> 又是什么鬼?</del></p>
+<p><del>A simple CLI tool for ensuring that a given script runs continuously (i.e. forever).</del></p>
+<p><del><code>$ [sudo] npm install forever -g</code> 如提示安装</del></p>
+<p><del>run command <code>forever start -c &quot;npm run start-prod&quot;</code></del></p>
+<p><del>报错！不解，Google 了一下，得到此解 <a href="https://github.com/foreverjs/forever/issues/540" target="_blank" rel="external">https://github.com/foreverjs/forever/issues/540</a>。<br>细看后发现原来在同事的脚本中后面有一个 . 表示路径，被我忽略了。于是重新 run command ， done.</del></p>
+<p>后来在与同事聊天中得知，原来 <code>forever</code> 的作用是让工程一直处于运行的状态，服务端渲染才需要，因此此处只要生成静态文件部署就行了。</p>
+<h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>到此，Blog 工程跑起来了。感觉在这个过程中，<strong>分而治之</strong>的思想很好的解决了这个问题，把每一个工具都安装配置调试好了，那么工程就跑起来了。<br>完美。</p>
+
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react-starter-kit/">react-starter-kit</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("getup").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("getup").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/14/regex/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          正则表达式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/12/06/threejs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Three.js 起手式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

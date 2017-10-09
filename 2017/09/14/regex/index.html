@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>正则表达式 | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Javascript 标准参考教程 - RegExp对象 by 阮一峰 写法 var regex = /xyz/i;  // 字面量 var regex = new RegExp(&amp;#39;xyz&amp;#39;, &amp;#39;i&amp;#39;);  // RegExp构造函数  区别： 两种方式新建正则表达式的时机不一样；字面量写法在编译时新建正则表达式，第二种在运行时新建。 属性 regex.ignore">
+<meta name="keywords" content="正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="http://poorbug.cn/2017/09/14/regex/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="Javascript 标准参考教程 - RegExp对象 by 阮一峰 写法 var regex = /xyz/i;  // 字面量 var regex = new RegExp(&amp;#39;xyz&amp;#39;, &amp;#39;i&amp;#39;);  // RegExp构造函数  区别： 两种方式新建正则表达式的时机不一样；字面量写法在编译时新建正则表达式，第二种在运行时新建。 属性 regex.ignore">
+<meta property="og:updated_time" content="2017-09-22T02:35:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式">
+<meta name="twitter:description" content="Javascript 标准参考教程 - RegExp对象 by 阮一峰 写法 var regex = /xyz/i;  // 字面量 var regex = new RegExp(&amp;#39;xyz&amp;#39;, &amp;#39;i&amp;#39;);  // RegExp构造函数  区别： 两种方式新建正则表达式的时机不一样；字面量写法在编译时新建正则表达式，第二种在运行时新建。 属性 regex.ignore">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="//cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-regex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/14/regex/" class="article-date">
+  <time datetime="2017-09-13T16:00:00.000Z" itemprop="datePublished">2017-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      正则表达式
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://javascript.ruanyifeng.com/stdlib/regexp.html" target="_blank" rel="external">Javascript 标准参考教程 - RegExp对象 by 阮一峰</a></p>
+<h2 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h2><ol>
+<li><code>var regex = /xyz/i;  // 字面量</code></li>
+<li><code>var regex = new RegExp(&#39;xyz&#39;, &#39;i&#39;);  // RegExp构造函数</code></li>
+</ol>
+<p>区别：</p>
+<p>两种方式新建正则表达式的时机不一样；<br>字面量写法在编译时新建正则表达式，第二种在运行时新建。</p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><ul>
+<li>regex.ignoreCase</li>
+<li>regex.global</li>
+<li>regex.multiline</li>
+<li>regex.lastIndex</li>
+<li>regex.source</li>
+</ul>
+<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><ul>
+<li>regex.test(string)</li>
+<li>string.match(regex)</li>
+</ul>
+<h3 id="regex-test-str-boolean"><a href="#regex-test-str-boolean" class="headerlink" title="regex.test(str) : boolean"></a>regex.test(str) : boolean</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/cat/.test(&apos;cats and dogs&apos;) // true</div></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>如果正则表达式带有 g 修饰符，则每一次 test 方法都从上一次结束的位置开始向后匹配。</li>
+<li>如果正则模式是一个空字符串，则匹配所有字符串。</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">new RegExp(&apos;&apos;).test(&apos;abc&apos;)  // true</div></pre></td></tr></table></figure>
+<h3 id="str-match-regex-array-null"><a href="#str-match-regex-array-null" class="headerlink" title="str.match(regex) : array || null"></a>str.match(regex) : array || null</h3><p>lastIndex 无效</p>
+<h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><h3 id="regex-exec-str-array-null"><a href="#regex-exec-str-array-null" class="headerlink" title="regex.exec(str) : array || null"></a>regex.exec(str) : array || null</h3><p>返回每一个匹配成功的子字符串</p>
+<blockquote>
+<p>如果正则表示式包含圆括号（即含有“组匹配”），则返回的数组会包括多个成员。第一个成员是整个匹配成功的结果，后面的成员就是圆括号对应的匹配成功的组。也就是说，第二个成员对应第一个括号，第三个成员对应第二个括号，以此类推。整个数组的length属性等于组匹配的数量再加1。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var s = &apos;_x_x&apos;;</div><div class="line">var r = /_(x)/;</div><div class="line"></div><div class="line">r.exec(s) // [&quot;_x&quot;, &quot;x&quot;]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var r = /a(b+)a/;</div><div class="line">var arr = r.exec(&apos;_abbba_aba_&apos;);</div><div class="line"></div><div class="line">arr // [&quot;abbba&quot;, &quot;bbb&quot;]</div><div class="line"></div><div class="line">arr.index // 1</div><div class="line">arr.input // &quot;_abbba_aba_&quot;</div></pre></td></tr></table></figure>
+<h3 id="str-search-regex-int"><a href="#str-search-regex-int" class="headerlink" title="str.search(regex) : int"></a>str.search(regex) : int</h3><ul>
+<li>返回 index 或者 -1</li>
+<li>-g &amp; lastIndex 无效</li>
+</ul>
+<h3 id="str-replace-regex-replacement-：string"><a href="#str-replace-regex-replacement-：string" class="headerlink" title="str.replace(regex, replacement) ：string"></a>str.replace(regex, replacement) ：string</h3><ul>
+<li>-g 替换所有匹配，否则替换第一个匹配</li>
+<li><p>$ replace方法的第二个参数可以使用美元符号$，用来指代所替换的内容。</p>
+<ul>
+<li>$&amp; 指代匹配的子字符串。</li>
+<li>$` 指代匹配结果前面的文本。</li>
+<li>$’ 指代匹配结果后面的文本。</li>
+<li>$n 指代匹配成功的第n组内容，n是从1开始的自然数。</li>
+<li><p>$$ 指代美元符号$。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&apos;hello world&apos;.replace(/(\w+)\s(\w+)/, &apos;$2 $1&apos;)</div><div class="line">// &quot;world hello&quot;</div><div class="line"></div><div class="line">&apos;abc&apos;.replace(&apos;b&apos;, &apos;[$`-$&amp;-$\&apos;]&apos;)</div><div class="line">// &quot;a[a-b-c]c&quot;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><blockquote>
+<p>replace方法的第二个参数还可以是一个函数，将每一个匹配内容替换为函数返回值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;3 and 5&apos;.replace(/[0-9]+/g, match =&gt; 2 * match) // &quot;6 and 10&quot;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>函数多个参数</p>
+<blockquote>
+<p>作为replace方法第二个参数的替换函数，可以接受多个参数。第一个参数是捕捉到的内容，第二个参数是捕捉到的组匹配（有多少个组匹配，就有多少个对应的参数）。此外，最后还可以添加两个参数，倒数第二个参数是捕捉到的内容在整个字符串中的位置（比如从第五个位置开始），最后一个参数是原字符串。</p>
+</blockquote>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">template.replace(</div><div class="line">  /(&lt;span id=&quot;)(.*?)(&quot;&gt;)(&lt;\/span&gt;)/g,</div><div class="line">  function(match, $1, $2, $3, $4)&#123;</div><div class="line">    return $1 + $2 + $3 + prices[$2] + $4;</div><div class="line">  &#125;</div><div class="line">);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="str-split-regex-numOfArray-array"><a href="#str-split-regex-numOfArray-array" class="headerlink" title="str.split(regex, numOfArray) : array"></a>str.split(regex, numOfArray) : array</h3><h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><h3 id="点字符"><a href="#点字符" class="headerlink" title="点字符(.)"></a>点字符(.)</h3><blockquote>
+<p>点字符（.）匹配除回车（\r）、换行(\n) 、行分隔符（\u2028）和段分隔符（\u2029）以外的所有单个字符。</p>
+</blockquote>
+<h3 id="位置字符"><a href="#位置字符" class="headerlink" title="位置字符"></a>位置字符</h3><ul>
+<li>^ 表示开头</li>
+<li>$ 表示结尾<br><code>/^test$/.test(&#39;test&#39;) // true // 从开始位置到结束位置只有 test</code></li>
+</ul>
+<h3 id="选择符"><a href="#选择符" class="headerlink" title="选择符 |"></a>选择符 |</h3><ul>
+<li>/a( |t)b/.test(‘atb’) // true</li>
+</ul>
+<h3 id="转义符"><a href="#转义符" class="headerlink" title="转义符 \"></a>转义符 \</h3><blockquote>
+<p>需要特别注意的是，如果使用RegExp方法生成正则对象，转义需要使用两个斜杠，因为字符串内部会先转义一次。</p>
+</blockquote>
+<p>以下字符需要转义</p>
+<ul>
+<li>^</li>
+<li>.</li>
+<li>[</li>
+<li>$</li>
+<li>(</li>
+<li>)</li>
+<li>|</li>
+<li>*</li>
+<li>+</li>
+<li>?</li>
+<li>{</li>
+<li>\</li>
+</ul>
+<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><ul>
+<li>\cX 表示Ctrl-[X]，其中的X是A-Z之中任一个英文字母，用来匹配控制字符。</li>
+<li>[\b] 匹配退格键(U+0008)，不要与\b混淆。</li>
+<li>\n 匹配换行键。</li>
+<li>\r 匹配回车键。</li>
+<li>\t 匹配制表符tab（U+0009）。</li>
+<li>\v 匹配垂直制表符（U+000B）。</li>
+<li>\f 匹配换页符（U+000C）。</li>
+<li>\0 匹配null字符（U+0000）。</li>
+<li>\xhh 匹配一个以两位十六进制数（\x00-\xFF）表示的字符。</li>
+<li>\uhhhh 匹配一个以四位十六进制数（\u0000-\uFFFF）表示的unicode字符。</li>
+</ul>
+<h3 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h3><p>#### </p>
+<ul>
+<li>[] 字符类  // <code>/[abc]/.test(&#39;apple&#39;) // true</code> 包含类中的字符</li>
+<li>^ 脱字符  // <code>/[^abc]/.test(&#39;apple&#39;) // false</code> </li>
+<li><ul>
+<li>连字符  // /[a-z]/.test(‘b’) // true</li>
+</ul>
+</li>
+</ul>
+<h3 id="预定义模式"><a href="#预定义模式" class="headerlink" title="预定义模式"></a>预定义模式</h3><ul>
+<li>\d 匹配0-9之间的任一数字，相当于[0-9]。</li>
+<li>\D 匹配所有0-9以外的字符，相当于[^0-9]。</li>
+<li>\w 匹配任意的字母、数字和下划线，相当于[A-Za-z0-9_]。</li>
+<li>\W 除所有字母、数字和下划线以外的字符，相当于[^A-Za-z0-9_]。</li>
+<li>\s 匹配空格（包括制表符、空格符、断行符等），相等于[\t\r\n\v\f]。</li>
+<li>\S 匹配非空格的字符，相当于[^\t\r\n\v\f]。</li>
+<li>\b 匹配词的边界。</li>
+<li>\B 匹配非词边界，即在词的内部。</li>
+</ul>
+<h3 id="重复类"><a href="#重复类" class="headerlink" title="重复类"></a>重复类</h3><blockquote>
+<p>模式的精确匹配次数，使用大括号（{}）表示。{n} 表示恰好重复 n 次，{n,} 表示至少重复 n 次，{n,m} 表示重复不少于 n 次，不多于 m 次。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/lo&#123;2&#125;k/.test(&apos;look&apos;) // true</div><div class="line">/lo&#123;2,5&#125;k/.test(&apos;looook&apos;) // true</div></pre></td></tr></table></figure>
+<h3 id="量词符"><a href="#量词符" class="headerlink" title="量词符"></a>量词符</h3><ul>
+<li>? 问号表示某个模式出现0次或1次，等同于 {0, 1}。</li>
+<li><ul>
+<li>星号表示某个模式出现0次或多次，等同于 {0,}。</li>
+</ul>
+</li>
+<li><ul>
+<li>加号表示某个模式出现1次或多次，等同于 {1,}。</li>
+</ul>
+</li>
+</ul>
+<h3 id="贪婪模式"><a href="#贪婪模式" class="headerlink" title="贪婪模式"></a>贪婪模式</h3><blockquote>
+<p>最大可能匹配，即匹配直到下一个字符不满足匹配规则为止。</p>
+</blockquote>
+<ul>
+<li>*?：表示某个模式出现0次或多次，匹配时采用非贪婪模式。</li>
+<li>+?：表示某个模式出现1次或多次，匹配时采用非贪婪模式。</li>
+</ul>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><ul>
+<li>g // global 从上一次匹配处往下匹配，可用于搜索和替换</li>
+<li>i // ignoreCase 忽略大小写</li>
+<li><p>m // multiline</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/world$/.test(&apos;hello world\n&apos;) // false</div><div class="line">/world$/m.test(&apos;hello world\n&apos;) // true</div><div class="line">/^b/m.test(&apos;a\nb&apos;) // true</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="组匹配"><a href="#组匹配" class="headerlink" title="组匹配"></a>组匹配</h3><blockquote>
+<p>正则表达式的括号表示分组匹配，括号中的模式可以用来匹配分组的内容。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/fred+/.test(&apos;fredd&apos;) // true</div><div class="line">/(fred)+/.test(&apos;fredfred&apos;) // true</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var tagName = /&lt;([^&gt;]+)&gt;[^&lt;]*&lt;\/\1&gt;/;</div><div class="line"></div><div class="line">tagName.exec(&quot;&lt;b&gt;bold&lt;/b&gt;&quot;)[1]</div><div class="line">// &apos;b&apos;</div></pre></td></tr></table></figure>
+<h4 id="非捕获组"><a href="#非捕获组" class="headerlink" title="非捕获组"></a>非捕获组</h4><blockquote>
+<p>(?:x)称为非捕获组（Non-capturing group），表示不返回该组匹配的内容，即匹配的结果中不计入这个括号。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var m = &apos;abc&apos;.match(/(?:.)b(.)/);</div><div class="line">m // [&quot;abc&quot;, &quot;c&quot;]</div></pre></td></tr></table></figure>
+<h4 id="先行断言"><a href="#先行断言" class="headerlink" title="先行断言"></a>先行断言</h4><blockquote>
+<p>x(?=y)称为先行断言（Positive look-ahead），x只有在y前面才匹配，y不会被计入返回结果。比如，要匹配后面跟着百分号的数字，可以写成/\d+(?=%)/。</p>
+</blockquote>
+<h4 id="先行否定断言"><a href="#先行否定断言" class="headerlink" title="先行否定断言"></a>先行否定断言</h4><blockquote>
+<p>x(?!y)称为先行否定断言（Negative look-ahead），x只有不在y前面才匹配，y不会被计入返回结果。比如，要匹配后面跟的不是百分号的数字，就要写成/\d+(?!%)/。</p>
+</blockquote>
+
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则表达式/">正则表达式</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("regex").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("regex").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/20/react-native-flex/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          使用 Flex 布局 React Native 组件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/09/getup/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">React 博客工程 上线</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

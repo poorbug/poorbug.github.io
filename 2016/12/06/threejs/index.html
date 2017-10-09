@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Three.js 起手式 | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题外话：起手式，这个词第一次是从金庸的小说中看到的，通常用来向对手表示礼貌与尊敬，并不具备攻击性；大部分门派的基本功第一招都是起手式，因此也用来表示入门的第一步。  bg: 年会抽奖系统 头像滚动 Powered by Three.js Based on WebGL   相关资料：  Three.js 基础教程 // 比较入门的教程，非常好理解，但是 demo 里头的一些方法已经废弃，建议参照官网">
+<meta name="keywords" content="Three.js,starter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Three.js 起手式">
+<meta property="og:url" content="http://poorbug.cn/2016/12/06/threejs/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="题外话：起手式，这个词第一次是从金庸的小说中看到的，通常用来向对手表示礼貌与尊敬，并不具备攻击性；大部分门派的基本功第一招都是起手式，因此也用来表示入门的第一步。  bg: 年会抽奖系统 头像滚动 Powered by Three.js Based on WebGL   相关资料：  Three.js 基础教程 // 比较入门的教程，非常好理解，但是 demo 里头的一些方法已经废弃，建议参照官网">
+<meta property="og:updated_time" content="2017-09-22T02:31:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Three.js 起手式">
+<meta name="twitter:description" content="题外话：起手式，这个词第一次是从金庸的小说中看到的，通常用来向对手表示礼貌与尊敬，并不具备攻击性；大部分门派的基本功第一招都是起手式，因此也用来表示入门的第一步。  bg: 年会抽奖系统 头像滚动 Powered by Three.js Based on WebGL   相关资料：  Three.js 基础教程 // 比较入门的教程，非常好理解，但是 demo 里头的一些方法已经废弃，建议参照官网">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="//cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-threejs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/06/threejs/" class="article-date">
+  <time datetime="2016-12-05T16:00:00.000Z" itemprop="datePublished">2016-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Three.js 起手式
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="题外话："><a href="#题外话：" class="headerlink" title="题外话："></a>题外话：</h2><p>起手式，这个词第一次是从金庸的小说中看到的，通常用来向对手表示礼貌与尊敬，并不具备攻击性；大部分门派的基本功第一招都是起手式，因此也用来表示入门的第一步。</p>
+<hr>
+<h2 id="bg"><a href="#bg" class="headerlink" title="bg:"></a>bg:</h2><ol>
+<li>年会抽奖系统</li>
+<li>头像滚动</li>
+<li>Powered by Three.js Based on WebGL</li>
+</ol>
+<hr>
+<h2 id="相关资料："><a href="#相关资料：" class="headerlink" title="相关资料："></a>相关资料：</h2><ol>
+<li><a href="http://www.hewebgl.com/article/articledir/1" target="_blank" rel="external"> Three.js 基础教程</a> // 比较入门的教程，非常好理解，但是 demo 里头的一些方法已经废弃，建议参照官网文档进行阅读</li>
+<li><a href="https://threejs.org/" target="_blank" rel="external"> 官网 </a> // 官网并不是很适合入门，没有 tutorial，文档当字典用，demo 看看效果，源码也可以看点，但是不是很友好</li>
+<li><a href="http://ohqua234y.bkt.clouddn.com/webgl/THREE.JS%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.pdf" target="_blank" rel="external"> Three.js 开发指南.pdf </a> //  电子书，上面俩找不到的东西，可以上这里头翻翻</li>
+<li><a href="http://taobaofed.org/blog/2015/12/21/webgl-handbook/" target="_blank" rel="external">淘宝团队 WebGL 技术储备指南</a>  //有比较多的数学概念，不是很好理解，建议进阶阅读</li>
+</ol>
+<hr>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>先上一个 Demo。概念的东西就不提了，在资料里头的教程里就能看到简单易懂的介绍。<br>首先撇开其他方面的依赖，直接回到最原始的开发环境中，也就是静态的 HTML 页面。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Three.js Demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">        html, body &#123; margin:0;overflow: hidden; &#125;</span></div><div class="line"><span class="undefined">        canvas &#123; width: 100%; height: 120% &#125;</span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./three.min.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> scene, camera, renderer;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">    init();</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">        scene = <span class="keyword">new</span> THREE.Scene();</span></div><div class="line"><span class="javascript">        camera = <span class="keyword">new</span> THREE.PerspectiveCamera( <span class="number">75</span>, <span class="built_in">window</span>.innerWidth / <span class="built_in">window</span>.innerHeight, <span class="number">1</span>, <span class="number">10000</span> );</span></div><div class="line"><span class="javascript">        renderer = <span class="keyword">new</span> THREE.WebGLRenderer();</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">        camera.position.z = 0;</span></div><div class="line"><span class="javascript">        renderer.setSize( <span class="built_in">window</span>.innerWidth, <span class="built_in">window</span>.innerHeight );</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> geometry = <span class="keyword">new</span> THREE.PlaneGeometry( <span class="number">128</span>, <span class="number">128</span>, <span class="number">1</span>, <span class="number">1</span>);</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> material = <span class="keyword">new</span> THREE.MeshBasicMaterial( &#123;<span class="attr">color</span>: <span class="number">0xfffff</span>&#125; );</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> plane = <span class="keyword">new</span> THREE.Mesh( geometry, material );</span></div><div class="line"><span class="undefined">        plane.position.z = -500;</span></div><div class="line"><span class="undefined">        scene.add( plane );</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">        <span class="built_in">document</span>.body.appendChild( renderer.domElement );</span></div><div class="line"><span class="undefined">        renderer.render( scene, camera );</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在这里头画了一个正方形（只是一个面）， 调好 camera 与物体之间的距离，就能看到这个正方形。<br>让场景动起来的方法有两种，</p>
+<ol>
+<li>移动 camera ， 让场景相对动起来。</li>
+<li>移动场景里头的物体，这是场景真正动起来。</li>
+</ol>
+<p>现在我们要让场景动起来，下面 Demo 采用的是第一种方法，让 camera 动起来。在代码里头加入 animate 方法，下面这个 Demo 只改变了 z 轴的值，使 camera 前后移动。<br><code>requestAnimationFrame</code> 方法不明白自行 Google (之前看过一个很好的博文，找不着了)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    <span class="keyword">var</span> scene, camera, renderer;</div><div class="line"></div><div class="line">    init();</div><div class="line">    animate(); <span class="comment">//初始化后执行 animate 方法</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        scene = <span class="keyword">new</span> THREE.Scene();</div><div class="line">        camera = <span class="keyword">new</span> THREE.PerspectiveCamera( <span class="number">75</span>, <span class="built_in">window</span>.innerWidth / <span class="built_in">window</span>.innerHeight, <span class="number">1</span>, <span class="number">10000</span> );</div><div class="line">        renderer = <span class="keyword">new</span> THREE.WebGLRenderer();</div><div class="line"></div><div class="line">        camera.position.z = <span class="number">0</span>;</div><div class="line">        renderer.setSize( <span class="built_in">window</span>.innerWidth, <span class="built_in">window</span>.innerHeight );</div><div class="line"></div><div class="line">        <span class="keyword">var</span> geometry = <span class="keyword">new</span> THREE.PlaneGeometry( <span class="number">128</span>, <span class="number">128</span>, <span class="number">1</span>, <span class="number">1</span>);</div><div class="line">        <span class="keyword">var</span> material = <span class="keyword">new</span> THREE.MeshBasicMaterial( &#123;<span class="attr">color</span>: <span class="number">0xfffff</span>&#125; );</div><div class="line">        <span class="keyword">var</span> plane = <span class="keyword">new</span> THREE.Mesh( geometry, material );</div><div class="line">        plane.position.z = <span class="number">-500</span>;</div><div class="line">        scene.add( plane );</div><div class="line"></div><div class="line">        <span class="built_in">document</span>.body.appendChild( renderer.domElement );</div><div class="line">        renderer.render( scene, camera );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//增加了 animate 方法</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">animate</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        requestAnimationFrame( animate );</div><div class="line">        camera.position.z -= <span class="number">5</span>;</div><div class="line">        <span class="comment">//下面代码保证每次调用 animate 都重新渲染</span></div><div class="line">        renderer.render( scene, camera );</div><div class="line">    &#125;THREE.ImageUtils.loadTexture</div><div class="line"></div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+<p>后来我又在 init 里头往场景里添加了许多物体，然后也是通过移动 camera 来使这些物体看起来像是在往前飞或者往后飞。<br>接下来我要给这个正方形贴上纹理，也就是把这个蓝色的正方形变成我想要的照片（也就是抽奖系统里的头像）。</p>
+<p>教程里头使用是 <code>THREE.ImageUtils.loadTexture</code> 这个方法，但是实际应用后发现这个方法已经被废弃，后经过多方考证后我使用了 <code>THREE.TextureLoader</code> 对象里的 load 方法来载入纹理图片。<br>代码如下（我把 animate 方法去掉了）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    <span class="keyword">var</span> scene, camera, renderer;</div><div class="line">    init();</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        scene = <span class="keyword">new</span> THREE.Scene();</div><div class="line">        camera = <span class="keyword">new</span> THREE.PerspectiveCamera( <span class="number">75</span>, <span class="built_in">window</span>.innerWidth / <span class="built_in">window</span>.innerHeight, <span class="number">1</span>, <span class="number">10000</span> );</div><div class="line">        renderer = <span class="keyword">new</span> THREE.WebGLRenderer();</div><div class="line">        camera.position.z = <span class="number">0</span>;</div><div class="line">        renderer.setSize( <span class="built_in">window</span>.innerWidth, <span class="built_in">window</span>.innerHeight );</div><div class="line"></div><div class="line">        <span class="keyword">var</span> loader = <span class="keyword">new</span> THREE.TextureLoader();</div><div class="line">        loader.load( <span class="string">"logo.png"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">texture</span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> geometry, material, plane;</div><div class="line">                geometry = <span class="keyword">new</span> THREE.PlaneGeometry( <span class="number">128</span>, <span class="number">128</span>, <span class="number">1</span>, <span class="number">1</span>);</div><div class="line">                material = <span class="keyword">new</span> THREE.MeshBasicMaterial( &#123;<span class="attr">map</span>:texture&#125; );</div><div class="line">                <span class="comment">// var material = new THREE.MeshBasicMaterial( &#123;color: 0xfffff&#125; );</span></div><div class="line">                plane = <span class="keyword">new</span> THREE.Mesh( geometry, material );</div><div class="line">                plane.position.z = <span class="number">-500</span>;</div><div class="line">                scene.add( plane );</div><div class="line">                <span class="built_in">document</span>.body.appendChild( renderer.domElement );</div><div class="line">                renderer.render( scene, camera );</div><div class="line">            &#125;,</div><div class="line">            <span class="function"><span class="keyword">function</span> (<span class="params"> xhr </span>) </span>&#123;</div><div class="line">                <span class="comment">// onProcess 方法</span></div><div class="line">                <span class="built_in">console</span>.log( (xhr.loaded / xhr.total ) + <span class="string">'% loaded'</span> );</div><div class="line">            &#125;,</div><div class="line">            <span class="function"><span class="keyword">function</span> (<span class="params"> xhr </span>) </span>&#123;</div><div class="line">                <span class="comment">// onError 方法</span></div><div class="line">                <span class="built_in">console</span>.log( <span class="string">'An error happened'</span> );</div><div class="line">            &#125;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+<p>上面这个代码直接访问是会有问题的。<br>以踩完坑的角度来看这个问题。这个坑有两个影响因素：</p>
+<ol>
+<li>本地访问 THML 文件（file:///Applications/MAMP/htdocs/lottery/pic.html）  与  服务器访问 HTML 文件（<a href="http://localhost:8888/lottery/pic.html）" target="_blank" rel="external">http://localhost:8888/lottery/pic.html）</a></li>
+<li>相对路径访问纹理纹理图片  与  绝对路径访问纹理图片</li>
+</ol>
+<p>第一种情况： 本地访问 HTML 文件 ＋ 相对路径访问纹理图片<br>console 中打出了两条日志：</p>
+<ul>
+<li>three.min.js:606 XMLHttpRequest cannot load file:///Users/poorbug/Desktop/lottery/logo.png. Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https, chrome-extension-resource.</li>
+<li>An error happened</li>
+</ul>
+<p>跨域错误，于是我把图片放到七牛上。</p>
+<p>第二种情况：本地访问 HTML 文件 ＋ 绝对路径( url )访问纹理图片<br>修改 load 方法中的第一个参数( url )；此时从 console 与 network 都可以看出 load 方法已经成功加载图片。但同时也爆出了一个错误：</p>
+<ul>
+<li>three.min.js:119 DOMException: Failed to execute ‘texImage2D’ on ‘WebGLRenderingContext’: Tainted canvases may not be loaded.(…)</li>
+</ul>
+<p>纹理并没有成功渲染上，还是有问题，在这一块卡了非常久。</p>
+<p>可能是从跨域问题获得了灵感。我把本地服务器启动了。</p>
+<p>第三种情况：服务器访问 HTML 文件 ＋ 本地访问纹理图片<br>通过 localhost 访问 HTML 文件，则纹理能够成功贴上(不管是本地访问纹理图片还是通过服务器访问纹理图片)。</p>
+<p>此时，完整代码如下（经过稍微加工，代码与上面 Demo 不完全一致）：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>lottery<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">        html, body&#123;margin:0;overflow: hidden;&#125;</span></div><div class="line"><span class="undefined">        canvas &#123; width: 100%; height: 120% &#125;</span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./three.min.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> scene, camera, renderer;</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> step = <span class="number">20</span>;</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> len = <span class="number">5</span>;</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> dis = <span class="number">500</span>;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">    init();</span></div><div class="line"><span class="undefined">    animate();</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>&#123;</span></div><div class="line"><span class="javascript">        scene = <span class="keyword">new</span> THREE.Scene();</span></div><div class="line"><span class="javascript">        camera = <span class="keyword">new</span> THREE.PerspectiveCamera( <span class="number">75</span>, <span class="built_in">window</span>.innerWidth / <span class="built_in">window</span>.innerHeight, <span class="number">1</span>, <span class="number">10000</span> );</span></div><div class="line"><span class="javascript">        renderer = <span class="keyword">new</span> THREE.WebGLRenderer();</span></div><div class="line"><span class="undefined">        camera.position.z = -dis;</span></div><div class="line"><span class="javascript">        renderer.setSize( <span class="built_in">window</span>.innerWidth, <span class="built_in">window</span>.innerHeight );</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> loader = <span class="keyword">new</span> THREE.TextureLoader();</span></div><div class="line"><span class="javascript">        loader.load( <span class="string">"logo.png"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">texture</span>)</span>&#123;</span></div><div class="line"><span class="javascript">                <span class="keyword">var</span> geometry, material, plane;</span></div><div class="line"><span class="javascript">                <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=len; i++)&#123;</span></div><div class="line"><span class="javascript">                    geometry = <span class="keyword">new</span> THREE.PlaneGeometry( <span class="number">128</span>, <span class="number">128</span>, <span class="number">1</span>, <span class="number">1</span>);</span></div><div class="line"><span class="javascript">                    material = <span class="keyword">new</span> THREE.MeshBasicMaterial( &#123;<span class="attr">map</span>:texture&#125; );</span></div><div class="line"><span class="javascript">                    <span class="comment">// var material = new THREE.MeshBasicMaterial( &#123;color: 0xfffff&#125; );</span></span></div><div class="line"><span class="javascript">                    plane = <span class="keyword">new</span> THREE.Mesh( geometry, material );</span></div><div class="line"><span class="undefined">                    plane.position.z = i * dis;</span></div><div class="line"><span class="undefined">                    scene.add( plane );</span></div><div class="line"><span class="undefined">                &#125;</span></div><div class="line"><span class="javascript">                <span class="built_in">document</span>.body.appendChild( renderer.domElement );</span></div><div class="line"><span class="undefined">                renderer.render( scene, camera );</span></div><div class="line"><span class="undefined">            &#125;,</span></div><div class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> (<span class="params"> xhr </span>) </span>&#123;</span></div><div class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">'size = '</span>+ xhr.loaded)</span></div><div class="line"><span class="javascript">                <span class="built_in">console</span>.log( (xhr.loaded / xhr.total * <span class="number">100</span>) + <span class="string">'% loaded'</span> );</span></div><div class="line"><span class="undefined">            &#125;,</span></div><div class="line"><span class="javascript">            <span class="comment">// Function called when download errors</span></span></div><div class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> (<span class="params"> xhr </span>) </span>&#123;</span></div><div class="line"><span class="javascript">                <span class="built_in">console</span>.log( <span class="string">'An error happened'</span> );</span></div><div class="line"><span class="undefined">            &#125;</span></div><div class="line"><span class="undefined">        );</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">animate</span>(<span class="params"></span>) </span>&#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">if</span>(camera.position.z == (len + <span class="number">1</span>)*dis)&#123;</span></div><div class="line"><span class="javascript">            <span class="comment">// 所有照片都投入后，停留3秒，反向滚动</span></span></div><div class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'=.'</span>+camera.position.z)</span></div><div class="line"><span class="undefined">            step = -step;</span></div><div class="line"><span class="undefined">            setTimeout(animate, 3000)</span></div><div class="line"><span class="javascript">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(camera.position.z % dis == <span class="number">480</span> &amp;&amp; step &gt; <span class="number">0</span> &amp;&amp; camera.position.z != (len + <span class="number">1</span>) * dis - step)&#123;</span></div><div class="line"><span class="javascript">            <span class="comment">// 每个照片会停留500毫秒</span></span></div><div class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'-.'</span>+camera.position.z)</span></div><div class="line"><span class="undefined">            setTimeout(animate, 500)</span></div><div class="line"><span class="javascript">        &#125;<span class="keyword">else</span>&#123;</span></div><div class="line"><span class="undefined">            requestAnimationFrame( animate );</span></div><div class="line"><span class="undefined">        &#125;</span></div><div class="line"><span class="undefined">        camera.position.z += step;</span></div><div class="line"><span class="undefined">        renderer.render( scene, camera );</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><hr>
+<p>经过几天的学习，发现 Three.js 的教程实在是不多，有不少还有点过时。官网的文档又没有教程，demo 晦涩难懂，简直不忍多看。因此学习这个还是需要自己花点时间琢磨；参考网上的资料，自己动手试一试，不轻松，但是会有收获。</p>
+<p>That’s all.</p>
+
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Three-js/">Three.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/starter/">starter</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("threejs").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("threejs").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/09/getup/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          React 博客工程 上线
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/14/app/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">新 SpeedX App 页面开发总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

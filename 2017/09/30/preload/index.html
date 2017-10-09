@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS preload 初试 | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背景当你访问一个页面时，浏览器对资源文件的请求顺序大概是以下这样：  请求 HTML 请求 &amp;lt;head&amp;gt; 中的 JS 与 CSS 文件 请求 &amp;lt;head&amp;gt; 中 JS 与 CSS 中的图片、字体等文件  此时，问题出现了：  JS 与 CSS 文件需要等 HTML 文件加载完后才能被获知并请求； 图片、字体等文件需要等 JS 与 CSS 加载完后才能被获知并请求；  上面 3">
+<meta name="keywords" content="link,preload,CSS 优化,页面加载实践优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS preload 初试">
+<meta property="og:url" content="http://poorbug.cn/2017/09/30/preload/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="背景当你访问一个页面时，浏览器对资源文件的请求顺序大概是以下这样：  请求 HTML 请求 &amp;lt;head&amp;gt; 中的 JS 与 CSS 文件 请求 &amp;lt;head&amp;gt; 中 JS 与 CSS 中的图片、字体等文件  此时，问题出现了：  JS 与 CSS 文件需要等 HTML 文件加载完后才能被获知并请求； 图片、字体等文件需要等 JS 与 CSS 加载完后才能被获知并请求；  上面 3">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/load-sequence.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/preload-1.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/preload-2.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/preload/caniuse.png">
+<meta property="og:updated_time" content="2017-10-09T08:39:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS preload 初试">
+<meta name="twitter:description" content="背景当你访问一个页面时，浏览器对资源文件的请求顺序大概是以下这样：  请求 HTML 请求 &amp;lt;head&amp;gt; 中的 JS 与 CSS 文件 请求 &amp;lt;head&amp;gt; 中 JS 与 CSS 中的图片、字体等文件  此时，问题出现了：  JS 与 CSS 文件需要等 HTML 文件加载完后才能被获知并请求； 图片、字体等文件需要等 JS 与 CSS 加载完后才能被获知并请求；  上面 3">
+<meta name="twitter:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/load-sequence.png">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="//cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-preload" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/30/preload/" class="article-date">
+  <time datetime="2017-09-29T16:00:00.000Z" itemprop="datePublished">2017-09-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS preload 初试
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>当你访问一个页面时，浏览器对资源文件的请求顺序大概是以下这样：</p>
+<ol>
+<li>请求 HTML</li>
+<li>请求 <code>&lt;head&gt;</code> 中的 JS 与 CSS 文件</li>
+<li>请求 <code>&lt;head&gt;</code> 中 JS 与 CSS 中的图片、字体等文件</li>
+</ol>
+<p>此时，问题出现了：</p>
+<ol>
+<li>JS 与 CSS 文件需要等 HTML 文件加载完后才能被获知并请求；</li>
+<li>图片、字体等文件需要等 JS 与 CSS 加载完后才能被获知并请求；</li>
+</ol>
+<p><strong>上面 3 步中的加载时间起点分别依赖上一步中的时间终点。</strong></p>
+<p><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/load-sequence.png" alt="请求依赖"></p>
+<p>可以让资源文件不依赖 JS 与 CSS 提前请求到，从而减少页面的加载时间嘛？</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Preloading_content" target="_blank" rel="external">通过rel=”preload”进行内容预加载 - MDN</a></p>
+<p>因为开发者是知道需要哪些资源文件的，所以在 HTML 中请求 JS 与 CSS 文件的时候利用浏览器可以并发请求的特点顺便把资源文件请求了。<br><code>preload</code> 即是把相应的资源文件写在 HTML 的 <code>&lt;head&gt;</code> 中。</p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>以我的博客为例：</p>
+<p>优化前：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/css/style.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>优化后：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/css/style.css"</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="comment">&lt;!-- 加入以下三行代码 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf"</span> <span class="attr">as</span>=<span class="string">"font"</span> <span class="attr">type</span>=<span class="string">"font/ttf"</span> <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"//omhr7p9e5.bkt.clouddn.com/blog/bg.png"</span> <span class="attr">as</span>=<span class="string">"image"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v="</span> <span class="attr">as</span>=<span class="string">"font"</span> <span class="attr">type</span>=<span class="string">"font/woff"</span> <span class="attr">crossorigin</span>=<span class="string">"anonymous"</span>&gt;</span></div><div class="line">  </div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如此，则浏览器在加载 <code>style.css</code> 的同时也加载了其后的三个资源文件，后续解析 CSS 时则不需在请求这三个资源文件。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><h3 id="优化前："><a href="#优化前：" class="headerlink" title="优化前："></a>优化前：</h3><p><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/preload-1.png" alt="优化前请求瀑布流"></p>
+<p>三个资源文件需要在 <code>style.css</code> 文件被加载后能被加载，试了几次时间大多在 <strong>300ms</strong> 以上。</p>
+<h3 id="优化后："><a href="#优化后：" class="headerlink" title="优化后："></a>优化后：</h3><p><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/preload-2.png" alt="优化后请求瀑布流"></p>
+<p>三个资源的请求时间起点与 <code>style.css</code> 是并列的，时间在 <strong>300ms以内</strong>, 大概保持在 <strong>250ms - 270ms</strong> 左右。</p>
+<p>因为资源文件较小，总体的请求时间也较短，所以并看不出很大效果。</p>
+<p>但是可以预测，如果在 CSS 文件与资源文件较大的情况，还是可以优化比较多时间的。</p>
+<p>举个例子：</p>
+<ol>
+<li>CSS 文件为 <strong>2M</strong>，图片大小为 <strong>2M</strong></li>
+<li>请求时间分别为 <strong>5S</strong></li>
+<li>如果没有 <code>preload</code>，则总时间至少为 <strong>10S</strong></li>
+<li>如果图片 <code>preload</code>, 则 CSS 文件与图片并行请求，理论上事情时间可压缩到 <strong>5S</strong></li>
+</ol>
+<p>此时效果就很显著了（但是只是理论，目前并未有实验支持，）。</p>
+<p>在 <a href="https://www.youtube.com/watch?v=4pQ2byAoIX0&amp;index=3&amp;list=PL37ZVnwpeshF0XmpjKBJ3-0kvr3b5ZpJR" target="_blank" rel="external">CSSconf EU 2017 | Patrick Hamann: CSS and the first meaningful paint - Youtube</a> 的实验中，速度提升了 <strong>64%</strong>。</p>
+<h2 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h2><ol>
+<li>代码不好维护；如果文件地址更改，则需要维护两个地方。</li>
+<li>由于文件提前加载会占用一定的系统计算资源，因此其他资源的加载时间会稍微慢一点点。</li>
+<li>兼容性不容乐观，如下图所示</li>
+</ol>
+<p><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/preload/caniuse.png" alt="preload 兼容性"></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>不宜将所有资源文件都用 <code>preload</code> 加载，页面的加载速度反而会变慢，<code>preload</code> 也将失去其初衷。</li>
+</ol>
+
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS-优化/">CSS 优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link/">link</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/preload/">preload</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/页面加载实践优化/">页面加载实践优化</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("preload").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("preload").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/27/sso/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SSO 踩坑记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

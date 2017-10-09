@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用 Flex 布局 React Native 组件 | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文翻译自 Layout React Native Components with Flexbox - Konstantin Shkut 正文如下。使用 Flex 布局你可以将任何组件定位到屏幕中的任何位置。你可以将它们垂直排列、水平排列、居中放置、均匀分布，等等。 目录 什么是 Flex 布局 起步 定义样式 主要弹性容器 理解弹性容器 导航栏 垂直居中与水平居中 标签栏 理解弹性布局 理解对齐">
+<meta name="keywords" content="React Native,Flex,布局">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Flex 布局 React Native 组件">
+<meta property="og:url" content="http://poorbug.cn/2017/09/20/react-native-flex/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="本文翻译自 Layout React Native Components with Flexbox - Konstantin Shkut 正文如下。使用 Flex 布局你可以将任何组件定位到屏幕中的任何位置。你可以将它们垂直排列、水平排列、居中放置、均匀分布，等等。 目录 什么是 Flex 布局 起步 定义样式 主要弹性容器 理解弹性容器 导航栏 垂直居中与水平居中 标签栏 理解弹性布局 理解对齐">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.07.07-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-08.05.37-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-08.05.40-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.05.54-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.05.10-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.04.56-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.34.26-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.34.01-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.59.56-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-11.21.17-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/flex-start-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/center-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/flex-end-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/space-around-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/space-between-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/align-flex-start-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/align-center-1.png">
+<meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/align-flex-end-1.png">
+<meta property="og:updated_time" content="2017-09-27T06:06:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Flex 布局 React Native 组件">
+<meta name="twitter:description" content="本文翻译自 Layout React Native Components with Flexbox - Konstantin Shkut 正文如下。使用 Flex 布局你可以将任何组件定位到屏幕中的任何位置。你可以将它们垂直排列、水平排列、居中放置、均匀分布，等等。 目录 什么是 Flex 布局 起步 定义样式 主要弹性容器 理解弹性容器 导航栏 垂直居中与水平居中 标签栏 理解弹性布局 理解对齐">
+<meta name="twitter:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.07.07-1.png">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="//cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-react-native-flex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/20/react-native-flex/" class="article-date">
+  <time datetime="2017-09-19T16:00:00.000Z" itemprop="datePublished">2017-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 Flex 布局 React Native 组件
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文翻译自 <a href="http://rationalappdev.com/layout-react-native-components-with-flexbox/" target="_blank" rel="external">Layout React Native Components with Flexbox - Konstantin Shkut</a></p>
+<h1 id="正文如下。"><a href="#正文如下。" class="headerlink" title="正文如下。"></a>正文如下。</h1><p>使用 Flex 布局你可以将任何组件定位到屏幕中的任何位置。你可以将它们垂直排列、水平排列、居中放置、均匀分布，等等。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>什么是 Flex 布局</li>
+<li>起步</li>
+<li>定义样式</li>
+<li>主要弹性容器</li>
+<li>理解弹性容器</li>
+<li>导航栏</li>
+<li>垂直居中与水平居中</li>
+<li>标签栏</li>
+<li>理解弹性布局</li>
+<li>理解对齐容器<ul>
+<li>主轴和副轴</li>
+<li>Justify Content（主轴内容对齐）</li>
+<li>Align Items（副轴内容对齐）</li>
+</ul>
+</li>
+<li>总结</li>
+</ul>
+<h2 id="什么是-Flex-布局"><a href="#什么是-Flex-布局" class="headerlink" title="什么是 Flex 布局"></a>什么是 Flex 布局</h2><p>CSS3 弹性布局，是一种元素排布的布局模式，用于元素的展现可预测（固定的）且页面布局需要适应不同的屏幕尺寸或者显示设备的情况。</p>
+<h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><p>从创建一个新 app 开始。开启 <strong>终端</strong> 运行下面的指令来初始化一个新工程，并且在模拟器中运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">react-native init LearnignFlexbox;</div><div class="line">cd LearnignFlexbox;</div><div class="line">react-native run-ios;</div></pre></td></tr></table></figure>
+<p>应用运行起来后，按住 <code>⌘</code> + <code>D</code> ，选中 <strong>Enable Hot Reloading</strong>。这将帮你节省一些时间当你在每次更改代码手动重载的时候。</p>
+<p>打开 <code>index.ios.js</code> 文件并用下面代码覆盖原本的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"><span class="keyword">import</span> &#123;</div><div class="line">  AppRegistry,</div><div class="line">  StyleSheet,</div><div class="line">  Text,</div><div class="line">  View</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LearnignFlexbox</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;View style=&#123;styles.navBar&#125;&gt;</div><div class="line">          &lt;Text style=&#123;styles.navBarButton&#125;&gt;Back&lt;<span class="regexp">/Text&gt;</span></div><div class="line"><span class="regexp">          &lt;Text style=&#123;styles.navBarHeader&#125;&gt;Awesome App&lt;/</span>Text&gt;</div><div class="line">          &lt;Text style=&#123;styles.navBarButton&#125;&gt;More&lt;<span class="regexp">/Text&gt;</span></div><div class="line"><span class="regexp">        &lt;/</span>View&gt;</div><div class="line">        &lt;View style=&#123;styles.content&#125;&gt;</div><div class="line">          &lt;Text style=&#123;styles.text&#125;&gt;</div><div class="line">            Welcome to Awesome App!</div><div class="line">          &lt;<span class="regexp">/Text&gt;</span></div><div class="line"><span class="regexp">        &lt;/</span>View&gt;</div><div class="line">      &lt;<span class="regexp">/View&gt;</span></div><div class="line"><span class="regexp">    );</span></div><div class="line"><span class="regexp">  &#125;</span></div><div class="line"><span class="regexp">&#125;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">&#125;);</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">AppRegistry.registerComponent('LearnignFlexbox', () =&gt; LearnignFlexbox);</span></div></pre></td></tr></table></figure>
+<p>如你所见，画面中有一个带有 <code>container</code> 样式的 <code>View</code> 组件，并且包含 <code>navBar</code> 和 <code>content</code> 两个 <code>View</code>。<code>navBar</code> 有 3 个位于左右两边的 <code>Text</code> 组件，分别是<code>navBarButton</code> 样式的按钮或者 <code>navBarHeader</code> 样式的头部。最后，<code>content</code> <code>View</code> 的内部有一个 <code>Text</code> 组件。</p>
+<p>接下来我们来看看进展如何。</p>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.07.07-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<p>看起来并不是很给力。这是因为我们还为定义上面提到的样式。所有组件默认在垂直方向上堆叠在一起。</p>
+<h2 id="定义样式"><a href="#定义样式" class="headerlink" title="定义样式"></a>定义样式</h2><p>我们在之前定义的 <code>styles</code> 中添加样式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> styles = StyleSheet.create(&#123;</div><div class="line">  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="主要弹性容器"><a href="#主要弹性容器" class="headerlink" title="主要弹性容器"></a>主要弹性容器</h2><p>首先，添加 <code>container</code> 容器的样式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">container: &#123;</div><div class="line">	flex: <span class="number">1</span>,</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p><code>flex: 1</code> 表示该容器是弹性的并将充满屏幕的所有空间。因为 <code>container</code> 容器的背景是白色的，所以你看不到任何变化。</p>
+<h2 id="理解弹性容器"><a href="#理解弹性容器" class="headerlink" title="理解弹性容器"></a>理解弹性容器</h2><p>为了说明弹性容器的工作原理，我们来看一下下面的例子。我们改变 <code>container</code> 容器的背景并且把 <code>flex</code> 设置为 <code>0</code> 或者 <code>1</code>。</p>
+<div style="display: flex;"><br>    <div style="flex: 1; margin: 0 20px"><br>        <img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-08.05.37-1.png"><br>        <pre><br>            <code><br>    container: {<br>      flex: 0,<br>      backgroundColor: ‘#374046’<br>    },<br>            </code><br>        </pre><br>    </div><br>    <div style="flex: 1; margin: 0 20px"><br>        <img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-08.05.40-1.png"><br>        <pre><br>            <code><br>    container: {<br>      flex: 1,<br>      backgroundColor: ‘#374046’<br>    },<br>            </code><br>        </pre><br>    </div><br></div>
+
+<p>左边的 <code>container</code> 容器 <code>flex</code> 值为 <code>0</code>，它所占的空间为所有子元素所占空间的和。相反的，右边 <code>flex</code> 值为 <code>1</code> 的 <code>container</code> 容器占据了屏幕中所有的有效空间。</p>
+<h2 id="导航栏"><a href="#导航栏" class="headerlink" title="导航栏"></a>导航栏</h2><p>我们在屏幕的上方添加一个导航栏，并添加 <code>narBar</code> 样式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">navBar: &#123;</div><div class="line">	flexDirection: <span class="string">'row'</span>,</div><div class="line">	paddingTop: <span class="number">30</span>,</div><div class="line">	height: <span class="number">64</span>,</div><div class="line">	backgroundColor: <span class="string">'#1EAAF1'</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>我们设置总高度为 <code>64</code>，上边距 <code>paddingTop</code> 为 <code>30</code> 来保持与状态栏的距离。同时设置布局方向 <code>flexDirection</code> 为横向 <code>row</code>，这将使导航栏 <code>narBar</code> 的所有子元素按水平而不是垂直方向排列。系统默认 <code>flexDirection</code> 的值为纵向 <code>column</code>，子元素按垂直方向排列。</p>
+<p>下面再看看进展如何。</p>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.05.54-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<p>看起来比刚才的强点，但是我们想要的效果是按钮在两边，头部在中间。所以还是得加一些样式来实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">avBarButton: &#123;</div><div class="line">	color: <span class="string">'#FFFFFF'</span>,</div><div class="line">	textAlign:<span class="string">'center'</span>,</div><div class="line">	width: <span class="number">64</span></div><div class="line">&#125;,</div><div class="line">navBarHeader: &#123;</div><div class="line">	flex: <span class="number">1</span>,</div><div class="line">	color: <span class="string">'#FFFFFF'</span>,</div><div class="line">	fontWeight: <span class="string">'bold'</span>,</div><div class="line">	textAlign: <span class="string">'center'</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>我们再设置按钮的宽度 <code>width</code> 为 <code>64</code>，头部的 <code>flex</code> 值为 <code>1</code>，这样做的效果是头部将会占据按钮之间的所有空间。</p>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.05.10-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<p>看起来好多了。</p>
+<h2 id="垂直居中与水平居中"><a href="#垂直居中与水平居中" class="headerlink" title="垂直居中与水平居中"></a>垂直居中与水平居中</h2><p>接下来，我们要让欢迎内容再屏幕中居中。我们给内容和文本容器添加一些样式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">content: &#123;</div><div class="line">	flex: <span class="number">1</span>,</div><div class="line">	justifyContent: <span class="string">'center'</span>,</div><div class="line">	alignItems: <span class="string">'center'</span>,</div><div class="line">	backgroundColor: <span class="string">'#374046'</span></div><div class="line">&#125;,</div><div class="line">text: &#123;</div><div class="line">	color: <span class="string">'#EEEEEE'</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>我们设置 <code>flex</code> 为 <code>1</code> 来占据屏幕中的所有空间，<code>justifyContent</code> 为 <code>center</code> 来垂直居中子组件，<code>alignItems</code> 为 <code>center</code> 来使它水平居中。</p>
+<blockquote>
+<p>当你把 <code>flexDirection</code> 设置为 <code>row</code> 模式时，<code>justifyContent</code> 与 <code>alignItems</code> 的效果刚好相反。<code>justifyContent</code> 用来使子组件水平对齐，而 <code>alignItems</code> 用于垂直方向。</p>
+</blockquote>
+<p>下面看一下应用的效果如何。</p>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.04.56-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<p>看起来相当不错。</p>
+<h2 id="标签栏"><a href="#标签栏" class="headerlink" title="标签栏"></a>标签栏</h2><p>现在，我们在底部添加标签栏。在 <code>&lt;View style={styles.content}&gt;</code> 的关闭标签 <code>&lt;/View&gt;</code> 后面添加一个 <code>View</code> 组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;View style=&#123;styles.content&#125;&gt;</div><div class="line">  &lt;Text style=&#123;styles.text&#125;&gt;</div><div class="line">    Welcome to Awesome App!</div><div class="line">  &lt;<span class="regexp">/Text&gt;</span></div><div class="line"><span class="regexp">&lt;/</span>View&gt;</div><div class="line"><span class="comment">// Add the following </span></div><div class="line">&lt;View style=&#123;styles.tabBar&#125;&gt;</div><div class="line">  &lt;View style=&#123;[styles.tabBarButton, styles.button1]&#125; /&gt;</div><div class="line">  &lt;View style=&#123;[styles.tabBarButton, styles.button2]&#125; /&gt;</div><div class="line">  &lt;View style=&#123;[styles.tabBarButton, styles.button3]&#125; /&gt;</div><div class="line">  &lt;View style=&#123;[styles.tabBarButton, styles.button4]&#125; /&gt;</div><div class="line">  &lt;View style=&#123;[styles.tabBarButton, styles.button5]&#125; /&gt;</div><div class="line">&lt;<span class="regexp">/View&gt;</span></div></pre></td></tr></table></figure>
+<p>我们添加了一个带有 <code>tabBar</code> 样式并且有 5 个 <code>View</code> 子组件作为按钮的 <code>View</code> 组件。每个按钮有两个样式，第一个样式都是 <code>tabBarButton</code>，第二个样式分别为 <code>button1</code> 到 <code>button5</code>。</p>
+<blockquote>
+<p>当你想要给一个组件使用多个样式时，你可以使用一个用逗号 <code>,</code> 分隔开的样式数组，如 <code>style={[styles.tabBarButton, styles.button1]}</code>。</p>
+</blockquote>
+<p>接下来定义样式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">tabBar: &#123;</div><div class="line">	height: <span class="number">50</span></div><div class="line">&#125;,</div><div class="line">tabBarButton: &#123;</div><div class="line">	flex: <span class="number">1</span></div><div class="line">&#125;,</div><div class="line">button1: &#123; <span class="attr">backgroundColor</span>: <span class="string">'#8BC051'</span> &#125;,</div><div class="line">button2: &#123; <span class="attr">backgroundColor</span>: <span class="string">'#CCD948'</span> &#125;,</div><div class="line">button3: &#123; <span class="attr">backgroundColor</span>: <span class="string">'#FDE84D'</span> &#125;,</div><div class="line">button4: &#123; <span class="attr">backgroundColor</span>: <span class="string">'#FCBF2E'</span> &#125;,</div><div class="line">button5: &#123; <span class="attr">backgroundColor</span>: <span class="string">'#FC9626'</span> &#125;</div></pre></td></tr></table></figure>
+<p>我们给 <code>tabBar</code> 定义一个固定的高度，将 <code>tabBarButton</code> 的 <code>flex</code> 值设为 <code>1</code>， 这将使每个按钮均等地占据有效空间。同时我们给每个按钮设定各自的颜色。</p>
+<p>大概是下面这样。</p>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.34.26-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<p>呃，所有按钮都按照默认样式垂直堆叠着，这并不是我们想要的结果。让我们把 <code>flexDirection</code> 设置为 <code>row</code> 来使按钮水平排列。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tabBar: &#123;</div><div class="line">	flexDirection: <span class="string">'row'</span>,</div><div class="line">	height: <span class="number">50</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.34.01-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<p>看吧，这就很不错了。</p>
+<h2 id="理解弹性布局"><a href="#理解弹性布局" class="headerlink" title="理解弹性布局"></a>理解弹性布局</h2><p>当我们将每个按钮的 <code>flex</code> 设置为 <code>1</code> 时，它们将均分地占据尽可能多的空间。如果我们想让第三个按钮的大小是其他按钮的两倍的话，可以将其 <code>flex</code> 设置为 <code>2</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">button3: &#123; <span class="attr">flex</span>: <span class="number">2</span>, <span class="attr">backgroundColor</span>: <span class="string">'#FDE84D'</span> &#125;,</div></pre></td></tr></table></figure>
+<p>那么会是下面这样。</p>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.59.56-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<h2 id="理解对齐容器"><a href="#理解对齐容器" class="headerlink" title="理解对齐容器"></a>理解对齐容器</h2><p>接下来我们将 <code>tabBarButton</code> 从弹性盒改为固定高度和宽度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tabBarButton: &#123;</div><div class="line">	width: <span class="number">30</span>,</div><div class="line">	height: <span class="number">30</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-11.21.17-1.png" style="width: 50%; margin: auto; display: block;"></p>
+<h3 id="主轴和副轴"><a href="#主轴和副轴" class="headerlink" title="主轴和副轴"></a>主轴和副轴</h3><p>默认的 <code>flexDirection</code> 值是 <code>column</code>，此时主轴是纵轴 <code>column</code>，副轴是横轴 <code>row</code>，反之亦然。</p>
+<h3 id="Justify-Content-主轴内容对齐"><a href="#Justify-Content-主轴内容对齐" class="headerlink" title="Justify Content (主轴内容对齐)"></a>Justify Content (主轴内容对齐)</h3><p>给一个组件的样式设置 <code>justifyContent</code> 属性可以控制子元素在主轴上的分布，可选值有下面几个：</p>
+<p><code>flex-start</code>（默认值）- 子元素分布在起点处。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/flex-start-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>    flexDirection: ‘row’,<br>    justifyContent: ‘flex-start’<br>}<br>        </code><br>    </pre><br></div>
+
+<p><code>center</code> - 子元素居中放置。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/center-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>     flexDirection: ‘row’,<br>     justifyContent: ‘center’<br>}<br>        </code><br>    </pre><br></div>
+
+<p><code>flex-end</code> - 子元素分布在终点处。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/flex-end-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>    flexDirection: ‘row’,<br>    justifyContent: ‘flex-end’<br>},<br>        </code><br>    </pre><br></div>
+
+<p><code>space-around</code> - 相等空间环绕子元素分布。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/space-around-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>    flexDirection: ‘row’,<br>    justifyContent: ‘space-between’<br>}<br>        </code><br>    </pre><br></div>
+
+<p><code>space-between</code> — 子元素贴边均匀分布。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/space-between-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>    flexDirection: ‘row’,<br>    justifyContent: ‘space-between’<br>}<br>        </code><br>    </pre><br></div>
+
+<h2 id="Align-Items（副轴内容对齐）"><a href="#Align-Items（副轴内容对齐）" class="headerlink" title="Align Items（副轴内容对齐）"></a>Align Items（副轴内容对齐）</h2><p>给一个组件的样式设置 <code>alignItems</code> 属性可以控制子元素在副轴上的分布，可选值有下面几个：</p>
+<p><code>flex-start</code> — 子元素在起点处对齐。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/align-flex-start-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>    flexDirection: ‘row’,<br>    justifyContent: ‘space-between’,<br>    alignItems: ‘flex-start’<br>}<br>        </code><br>    </pre><br></div>
+
+<p><code>center</code> — 子元素居中对齐。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/align-center-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>    flexDirection: ‘row’,<br>    justifyContent: ‘space-between’,<br>    alignItems: ‘center’<br>}<br>        </code><br>    </pre><br></div>
+
+<p><code>flex-end</code> — 子元素在终点处对齐。</p>
+<div><br>    <img src="http://rationalappdev.com/wp-content/uploads/2016/10/align-flex-end-1.png" width="40%" style="display: inline-block;"><pre style="display: inline-block; width: 40%; margin-left: 5%; vertical-align: middle;"><br>        <code><br>tabBar: {<br>    flexDirection: ‘row’,<br>    justifyContent: ‘space-between’,<br>    alignItems: ‘flex-end’<br>}<br>        </code><br>    </pre><br></div>
+
+<p><code>stretch</code> (默认值) — 子元素拉伸以填充所有空间。<strong>子元素在副轴上的尺寸若为固定值，则该值无效。</strong></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>弹性盒对于给应用创建各种弹性布局是一个非常给力的工具。切记，默认的布局方向是垂直方向，如果需要在水平方向排布元素记得把值设为 <code>row</code>。</p>
+<h2 id="译者补充"><a href="#译者补充" class="headerlink" title="译者补充"></a>译者补充</h2><p>RN(React native) 的 Flex 布局与 CSS 的稍有不同，可以认为 RN 的是 CSS 的一个子集。</p>
+
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flex/">Flex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/布局/">布局</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("react-native-flex").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("react-native-flex").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/27/sso/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SSO 踩坑记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/14/regex/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">正则表达式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
