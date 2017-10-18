@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/align-flex-start-1.png">
 <meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/align-center-1.png">
 <meta property="og:image" content="http://rationalappdev.com/wp-content/uploads/2016/10/align-flex-end-1.png">
-<meta property="og:updated_time" content="2017-09-27T06:06:27.000Z">
+<meta property="og:updated_time" content="2017-10-18T02:33:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Flex 布局 React Native 组件">
 <meta name="twitter:description" content="本文翻译自 Layout React Native Components with Flexbox - Konstantin Shkut 正文如下。使用 Flex 布局你可以将任何组件定位到屏幕中的任何位置。你可以将它们垂直排列、水平排列、居中放置、均匀分布，等等。 目录 什么是 Flex 布局 起步 定义样式 主要弹性容器 理解弹性容器 导航栏 垂直居中与水平居中 标签栏 理解弹性布局 理解对齐">
@@ -45,7 +45,7 @@
   <link rel="stylesheet" href="/css/style.css">
   
 
-  <script src="//cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
   <script>
     wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
   </script>
@@ -179,7 +179,7 @@
 <p>下面再看看进展如何。</p>
 <p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.05.54-1.png" style="width: 50%; margin: auto; display: block;"></p>
 <p>看起来比刚才的强点，但是我们想要的效果是按钮在两边，头部在中间。所以还是得加一些样式来实现。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">avBarButton: &#123;</div><div class="line">	color: <span class="string">'#FFFFFF'</span>,</div><div class="line">	textAlign:<span class="string">'center'</span>,</div><div class="line">	width: <span class="number">64</span></div><div class="line">&#125;,</div><div class="line">navBarHeader: &#123;</div><div class="line">	flex: <span class="number">1</span>,</div><div class="line">	color: <span class="string">'#FFFFFF'</span>,</div><div class="line">	fontWeight: <span class="string">'bold'</span>,</div><div class="line">	textAlign: <span class="string">'center'</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">navBarButton: &#123;</div><div class="line">	color: <span class="string">'#FFFFFF'</span>,</div><div class="line">	textAlign:<span class="string">'center'</span>,</div><div class="line">	width: <span class="number">64</span></div><div class="line">&#125;,</div><div class="line">navBarHeader: &#123;</div><div class="line">	flex: <span class="number">1</span>,</div><div class="line">	color: <span class="string">'#FFFFFF'</span>,</div><div class="line">	fontWeight: <span class="string">'bold'</span>,</div><div class="line">	textAlign: <span class="string">'center'</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
 <p>我们再设置按钮的宽度 <code>width</code> 为 <code>64</code>，头部的 <code>flex</code> 值为 <code>1</code>，这样做的效果是头部将会占据按钮之间的所有空间。</p>
 <p><img src="http://rationalappdev.com/wp-content/uploads/2016/10/Screenshot-2016-10-02-10.05.10-1.png" style="width: 50%; margin: auto; display: block;"></p>
 <p>看起来好多了。</p>
