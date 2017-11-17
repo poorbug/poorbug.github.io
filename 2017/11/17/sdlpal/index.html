@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在 iOS 上安装 仙剑奇侠传 | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="该指南适合有一定编程基础的小伙伴 设备 iOS device Mac with XCode  步骤 把代码拉到本地 在根目录下安装子依赖 git submodule update --init --recursive 切换目录到 ios/SDLPal/ 下 如果未安装 cocoapods 则安装 sudo gem install cocoapods 通过 CocoaPods 安装依赖 pod in">
+<meta name="keywords" content="SDLPAL,仙剑奇侠传,iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 iOS 上安装 仙剑奇侠传">
+<meta property="og:url" content="http://poorbug.cn/2017/11/17/sdlpal/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="该指南适合有一定编程基础的小伙伴 设备 iOS device Mac with XCode  步骤 把代码拉到本地 在根目录下安装子依赖 git submodule update --init --recursive 切换目录到 ios/SDLPal/ 下 如果未安装 cocoapods 则安装 sudo gem install cocoapods 通过 CocoaPods 安装依赖 pod in">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/1.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/2.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/3.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/4.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/5.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/6.png">
+<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/7.png">
+<meta property="og:updated_time" content="2017-11-17T04:27:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 iOS 上安装 仙剑奇侠传">
+<meta name="twitter:description" content="该指南适合有一定编程基础的小伙伴 设备 iOS device Mac with XCode  步骤 把代码拉到本地 在根目录下安装子依赖 git submodule update --init --recursive 切换目录到 ios/SDLPal/ 下 如果未安装 cocoapods 则安装 sudo gem install cocoapods 通过 CocoaPods 安装依赖 pod in">
+<meta name="twitter:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/1.png">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-sdlpal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/17/sdlpal/" class="article-date">
+  <time datetime="2017-11-16T16:00:00.000Z" itemprop="datePublished">2017-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在 iOS 上安装 仙剑奇侠传
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>该指南适合有一定编程基础的小伙伴</strong></p>
+<h2 id="设备"><a href="#设备" class="headerlink" title="设备"></a>设备</h2><ul>
+<li>iOS device</li>
+<li>Mac with XCode</li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>把<a href="https://github.com/sdlpal/sdlpal.git" target="_blank" rel="external">代码</a>拉到本地</li>
+<li>在根目录下安装子依赖 <code>git submodule update --init --recursive</code></li>
+<li>切换目录到 <code>ios/SDLPal/</code> 下</li>
+<li>如果未安装 <code>cocoapods</code> 则安装 <code>sudo gem install cocoapods</code></li>
+<li>通过 <code>CocoaPods</code> 安装依赖 <code>pod install</code></li>
+<li>打开工程 <code>open SDLPal.xcworkspace/</code></li>
+<li><p>如图选中 <code>SDLPal</code> - <code>TARGETS</code> - <code>SDLPal</code> - <code>General</code>, 把 <code>1</code> 改为类似的包名，在 <code>2</code> 中把你的 <code>AppleID</code> 添加为帐号并选中</p>
+<p> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/1.png" alt="图1"></p>
+</li>
+<li><p>手机连上 mac, 如图选中自己的手机，安装，中间提示输入密码</p>
+<p> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/2.png" alt="图2"><br> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/3.png" alt="图3"></p>
+</li>
+<li><p>把资源文件拽进应用里，搞定，至于资源文件…自己找吧，或者留邮箱找我要</p>
+<p> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/4.png" alt="图4"><br> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/5.png" alt="图5"></p>
+</li>
+<li><p>完美运行</p>
+<p><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/6.png" alt="图6"><br><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/7.png" alt="图7"></p>
+</li>
+</ol>
+<h2 id="One-more-thing"><a href="#One-more-thing" class="headerlink" title="One more thing"></a>One more thing</h2><p>突然有种想学习 iOS 开发的想法….</p>
+
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SDLPAL/">SDLPAL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/仙剑奇侠传/">仙剑奇侠传</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("sdlpal").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("sdlpal").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/24/promise/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">I promise!</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
