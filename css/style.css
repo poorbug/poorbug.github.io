@@ -179,6 +179,9 @@ a:hover {
 .clear {
   clear: both;
 }
+.html-code {
+  margin-top: 20px;
+}
 #container {
   position: relative;
 }
