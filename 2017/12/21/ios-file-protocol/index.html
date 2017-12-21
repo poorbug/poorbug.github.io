@@ -3,27 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>在 iOS 上安装 仙剑奇侠传 | Poorbug</title>
+  <title>iOS webview 离线包 file 协议 | Poorbug</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="该指南适合有一定编程基础的小伙伴 设备 iOS device Mac with XCode  步骤 把代码拉到本地 在根目录下安装子依赖 git submodule update --init --recursive 切换目录到 ios/SDLPal/ 下 如果未安装 cocoapods 则安装 sudo gem install cocoapods 通过 CocoaPods 安装依赖 pod in">
-<meta name="keywords" content="iOS,SDLPAL,仙剑奇侠传">
+  <meta name="description" content="在 Hybrid 开发中，iOS 将前端离线包下载到本地，加载资源的协议为 file://。 在 CSS 文件中，background-image: url(//omhr7p9e5.bkt.clouddn.com/blog/monk.gif) 时，系统将加载 file://omhr7p9e5.bkt.clouddn.com/blog/monk.gif，因此图片将会404。 此时需要将图片的协议写死">
+<meta name="keywords" content="iOS,webview,file protocol,http protocol,https protocol">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在 iOS 上安装 仙剑奇侠传">
-<meta property="og:url" content="http://poorbug.cn/2017/11/17/sdlpal/index.html">
+<meta property="og:title" content="iOS webview 离线包 file 协议">
+<meta property="og:url" content="http://poorbug.cn/2017/12/21/ios-file-protocol/index.html">
 <meta property="og:site_name" content="Poorbug">
-<meta property="og:description" content="该指南适合有一定编程基础的小伙伴 设备 iOS device Mac with XCode  步骤 把代码拉到本地 在根目录下安装子依赖 git submodule update --init --recursive 切换目录到 ios/SDLPal/ 下 如果未安装 cocoapods 则安装 sudo gem install cocoapods 通过 CocoaPods 安装依赖 pod in">
-<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/1.png">
-<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/2.png">
-<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/3.png">
-<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/4.png">
-<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/5.png">
-<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/6.png">
-<meta property="og:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/7.png">
-<meta property="og:updated_time" content="2017-11-17T04:27:39.000Z">
+<meta property="og:description" content="在 Hybrid 开发中，iOS 将前端离线包下载到本地，加载资源的协议为 file://。 在 CSS 文件中，background-image: url(//omhr7p9e5.bkt.clouddn.com/blog/monk.gif) 时，系统将加载 file://omhr7p9e5.bkt.clouddn.com/blog/monk.gif，因此图片将会404。 此时需要将图片的协议写死">
+<meta property="og:updated_time" content="2017-12-21T04:33:40.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在 iOS 上安装 仙剑奇侠传">
-<meta name="twitter:description" content="该指南适合有一定编程基础的小伙伴 设备 iOS device Mac with XCode  步骤 把代码拉到本地 在根目录下安装子依赖 git submodule update --init --recursive 切换目录到 ios/SDLPal/ 下 如果未安装 cocoapods 则安装 sudo gem install cocoapods 通过 CocoaPods 安装依赖 pod in">
-<meta name="twitter:image" content="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/1.png">
+<meta name="twitter:title" content="iOS webview 离线包 file 协议">
+<meta name="twitter:description" content="在 Hybrid 开发中，iOS 将前端离线包下载到本地，加载资源的协议为 file://。 在 CSS 文件中，background-image: url(//omhr7p9e5.bkt.clouddn.com/blog/monk.gif) 时，系统将加载 file://omhr7p9e5.bkt.clouddn.com/blog/monk.gif，因此图片将会404。 此时需要将图片的协议写死">
   
   
     <link rel="icon" href="/js/favicon/1.png">
@@ -100,10 +92,10 @@
 </header>
       <div class="outer">
         <section id="main">
-          <article id="post-sdlpal" class="article article-type-post" itemscope itemprop="blogPost">
+          <article id="post-ios-file-protocol" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/11/17/sdlpal/" class="article-date">
-  <time datetime="2017-11-16T16:00:00.000Z" itemprop="datePublished">2017-11-17</time>
+    <a href="/2017/12/21/ios-file-protocol/" class="article-date">
+  <time datetime="2017-12-20T16:00:00.000Z" itemprop="datePublished">2017-12-21</time>
 </a>
     
   </div>
@@ -114,7 +106,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      在 iOS 上安装 仙剑奇侠传
+      iOS webview 离线包 file 协议
     </h1>
   
 
@@ -123,39 +115,18 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>该指南适合有一定编程基础的小伙伴</strong></p>
-<h2 id="设备"><a href="#设备" class="headerlink" title="设备"></a>设备</h2><ul>
-<li>iOS device</li>
-<li>Mac with XCode</li>
-</ul>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
-<li>把<a href="https://github.com/sdlpal/sdlpal.git" target="_blank" rel="external">代码</a>拉到本地</li>
-<li>在根目录下安装子依赖 <code>git submodule update --init --recursive</code></li>
-<li>切换目录到 <code>ios/SDLPal/</code> 下</li>
-<li>如果未安装 <code>cocoapods</code> 则安装 <code>sudo gem install cocoapods</code></li>
-<li>通过 <code>CocoaPods</code> 安装依赖 <code>pod install</code></li>
-<li>打开工程 <code>open SDLPal.xcworkspace/</code></li>
-<li><p>如图选中 <code>SDLPal</code> - <code>TARGETS</code> - <code>SDLPal</code> - <code>General</code>, 把 <code>1</code> 改为类似的包名，在 <code>2</code> 中把你的 <code>AppleID</code> 添加为帐号并选中</p>
-<p> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/1.png" alt="图1"></p>
-</li>
-<li><p>手机连上 mac, 如图选中自己的手机，安装，中间提示输入密码</p>
-<p> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/2.png" alt="图2"><br> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/3.png" alt="图3"></p>
-</li>
-<li><p>把资源文件拽进应用里，搞定，至于资源文件…自己找吧，或者留邮箱找我要</p>
-<p> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/4.png" alt="图4"><br> <img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/5.png" alt="图5"></p>
-</li>
-<li><p>完美运行</p>
-<p><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/6.png" alt="图6"><br><img src="http://omhr7p9e5.bkt.clouddn.com/hexo-blog/sdlpal/7.png" alt="图7"></p>
-</li>
-</ol>
-<h2 id="One-more-thing"><a href="#One-more-thing" class="headerlink" title="One more thing"></a>One more thing</h2><p>突然有种想学习 iOS 开发的想法….</p>
+        <p>在 Hybrid 开发中，iOS 将前端离线包下载到本地，加载资源的协议为 <code>file://</code>。</p>
+<p>在 CSS 文件中，<code>background-image: url(//omhr7p9e5.bkt.clouddn.com/blog/monk.gif)</code> 时，系统将加载 <code>file://omhr7p9e5.bkt.clouddn.com/blog/monk.gif</code>，因此图片将会<code>404</code>。</p>
+<p>此时需要将图片的协议写死，<code>http</code> 或 <code>https</code>。</p>
+<p>安卓下不存在这个问题。</p>
+<p>注：在 native 端应该有办法拦截处理这样的问题。</p>
 
       
     </div>
 
     <footer class="article-footer">
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SDLPAL/">SDLPAL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/仙剑奇侠传/">仙剑奇侠传</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/file-protocol/">file protocol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http-protocol/">http protocol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https-protocol/">https protocol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
 
     </footer>
   </div>
@@ -263,7 +234,7 @@
         return
       }
 
-      const ref = wilddog.sync().ref("sdlpal").child('msgs')
+      const ref = wilddog.sync().ref("ios-file-protocol").child('msgs')
       ref.push({
         name: name,
         msg: msg,
@@ -277,7 +248,7 @@
     }
 
     // get & render all msgs
-    wilddog.sync().ref("sdlpal").child('msgs').on('value', snapshot => {
+    wilddog.sync().ref("ios-file-protocol").child('msgs').on('value', snapshot => {
       msgs = snapshot.val()
       if (!msgs || msgs.length === 0) {
         document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
@@ -296,19 +267,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/12/01/flex-learning/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Flex 布局学习
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/10/24/promise/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/12/01/flex-learning/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">I promise!</div>
+      <div class="article-nav-title">Flex 布局学习</div>
     </a>
   
 </nav>
