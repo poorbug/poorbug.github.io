@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>翻译：为 iPhone X 设计网站 | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="翻译自 WebKit Blog, 原文: https://webkit.org/blog/7929/designing-websites-for-iphone-x/ 作者 Timothy Horton 于 2017年9月22日  以下关于内嵌安全区域的章节更新于 2017年10月31日，用于体现 iOS 11.2 beta 中的改变。  开箱即用，Safari 在新的 iPhone X 上的全面屏">
+<meta name="keywords" content="iPhone,CSS,env(safe-area-inset-*)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="翻译：为 iPhone X 设计网站">
+<meta property="og:url" content="http://poorbug.cn/2018/01/21/iPhoneX/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="翻译自 WebKit Blog, 原文: https://webkit.org/blog/7929/designing-websites-for-iphone-x/ 作者 Timothy Horton 于 2017年9月22日  以下关于内嵌安全区域的章节更新于 2017年10月31日，用于体现 iOS 11.2 beta 中的改变。  开箱即用，Safari 在新的 iPhone X 上的全面屏">
+<meta property="og:image" content="https://webkit.org/wp-content/uploads/default-inset-behavior.png">
+<meta property="og:image" content="https://webkit.org/wp-content/uploads/viewport-fit-cover.png">
+<meta property="og:image" content="https://webkit.org/wp-content/uploads/safe-areas-1.png">
+<meta property="og:image" content="https://webkit.org/wp-content/uploads/safe-area-constants.png">
+<meta property="og:image" content="https://webkit.org/wp-content/uploads/no-margins.png">
+<meta property="og:image" content="https://webkit.org/wp-content/uploads/max-safe-areas-insets.png">
+<meta property="og:updated_time" content="2018-01-21T12:50:04.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="翻译：为 iPhone X 设计网站">
+<meta name="twitter:description" content="翻译自 WebKit Blog, 原文: https://webkit.org/blog/7929/designing-websites-for-iphone-x/ 作者 Timothy Horton 于 2017年9月22日  以下关于内嵌安全区域的章节更新于 2017年10月31日，用于体现 iOS 11.2 beta 中的改变。  开箱即用，Safari 在新的 iPhone X 上的全面屏">
+<meta name="twitter:image" content="https://webkit.org/wp-content/uploads/default-inset-behavior.png">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-iPhoneX" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/21/iPhoneX/" class="article-date">
+  <time datetime="2018-01-20T16:00:00.000Z" itemprop="datePublished">2018-01-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      翻译：为 iPhone X 设计网站
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻译自 WebKit Blog, 原文: <a href="https://webkit.org/blog/7929/designing-websites-for-iphone-x/" target="_blank" rel="external">https://webkit.org/blog/7929/designing-websites-for-iphone-x/</a></p>
+<p>作者 Timothy Horton 于 2017年9月22日</p>
+<blockquote>
+<p>以下关于内嵌安全区域的章节更新于 2017年10月31日，用于体现 iOS 11.2 beta 中的改变。</p>
+</blockquote>
+<p>开箱即用，Safari 在新的 iPhone X 上的全面屏(edge-to-edge display)上漂亮地显示着你现在的网站。网站的内容自动内嵌到屏幕的安全区域内，使得它们不会被圆角或者刘海儿遮挡。</p>
+<p>内嵌区域会被页面的 <code>background-color</code> (<code>&lt;body&gt;</code> 或者 <code>&lt;html&gt;</code>)所填充以融入到页面其余部分中。对于许多网站来说，这就足够了。如果你的页面背景色固定，且只有文字和图片，那么默认的内嵌方案看起来就挺不错。</p>
+<p>其他页面 —— 特别是那些有全屏宽度(full-width)的水平导航栏，如下方页面的 —— 可以选择更进一步地使用这块新屏幕的全部优势。<a href="https://developer.apple.com/ios/human-interface-guidelines/overview/iphone-x/" target="_blank" rel="external">iPhone X 界面指南</a> 详细列出了一些需要牢记的通用设计原则，<a href="https://developer.apple.com/documentation/uikit/uiview/positioning_content_relative_to_the_safe_area" target="_blank" rel="external">UIKit 文档</a> 讨论了原生应用适配 iPhone X 可以采用的具体实现机制。你的网站可以引入一些类似于 iOS 11 中介绍的 WebKit API 来使用全面屏的优势。</p>
+<p>当你在读这篇文章的时候你可以点击任意一张图片来访问一个真实地响应式页面并且可以查看其中的代码。</p>
+<p><a href="https://webkit.org/demos/safe-area-insets/1-default.html" target="_blank" rel="external"><img src="https://webkit.org/wp-content/uploads/default-inset-behavior.png" alt="Safari’s default insetting behavior.
+"></a></p>
+<h2 id="使用整个屏幕"><a href="#使用整个屏幕" class="headerlink" title="使用整个屏幕"></a>使用整个屏幕</h2><p>首个新特性的名称是 <code>viewport-fit</code>, 是当前 <code>viewport</code> meta 标签的一个扩展，用来控制内嵌的表现。<code>viewport-fit</code> 在 iOS 11 开始生效。</p>
+<p><code>viewport-fit</code> 的默认值是 <code>auto</code>, 这个值的效果是自动内嵌，如上所示。如果想禁用掉这个效果并且使页面铺满整个屏幕，你可以设置 <code>viewport-fit</code> 的值为 <code>cover</code>。此时你的 <code>viewport</code> meta 标签应该类似下面：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">'viewport'</span> <span class="attr">content</span>=<span class="string">'initial-scale=1, viewport-fit=cover’&gt;</span></span></div></pre></td></tr></table></figure>
+<p>重新加载页面后，导航栏看着好多了，从左到右铺满屏幕。但是，很明显地，遵循系统的内嵌安全区域原则很重要：一些页面的内容会被刘海儿挡住，底部的导航栏用起来也会很不友好。</p>
+<p><a href="https://webkit.org/demos/safe-area-insets/2-viewport-fit.html" target="_blank" rel="external"><img src="https://webkit.org/wp-content/uploads/viewport-fit-cover.png" alt="Use `viewport-fit=cover` to fill the whole screen.
+"></a></p>
+<h2 id="遵循安全区域原则"><a href="#遵循安全区域原则" class="headerlink" title="遵循安全区域原则"></a>遵循安全区域原则</h2><p>在使用了 <code>viewport-fit=cover</code> 后，再一次提高页面可用性的下一步是选择性地对含有重要内容的元素应用 padding 以使它们不被屏幕的形状所遮挡。这么做的好处是通过动态调整来避开边角、刘海儿和 Home 键标识，从而使页面能够充分利用 iPhone X 宝贵的屏幕(screen real eatate)增长。</p>
+<p><a href="https://webkit.org/demos/safe-area-insets/safe-areas.html" target="_blank" rel="external"><img src="https://webkit.org/wp-content/uploads/safe-areas-1.png" alt="The safe and unsafe areas on iPhone X in the landscape orientation, with insets indicated.
+"></a></p>
+<p>为了实现这个效果，WebKit 在 iOS 11 中包含了一个<a href="https://github.com/w3c/csswg-drafts/pull/1817" target="_blank" rel="external">新的 css 函数</a> — <code>env()</code> 和一组 <a href="https://github.com/w3c/csswg-drafts/pull/1819" target="_blank" rel="external">4个预定义的环境变量</a> — <code>safe-area-inset-left</code>, <code>safe-area-inset-right</code>, <code>safe-area-inset-top</code> 和 <code>safe-area-inset-bottom</code>。使用时(When combined)，这几个变量允许样式声明实时引用每一个边当前的安全内嵌区域大小<sup>1</sup>。</p>
+<p>1(译者注)：随着屏幕方向(orientation)的改变，<code>safe-area-inset-*</code> 的值也会跟着改变。</p>
+<blockquote>
+<p>env() 函数在 iOS 11 中以 constant() 为名开始使用。从 Safari Technology Preview 41 和 iOS 11.2 beta 开始，constant() 被移除并且以 env() 替代之。如果需要的话，你可以使用 CSS 回退机制来同时支持两个版本，但是应该更侧重于 env()。</p>
+</blockquote>
+<p>所有 <code>var()</code> 可以运行的地方 <code>env()</code> 都可以 — 例如在 <code>padding</code> 属性中：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.post</span> &#123;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">12px</span>;</div><div class="line">    <span class="attribute">padding-left</span>: <span class="built_in">env</span>(safe-area-inset-left);</div><div class="line">    <span class="attribute">padding-right</span>: <span class="built_in">env</span>(safe-area-inset-right);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于不支持 <code>env()</code> 的浏览器而言，包含此的样式将会被忽略；对于此很重要的进一步的做法是，为使用了 <code>env()</code> 的声明单独指定回退方案。</p>
+<p><a href="https://webkit.org/demos/safe-area-insets/3-safe-area-constants.html" target="_blank" rel="external"><img src="https://webkit.org/wp-content/uploads/safe-area-constants.png" alt="Respect safe area insets so that important content is visible.
+"></a></p>
+<h2 id="使用-min-与-max-将以上这些结合起来"><a href="#使用-min-与-max-将以上这些结合起来" class="headerlink" title="使用 min() 与 max() 将以上这些结合起来"></a>使用 min() 与 max() 将以上这些结合起来</h2><blockquote>
+<p>这个章节的内容覆盖了从 Safari Technology Preview 41 与 iOS 11.2 beta 才开始用的特性。</p>
+</blockquote>
+<p>如果你在你的网站设计中使用了内嵌安全区域，你应该会注意到指定除内嵌安全区域外你想要的最小 padding 是有些困难的。在上面的页面中，我们使用了 <code>env(safe-area-inset-left)</code> 来指定 12像素 的左边 padding，但是当我们旋转回竖屏，左边的内嵌安全区域变成 0像素，而文字内容直接贴到了屏幕的边缘。</p>
+<p><a href="https://webkit.org/demos/safe-area-insets/3-safe-area-constants.html" target="_blank" rel="external"><img src="https://webkit.org/wp-content/uploads/no-margins.png" alt="Safe area insets are not a replacement for margins.
+"></a></p>
+<p>为了解决这个问题，浏览器需要知道默认的 padding 或者 内嵌安全区域中较大的是哪一个，而这个较大值就是真实的 padding。在未来的某个 Safari Technology Preview 发行版中，可以使用 <a href="https://drafts.csswg.org/css-values/#calc-notation" target="_blank" rel="external">全新的 CSS 函数 <code>min()</code> 和 <code>max()</code></a>来实现。这两个函数都接受任意数量的参数，并且返回一个最小值或最大值。它们可以在 <code>calc()</code> 内或者嵌套到彼此之内来使用，并且允许 <code>calc()</code> 类的函数在其内部使用。</p>
+<p>在这种情况下，我们需要使用 <code>max()</code>:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@supports(padding: max(0px)) &#123;</div><div class="line">    <span class="selector-class">.post</span> &#123;</div><div class="line">        <span class="attribute">padding-left</span>: <span class="built_in">max</span>(12px, env(safe-area-inset-left));</div><div class="line">        <span class="attribute">padding-right</span>: <span class="built_in">max</span>(12px, env(safe-area-inset-right));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在我们的示例页中，在竖屏方向下，<code>env(safe-area-inset-left)</code> 解析的值为 0px，所以 <code>max()</code> 函数最后的返回值为 12px。在横屏下，应为刘海儿的原因， <code>env(safe-area-inset-left)</code> 的值更大，所以 <code>max()</code> 的返回值就是 <code>env(safe-area-inset-left)</code> 本身的值，确保重要的内容一直可见。</p>
+<p><a href="https://webkit.org/demos/safe-area-insets/4-min-max.html" target="_blank" rel="external"><img src="https://webkit.org/wp-content/uploads/max-safe-areas-insets.png" alt="Use max() to combine safe area insets with traditional margins.
+"></a></p>
+<p>经验老道的网页开发人员之前可能就遇见过 “CSS locks<sup>2</sup>“ 机制，通常用于将 CSS 属性值限制在一定的范围内。同时使用 <code>min()</code> 和 <code>max()</code> 可以使其更容易地实现，并且未来在实现响应式设计时会发挥重要的作用。</p>
+<p>译者注2: <a href="https://css-tricks.com/css-locks/" target="_blank" rel="external">CSS “locks”</a></p>
+
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/env-safe-area-inset/">env(safe-area-inset-*)</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iPhone/">iPhone</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("iPhoneX").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("iPhoneX").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/21/ios-file-protocol/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS webview 离线包 file 协议</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
