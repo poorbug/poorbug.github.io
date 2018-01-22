@@ -140,7 +140,24 @@ blockquote {
   line-height: 30px;
 }
 blockquote p {
-  margin: 0;
+  margin: 0 !important;
+}
+@media screen and (max-width: 479px) {
+  blockquote {
+    margin: 10px 0 !important;
+    padding: 10px;
+  }
+  blockquote p {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 479px) {
+  figure {
+    padding: 8px 10px !important;
+  }
+}
+figure .gutter pre {
+  padding-right: 5px !important;
 }
 a {
   color: #258fb8;
@@ -582,6 +599,11 @@ a:hover {
 }
 a.article-title:hover {
   color: #258fb8;
+}
+@media screen and (max-width: 479px) {
+  .article-title {
+    font-size: 1.5em;
+  }
 }
 .article-entry {
   color: #555;
