@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Webpack plugins (v3.10.0) (一) | Poorbug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="插件(plugin)是什么？官方文档 加载器(loaders) 用来转换某一些特定类型的模块，而插件则用来执行更为广泛的任务。 插件包含的范围包括从包的优化与压缩到环境变量的定义。插件接口(plugin interface) 非常给力，可以 hold 住很大范围内的执行任务。 要使用插件，你首先需要 require() 这个插件，并且将其加到 plugins 列表中。大多数插件可以通过可选配置来定">
+<meta name="keywords" content="webpack,plugin,翻译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack plugins (v3.10.0) (一)">
+<meta property="og:url" content="http://poorbug.cn/2018/02/22/webpack-plugin/index.html">
+<meta property="og:site_name" content="Poorbug">
+<meta property="og:description" content="插件(plugin)是什么？官方文档 加载器(loaders) 用来转换某一些特定类型的模块，而插件则用来执行更为广泛的任务。 插件包含的范围包括从包的优化与压缩到环境变量的定义。插件接口(plugin interface) 非常给力，可以 hold 住很大范围内的执行任务。 要使用插件，你首先需要 require() 这个插件，并且将其加到 plugins 列表中。大多数插件可以通过可选配置来定">
+<meta property="og:updated_time" content="2018-02-22T06:31:22.421Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack plugins (v3.10.0) (一)">
+<meta name="twitter:description" content="插件(plugin)是什么？官方文档 加载器(loaders) 用来转换某一些特定类型的模块，而插件则用来执行更为广泛的任务。 插件包含的范围包括从包的优化与压缩到环境变量的定义。插件接口(plugin interface) 非常给力，可以 hold 住很大范围内的执行任务。 要使用插件，你首先需要 require() 这个插件，并且将其加到 plugins 列表中。大多数插件可以通过可选配置来定">
+  
+  
+    <link rel="icon" href="/js/favicon/1.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  <script src="https://cdn.wilddog.com/sdk/js/2.5.8/wilddog-sync.js"></script>
+  <script>
+    wilddog.initializeApp({ syncURL: '//poorbug.wilddogio.com' })
+  </script>
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/Orbitron-Black.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/blog/bg.png" as="image">
+  <link rel="preload" href="//omhr7p9e5.bkt.clouddn.com/hexo-blog/fontawesome-webfont.woff?v=" as="font" type="font/woff" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header" onmousemove="headerMove(event)" onmouseout="clearMouseMove()">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Poorbug</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">🚲 黄昏虽好，未敢停留。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://poorbug.cn"></form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var header = document.getElementById('header')
+    var midX = Math.floor(header.offsetWidth / 2)
+    var midY = Math.floor(header.offsetHeight / 2)
+    var logo = document.getElementById('logo')
+    var subtitle = document.getElementById('subtitle')
+    function headerMove(e) {
+      var movX = (midX - e.clientX) * .75
+      var movY = (midY - e.clientY) * .75
+      var movRate = Math.abs(movX / midX)
+      var blur = movRate * 20
+
+      logo.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+      subtitle.style.textShadow = movX + 'px ' + movY + 'px ' + blur + 'px rgba(255, 255, 255, ' + (1 - movRate) + ')'
+    }
+
+    function clearMouseMove() {
+      logo.style.textShadow = '0 0 0 white'
+      subtitle.style.textShadow = '0 0 0 white'
+    }
+  
+  </script>
+
+</header>
+      <div class="outer">
+        <section id="main">
+          <article id="post-webpack-plugin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/22/webpack-plugin/" class="article-date">
+  <time datetime="2018-02-21T16:00:00.000Z" itemprop="datePublished">2018-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Webpack plugins (v3.10.0) (一)
+    </h1>
+  
+
+      </header>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="插件-plugin-是什么？"><a href="#插件-plugin-是什么？" class="headerlink" title="插件(plugin)是什么？"></a>插件(plugin)是什么？</h2><p><a href="https://webpack.js.org/concepts/#plugins" target="_blank" rel="external">官方文档</a></p>
+<p>加载器(loaders) 用来转换某一些特定类型的模块，而插件则用来执行更为广泛的任务。 插件包含的范围包括从包的优化与压缩到环境变量的定义。插件接口(plugin interface) 非常给力，可以 hold 住很大范围内的执行任务。</p>
+<p>要使用插件，你首先需要 <code>require()</code> 这个插件，并且将其加到 <code>plugins</code> 列表中。大多数插件可以通过可选配置来定制。对于同一个插件，你可以通过 <code>new</code> 操作符来创建多个插件实例，并且在同一个配置文件中使用他们来执行不同的任务。</p>
+<h2 id="webpack-自带插件"><a href="#webpack-自带插件" class="headerlink" title="webpack 自带插件"></a>webpack 自带插件</h2><p><a href="https://webpack.js.org/plugins/" target="_blank" rel="external">官方文档</a></p>
+<p>webpack 有一个非常强大的插件接口，webpack 的大部分功能都是使用了这个插件接口，这也使得 webpack 非常灵活。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>文档</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AggressiveSplittingPlugin</td>
+<td><a href="https://webpack.js.org/plugins/aggressive-splitting-plugin/" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/aggressive-splitting-plugin" target="_blank" rel="external">中文</a></td>
+<td>将原始打包的代码块(chunk) 分成更小的块</td>
+</tr>
+<tr>
+<td>BabelMinifyWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/babel-minify-webpack-plugin/" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/babel-minify-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>使用 <a href="https://github.com/babel/minify" target="_blank" rel="external">babel-minify</a> 进行压缩</td>
+</tr>
+<tr>
+<td>BannerPlugin</td>
+<td><a href="https://webpack.js.org/plugins/banner-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/banner-plugin" target="_blank" rel="external">中文</a></td>
+<td>在每个代码块的顶部添加一段代码(banner)</td>
+</tr>
+<tr>
+<td>CommonsChunkPlugin</td>
+<td><a href="https://webpack.js.org/plugins/commons-chunk-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/commons-chunk-plugin" target="_blank" rel="external">中文</a></td>
+<td>提取代码块之间通用的模块</td>
+</tr>
+<tr>
+<td>ComponentWebpackPlugin <code>不维护</code></td>
+<td><a href="https://webpack.js.org/plugins/component-webpack-plugin/" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/component-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>通过 webpack 使用组件(什么组件？)</td>
+</tr>
+<tr>
+<td>CompressionWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/compression-webpack-plugin/" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/compression-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>准备资源的压缩版本，并通过 Content-Encoding 来访问</td>
+</tr>
+<tr>
+<td>ContextReplacementPlugin</td>
+<td><a href="https://webpack.js.org/plugins/context-replacement-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/context-replacement-plugin" target="_blank" rel="external">中文</a></td>
+<td>Override the inferred context of a require expression</td>
+</tr>
+<tr>
+<td>DefinePlugin</td>
+<td><a href="https://webpack.js.org/plugins/define-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/define-plugin" target="_blank" rel="external">中文</a></td>
+<td>在编译时配置全局常量</td>
+</tr>
+<tr>
+<td>DllPlugin</td>
+<td><a href="https://webpack.js.org/plugins/dll-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/dll-plugin" target="_blank" rel="external">中文</a></td>
+<td>分解代码包(bundle) 以大幅提升构建时间</td>
+</tr>
+<tr>
+<td>EnvironmentPlugin</td>
+<td><a href="https://webpack.js.org/plugins/environment-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/environment-plugin" target="_blank" rel="external">中文</a></td>
+<td><code>DefinePlugin</code> 中 <code>process.env</code> 的缩写</td>
+</tr>
+<tr>
+<td>ExtractTextWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/extract-text-webpack-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/extract-text-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>从代码包中提取文本(CSS) 作为单独的文件</td>
+</tr>
+<tr>
+<td>HotModuleReplacementPlugin</td>
+<td><a href="https://webpack.js.org/plugins/hot-module-replacement-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/hot-module-replacement-plugin" target="_blank" rel="external">中文</a></td>
+<td>开启热加载(HMR) 功能</td>
+</tr>
+<tr>
+<td>HtmlWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/html-webpack-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/html-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>轻松愉快地生成 HTML 文件来访问你的代码包</td>
+</tr>
+<tr>
+<td>I18nWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/i18n-webpack-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/i18n-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>给代码包添加国际化支持</td>
+</tr>
+<tr>
+<td>IgnorePlugin</td>
+<td><a href="https://webpack.js.org/plugins/ignore-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/ignore-plugin" target="_blank" rel="external">中文</a></td>
+<td>将某些特定模块从代码包中排除</td>
+</tr>
+<tr>
+<td>LimitChunkCountPlugin</td>
+<td><a href="https://webpack.js.org/plugins/limit-chunk-count-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/limit-chunk-count-plugin" target="_blank" rel="external">中文</a></td>
+<td>设置最小和最大值来更好地控制代码块体积与数量</td>
+</tr>
+<tr>
+<td>LoaderOptionsPlugin</td>
+<td><a href="https://webpack.js.org/plugins/loader-options-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/loader-options-plugin" target="_blank" rel="external">中文</a></td>
+<td>用于从 webpack 1 迁移到 2</td>
+</tr>
+<tr>
+<td>MinChunkSizePlugin</td>
+<td><a href="https://webpack.js.org/plugins/min-chunk-size-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/min-chunk-size-plugin" target="_blank" rel="external">中文</a></td>
+<td>将代码块的体积控制在指定的大小以内</td>
+</tr>
+<tr>
+<td>NoEmitOnErrorsPlugin</td>
+<td><a href="https://webpack.js.org/plugins/no-emit-on-errors-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/no-emit-on-errors-plugin" target="_blank" rel="external">中文</a></td>
+<td>跳过编译错误</td>
+</tr>
+<tr>
+<td>NormalModuleReplacementPlugin</td>
+<td><a href="https://webpack.js.org/plugins/normal-module-replacement-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/normal-module-replacement-plugin" target="_blank" rel="external">中文</a></td>
+<td>替换符合正则表达式的资源</td>
+</tr>
+<tr>
+<td>NpmInstallWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/npm-install-webpack-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/npm-install-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>在开发中自动安装缺失的依赖</td>
+</tr>
+<tr>
+<td>ProvidePlugin</td>
+<td><a href="https://webpack.js.org/plugins/provide-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/provide-plugin" target="_blank" rel="external">中文</a></td>
+<td>不必使用 import 与 require 即可使用模块</td>
+</tr>
+<tr>
+<td>SourceMapDevToolPlugin</td>
+<td><a href="https://webpack.js.org/plugins/source-map-dev-tool-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/source-map-dev-tool-plugin" target="_blank" rel="external">中文</a></td>
+<td>可对 source maps 进行更细粒度的控制</td>
+</tr>
+<tr>
+<td>UglifyjsWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/uglifyjs-webpack-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/uglifyjs-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>可对项目中的 UglifyJS 进行版本控制</td>
+</tr>
+<tr>
+<td>ZopfliWebpackPlugin</td>
+<td><a href="https://webpack.js.org/plugins/zopfli-webpack-plugin" target="_blank" rel="external">英文</a> <a href="https://doc.webpack-china.org/plugins/zopfli-webpack-plugin" target="_blank" rel="external">中文</a></td>
+<td>使用 node-zopfli 准备资源的压缩版本</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用插件实战"><a href="#常用插件实战" class="headerlink" title="常用插件实战"></a>常用插件实战</h2><h3 id="DefinePlugin"><a href="#DefinePlugin" class="headerlink" title="DefinePlugin"></a>DefinePlugin</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> webpack.DefinePlugin(&#123;</div><div class="line">    <span class="string">'process.env'</span>: &#123;</div><div class="line">        NODE_ENV: <span class="built_in">JSON</span>.stringify(<span class="string">'development'</span>)</div><div class="line">    &#125;</div><div class="line">&#125;),</div></pre></td></tr></table></figure>
+<p>原本在项目中如以上配置 DefinePlugin, 加了 <code>__DEV__</code> 后：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> webpack.DefinePlugin(&#123;</div><div class="line">    <span class="string">'process.env'</span>: &#123;</div><div class="line">        NODE_ENV: <span class="built_in">JSON</span>.stringify(<span class="string">'development'</span>)</div><div class="line">    &#125;,</div><div class="line">    <span class="string">'__DEV__'</span>: <span class="built_in">JSON</span>.stringify(<span class="literal">true</span>)</div><div class="line">&#125;),</div></pre></td></tr></table></figure>
+<p>在代码中即可使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__DEV__ &amp;&amp; <span class="built_in">console</span>.log(<span class="string">'test environment'</span>);<span class="string">`</span></div></pre></td></tr></table></figure>
+<p>此时 <code>eslint</code> 可能会提示 <strong><strong>DEV</strong> is not define</strong>, 在 <code>.eslintrc</code> 中得 <code>globals</code> 加入 <code>__DEV__: false</code> 即可。</p>
+<p>同时在 <code>package.json</code> 中的 <code>scripts</code> 也可能用到全局常量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"build"</span>: <span class="string">"export NODE_ENV=production &amp;&amp; webpack -p --colors --progress --config webpack.prod.js"</span>,</div></pre></td></tr></table></figure>
+<p>注：切记在更改 webpack 配置后重启服务</p>
+<h3 id="HotModuleReplacementPlugin"><a href="#HotModuleReplacementPlugin" class="headerlink" title="HotModuleReplacementPlugin"></a>HotModuleReplacementPlugin</h3><p>大多数时候直接使用，无需配置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> webpack.HotModuleReplacementPlugin()</div></pre></td></tr></table></figure>
+<h3 id="ExtractTextWebpackPlugin"><a href="#ExtractTextWebpackPlugin" class="headerlink" title="ExtractTextWebpackPlugin"></a>ExtractTextWebpackPlugin</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> ExtractTextPlugin(<span class="string">"style.css"</span>)</div></pre></td></tr></table></figure>
+<h3 id="HtmlWebpackPlugin"><a href="#HtmlWebpackPlugin" class="headerlink" title="HtmlWebpackPlugin"></a>HtmlWebpackPlugin</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</div><div class="line">    filename: <span class="string">'index.html'</span>,</div><div class="line">    template: <span class="string">'src/templates/index.html'</span>,</div><div class="line">    chunks: [<span class="string">'wallet_app'</span>],</div><div class="line">    hash: <span class="literal">true</span></div><div class="line">&#125;),</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/plugin/">plugin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/翻译/">翻译</a></li></ul>
+
+    </footer>
+  </div>
+
+  <div class="msgboard">
+    <h2>留言板</h2>
+      <div class="msgs" id='msgs'></div>
+      <div class="mymsg" id='mymsg'>
+        <p><input id='mymsg-name' type='text' placeholder='你的名字' /> 说:</p>
+        <textarea id='mymsg-msg' placeholder='写下你的留言...'></textarea>
+        <button onClick='handleSubmit()'>提交</button>
+      </div>
+  </div>
+
+  <script>
+    var msg = null
+    var mycite = null
+
+    function formatTime(date) {
+      var paddy = (n, p, c) => {
+        var padChar = typeof c !== 'undefined' ? c : '0'
+        var pad = new Array(1 + p).join(padChar)
+        return (pad + n).slice(-pad.length)
+      }
+
+      date = new Date(date)
+      var yyyy = date.getFullYear()
+      var M = date.getMonth() + 1
+      var MM = paddy(M, 2)
+      var d = date.getDate()
+      var dd = paddy(d, 2)
+      var hh = paddy(date.getHours(), 2)
+      var mm = paddy(date.getMinutes(), 2)
+      var ss = paddy(date.getSeconds(), 2)
+      return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm+':'+ss
+    }
+
+    function getCites(cite) {
+      if (!cite || !msgs) return []
+      const newCite = msgs[cite].cite
+      const cites = getCites(newCite, msgs)
+      cites.push(msgs[cite])
+      return cites
+    }
+
+     function renderCites(cites) {
+      if (!cites) return ''
+      var html = ''
+      if (cites.length > 0) html += '<h5 style="color: #333;">对于: </h5>'
+      for(var i in cites) {
+        html += '<blockquote class="cite">' +
+                  '<h6>' + cites[i].name + '<span>说</span></h6>' +
+                  '<p>' + cites[i].msg + '</p>' +
+                '</blockquote>'
+      }
+      return html
+    }
+
+    function setMyCite(i) {
+      clearMyCite()
+      mycite = i
+      var html = ''
+      html += '<div>' +
+                '<h5>引用: </h5>' +
+                '<blockquote>' +
+                  '<h6>' + msgs[i].name + ' 说: </h6>' +
+                  '<p>' + msgs[i].msg + '</p>' +
+                  '<span onClick="clearMyCite()">+</span>' +
+                '</blockquote>' +
+              '</div>'
+      var mymsg = document.getElementById('mymsg')
+      mymsg.innerHTML = html + mymsg.innerHTML
+    }
+
+    function clearMyCite() {
+      if (mycite) {
+        mycite = null
+        var mymsg = document.getElementById('mymsg')
+        mymsg.removeChild(mymsg.firstChild)
+      }
+    }
+
+    function renderMsg(i, msg) {
+      if (!msg) return ''
+      var html = '<div class="msg-item" >'
+      html += renderCites(getCites(msg.cite))
+      html += '<h5>' + msg.name + ' <span>说</span></h5>' +
+              '<p>' + msg.msg + '</p>' +
+              '<p><time>' + formatTime(msg.time) + '</time><a onClick=\'setMyCite("' + i + '")\'>引用</a></p>'
+      html += '</div>'
+      return html
+    }
+
+    function handleSubmit() {
+      var nameEle = document.getElementById('mymsg-name')
+      var name = nameEle.value
+      if (!name) {
+        alert('请输入名字')
+        return
+      }
+      var msgEle = document.getElementById('mymsg-msg')
+      var msg = msgEle.value
+      if (!msg) {
+        alert('请输入留言')
+        return
+      }
+
+      const ref = wilddog.sync().ref("webpack-plugin").child('msgs')
+      ref.push({
+        name: name,
+        msg: msg,
+        time: new Date().getTime(),
+        cite: mycite
+      })
+
+      nameEle.value = ''
+      msgEle.value = ''
+      clearMyCite()
+    }
+
+    // get & render all msgs
+    wilddog.sync().ref("webpack-plugin").child('msgs').on('value', snapshot => {
+      msgs = snapshot.val()
+      if (!msgs || msgs.length === 0) {
+        document.getElementById('msgs').innerHTML = '<p style="text-align: center; color: #333">色即是空</p>'
+      } else {
+        var html = ''
+        for(var i in msgs) {
+          html += renderMsg(i, msgs[i])
+        }
+        document.getElementById('msgs').innerHTML = html
+      }
+    })
+
+  </script>
+
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/21/iPhoneX/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">翻译：为 iPhone X 设计网站</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+        </section>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Poorbug<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>&nbsp;&nbsp;&nbsp;
+      Designed by <a href="javascript: alert('根本就没有设计师！！！')">根本就没有设计师</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//omhr7p9e5.bkt.clouddn.com/hexo-blog/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
